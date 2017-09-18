@@ -25,6 +25,8 @@ import fragemt.BookFragment;
 import fragemt.HomeFragment;
 import fragemt.MessageFragment;
 
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -118,6 +120,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void hideFragment() {
+        //和书诚
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.hide(mHomeFragment)
                 .hide(mBookFragment)
