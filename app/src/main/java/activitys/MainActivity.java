@@ -120,7 +120,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void hideFragment() {
-        //和书诚
+        //和书诚vcbgcnvgncg
+
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.hide(mHomeFragment)
