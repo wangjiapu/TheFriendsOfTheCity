@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity
         //124123456
 
         //gyguygvyjugujgjg
+        //ppppp
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.hide(mHomeFragment)
