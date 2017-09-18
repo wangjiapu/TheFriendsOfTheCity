@@ -122,12 +122,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void hideFragment() {
-        //和书诚vcbgcnvgncg
-        //部分触手可及的部分出口就随便
-        //124123456
-
-        //gyguygvyjugujgjg
-        //ppppp
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.hide(mHomeFragment)
