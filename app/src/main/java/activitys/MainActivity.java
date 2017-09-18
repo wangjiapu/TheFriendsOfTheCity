@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private Fragment mMessageFragment = new MessageFragment();
     private Fragment mNowFragment = null;
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -64,7 +65,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-        //肯定是理方面考虑
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
