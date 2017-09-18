@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity
         //部分触手可及的部分出口就随便
         //124123456
 
+        //gyguygvyjugujgjg
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.hide(mHomeFragment)
