@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_person) {
             Intent personIntent=new Intent(MainActivity.this,PersonActivity.class);
-            personIntent.putExtra("key","个人主页");
+            personIntent.putExtra("key","个人主页7777777777");
             startActivity(personIntent);
             Toast.makeText(this,"个人主页",Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_colletion) {
