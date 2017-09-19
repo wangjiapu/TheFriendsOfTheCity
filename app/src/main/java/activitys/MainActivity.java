@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.StaticLayout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,17 +22,17 @@ import android.widget.Toast;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
+import beans.StaticString;
 import fragemt.BookFragment;
 import fragemt.HomeFragment;
 import fragemt.MessageFragment;
-
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private BottomNavigationView mNavigation;
-    private Fragment mHomeFragment =new HomeFragment();
+    private Fragment mHomeFragment = new HomeFragment();
     private Fragment mBookFragment = new BookFragment();
     private Fragment mMessageFragment = new MessageFragment();
     private Fragment mNowFragment = null;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             hideFragment();
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.navigation_home:
                     showFragment(mHomeFragment);
                     return true;
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this,item.getItemId(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, item.getItemId(), Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
 
@@ -91,24 +91,13 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_person) {
-            Intent personIntent=new Intent(MainActivity.this,PersonActivity.class);
-            personIntent.putExtra("key","个人主页7777777777");
-            startActivity(personIntent);
-            Toast.makeText(this,"个人主页",Toast.LENGTH_SHORT).show();
+            startIntent(StaticString.PERSON);
         } else if (id == R.id.nav_colletion) {
-            Intent personIntent=new Intent(MainActivity.this,PersonActivity.class);
-            personIntent.putExtra("key","我的收藏");
-            Toast.makeText(this,"我的收藏",Toast.LENGTH_SHORT).show();
-
+            startIntent(StaticString.COLLETION);
         } else if (id == R.id.nav_friends) {
-            Intent personIntent=new Intent(MainActivity.this,PersonActivity.class);
-            personIntent.putExtra("key","我的好友");
-            Toast.makeText(this,"我的好友",Toast.LENGTH_SHORT).show();
-
+            startIntent(StaticString.FRIENDS);
         } else if (id == R.id.nav_colse) {
-            Intent personIntent=new Intent(MainActivity.this,PersonActivity.class);
-            personIntent.putExtra("key","附近的人");
-            Toast.makeText(this,"附近的人",Toast.LENGTH_SHORT).show();
+            startIntent(StaticString.COLSE);
 
         } else if (id == R.id.nav_share) {
 
@@ -119,6 +108,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void startIntent(String flag) {
+        Intent intent = new Intent(MainActivity.this, PersonActivity.class);
+        intent.putExtra("key", flag);
+        startActivity(intent);
     }
 
     public void hideFragment() {

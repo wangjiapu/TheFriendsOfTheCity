@@ -14,6 +14,9 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import adapters.MessageAdapter;
+import beans.MessageAtten;
+
 /**
  * Created by xiyou3g on 2017/9/17.
  *
@@ -22,21 +25,35 @@ import java.util.List;
 public class MessageFragment extends Fragment {
     private View rootView;
     private List<MessageAtten> messageAttenList = new ArrayList<>();
+
+    private RecyclerView mRecyclerView=null;
+    private MessageAdapter mMessageAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initMeddageAtten();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView=inflater.inflate(R.layout.fragment_message,container,false);
-        initMeddageAtten();
-        RecyclerView recyclerView =(RecyclerView) rootView.findViewById(R.id.message_linkman);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        MessageAdapter adapterr = new MessageAdapter(messageAttenList);
-        recyclerView.setAdapter(adapterr);
+        initView(rootView);
         return rootView;
     }
 
+
+    private void initView(View rootView) {
+        mRecyclerView = rootView.findViewById(R.id.message_linkman);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mMessageAdapter = new MessageAdapter(getActivity(),messageAttenList);
+        mRecyclerView.setAdapter(mMessageAdapter);
+    }
+
+
     private void initMeddageAtten() {
-        for(int i=0;i<10;i++){
+        for(int i=0;i<20;i++){
             MessageAtten messagrAtten = new MessageAtten("测试"+i,R.mipmap.ic_launcher);
             messageAttenList.add(messagrAtten);
         }

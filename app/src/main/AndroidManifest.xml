@@ -20,7 +20,10 @@
 
         </activity>
 
-        <activity android:name="activitys.PersonActivity"/>
+        <activity android:name="activitys.PersonActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>

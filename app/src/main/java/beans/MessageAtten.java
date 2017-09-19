@@ -1,4 +1,4 @@
-package fragemt;
+package beans;
 
 /**
  * Created by heshu on 2017/9/18.
