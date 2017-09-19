@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
-public class BookDetails extends AppCompatActivity {
+public class CollectionMoreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.book_details);
+        setContentView(R.layout.activity_more3);
     }
 }

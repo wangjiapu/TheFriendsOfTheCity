@@ -1,15 +1,15 @@
 package activitys;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
-public class More1 extends AppCompatActivity {
+public class ReadOffActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_more1);
+        setContentView(R.layout.activity_more2);
     }
 }

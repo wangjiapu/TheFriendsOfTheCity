@@ -13,35 +13,48 @@ import android.widget.TextView;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
-import activitys.BookDetails;
-import activitys.More1;
+import activitys.BookDetailsActivity;
+import activitys.BorrowMoreActivity;
 
 /**
  * Created by 江婷婷 on 2017/9/20.
  */
 
-public class BorrowedFragment extends Fragment implements View.OnClickListener{
+public class BorrowedFragment extends Fragment implements View.OnClickListener {
 
 
-    TextView more;
-    ImageView mImageView1;
-    ImageView mImageView2;
-    ImageView mImageView3;
+    private TextView more;
+    private ImageView mImageView1;
+    private ImageView mImageView2;
+    private ImageView mImageView3;
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_1, container, false);
+        initView(view);
+        return view;
+    }
 
-        more = (TextView) view.findViewById(R.id.gengduo1);
-        mImageView1 = (ImageView) view.findViewById(R.id.book1_1);
-        mImageView2 = (ImageView) view.findViewById(R.id.book1_2);
-        mImageView3 = (ImageView) view.findViewById(R.id.book1_3);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initBind();
+    }
+
+    private void initBind() {
         more.setOnClickListener(this);
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
         mImageView3.setOnClickListener(this);
-//cdscas
-        return view;
+    }
+
+    private void initView(View view) {
+        more = (TextView) view.findViewById(R.id.gengduo1);
+        mImageView1 = (ImageView) view.findViewById(R.id.book1_1);
+        mImageView2 = (ImageView) view.findViewById(R.id.book1_2);
+        mImageView3 = (ImageView) view.findViewById(R.id.book1_3);
     }
 
     @Override
@@ -49,19 +62,19 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener{
         Activity activity = getActivity();
         switch (view.getId()) {
             case R.id.gengduo1:
-                Intent intent1 = new Intent(activity, More1.class);
+                Intent intent1 = new Intent(activity, BorrowMoreActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.book1_1:
-                Intent intent2 = new Intent(activity, BookDetails.class);
+                Intent intent2 = new Intent(activity, BookDetailsActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.book1_2:
-                Intent intent3 = new Intent(activity, BookDetails.class);
+                Intent intent3 = new Intent(activity, BookDetailsActivity.class);
                 startActivity(intent3);
                 break;
             case R.id.book1_3:
-                Intent intent4 = new Intent(activity, BookDetails.class);
+                Intent intent4 = new Intent(activity, BookDetailsActivity.class);
                 startActivity(intent4);
                 break;
 

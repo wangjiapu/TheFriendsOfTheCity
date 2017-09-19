@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingRight="10dp"
         android:text="更多"
-        android:textSize="10sp"
+        android:textSize="12sp"
         android:textColor="@color/colorPrimaryDark"
         android:layout_gravity="right"/>
 
@@ -38,22 +38,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_marginTop="10dp">
             <TextView
                 android:layout_width="match_parent"
+                android:maxLines="1"
                android:layout_height="wrap_content"
                 android:text="pppig"/>
 
           <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+              android:maxLines="1"
                 android:text="作者：zsz"/>
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="归还日期：2017/10/1"/>
+                android:maxLines="1"
+                android:text="归还日期："/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="2017/10/1"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -74,24 +82,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="match_parent"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:text="pppig"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="作者:zsz"/>
+                    android:maxLines="1"
+                    android:text="作者：zsz"/>
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="归还日期：2017/10/1"/>
+                    android:maxLines="1"
+                    android:text="归还日期："/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="2017/10/1"/>
             </LinearLayout>
-
 
         </LinearLayout>
 
@@ -113,24 +128,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="match_parent"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:text="pppig"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:text="作者：zsz"/>
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="归还日期：2017/10/1"/>
+                    android:maxLines="1"
+                    android:text="归还日期："/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="2017/10/1"/>
             </LinearLayout>
-
 
         </LinearLayout>
 
