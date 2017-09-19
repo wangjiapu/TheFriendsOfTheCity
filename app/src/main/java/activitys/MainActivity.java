@@ -25,6 +25,8 @@ import fragemt.BookFragment;
 import fragemt.HomeFragment;
 import fragemt.MessageFragment;
 
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     private Fragment mBookFragment = new BookFragment();
     private Fragment mMessageFragment = new MessageFragment();
     private Fragment mNowFragment = null;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,7 +65,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-        //肯定是理方面考虑
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void hideFragment() {
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.hide(mHomeFragment)
                 .hide(mBookFragment)

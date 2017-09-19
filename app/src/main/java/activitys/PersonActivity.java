@@ -8,6 +8,7 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 
 /**
  * Created by xiyou3g on 2017/9/17.
+ *
  */
 
 public class PersonActivity extends Activity {
