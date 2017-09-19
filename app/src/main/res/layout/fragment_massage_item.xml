@@ -1,17 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+     android:layout_height="wrap_content">
 
     <ImageButton
         android:id="@+id/atten_image"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        />
+
     <TextView
-        android:id="@+id/attem_news"
+        android:id="@+id/atten_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"
+        android:padding="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/atten_image"
+        android:text="用户名"
+        android:textSize="16sp"
+        android:textColor="#000"
         />
-</LinearLayout>
+    <TextView
+        android:id="@+id/atten_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="20:31"
+        android:textSize="11sp"
+        android:textColor="#4169E1"
+        />
+    <TextView
+        android:id="@+id/atten_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/atten_image"
+        android:layout_alignParentBottom="true"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#C0C0C0"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

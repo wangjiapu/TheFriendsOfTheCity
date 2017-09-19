@@ -65,6 +65,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         MessageAtten messageAtten = mMeddageAttenList.get(position);
         holder.attenImage.setImageResource(messageAtten.getImageId());
         holder.attenNews.setText(messageAtten.getNews());
+        holder.attenName.setText(messageAtten.getNeme());
+        holder.attenTime.setText(messageAtten.getTimt());
     }
 
     @Override
@@ -76,12 +78,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         View meddageView;
         ImageView attenImage;
         TextView attenNews;
+        TextView attenName;
+        TextView attenTime;
 
         ViewHoldr(View itemView) {
             super(itemView);
             meddageView = itemView;
             attenImage = (ImageView) itemView.findViewById(R.id.atten_image);
-            attenNews = (TextView) itemView.findViewById(R.id.attem_news);
+            attenNews = (TextView) itemView.findViewById(R.id.atten_news);
+            attenName = (TextView)itemView.findViewById(R.id.atten_name);
+            attenTime = (TextView)itemView.findViewById(R.id.atten_time);
         }
     }
 

@@ -54,7 +54,7 @@ public class MessageFragment extends Fragment {
 
     private void initMeddageAtten() {
         for(int i=0;i<20;i++){
-            MessageAtten messagrAtten = new MessageAtten("测试"+i,R.mipmap.ic_launcher);
+            MessageAtten messagrAtten = new MessageAtten("测试"+i,R.mipmap.ic_launcher,"用户"+i,"12:1"+i);
             messageAttenList.add(messagrAtten);
         }
     }
