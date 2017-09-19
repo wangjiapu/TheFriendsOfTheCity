@@ -17,7 +17,7 @@ import fragemt.PersonFragment;
 
 
 
-public class PersonActivity extends AppCompatActivity {
+public class PersonActivity extends SwipeCloseActivity {
     private Fragment mFragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
