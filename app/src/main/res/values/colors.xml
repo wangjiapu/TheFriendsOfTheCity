@@ -5,4 +5,12 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="maincolor">#3f48cc</color>
+
+    <color name="blue">#3f48cc</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#aaaaaa</color>
+    <color name="yellow">#f4e892</color>
+
+
+
 </resources>
