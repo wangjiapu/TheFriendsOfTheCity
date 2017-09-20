@@ -40,8 +40,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener{
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);
         mImageView3.setOnClickListener(this);
-
-
+//cdscas
         return view;
     }
 
