@@ -1,6 +1,8 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +13,13 @@ import android.widget.Toast;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import activitys.ChatActivity;
 import beans.MessageAtten;
+import beans.Msg;
 
 /**
  * Created by heshu on 2017/9/18.
@@ -35,16 +41,31 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_massage_item,
                 parent, false);
         final ViewHoldr holder = new ViewHoldr(view);
-
         //点击监听器
         holder.meddageView.setOnClickListener(new View.OnClickListener() {
+            List<Msg> msgList = new ArrayList<Msg>();
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 MessageAtten messageAtten = mMeddageAttenList.get(position);
                 Toast.makeText(view.getContext(), "点击控件:" + messageAtten.getNews(),
                         Toast.LENGTH_SHORT).show();
+                initMsgs(messageAtten.getNews());//加载消息集合
+                Intent intent = new Intent();
+                intent.setClass(view.getContext(), ChatActivity.class);
+                intent.putExtra("msgList", (Serializable) msgList);
+                mContext.startActivity(intent);
             }
+
+            private void initMsgs(String name) {
+
+                    Msg msg1 = new Msg("Hello 主人" ,Msg.TYPE_RECEIVED);
+                    msgList.add(msg1);
+                    Msg msg2 = new Msg("Hello " +name,Msg.TYPE_SENT);
+                    msgList.add(msg2);
+            }
+
+
         });
         //长按监听器
         holder.meddageView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -58,7 +79,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             }
         });
         return holder;
+
     }
+
 
     @Override
     public void onBindViewHolder(ViewHoldr holder, int position) {
