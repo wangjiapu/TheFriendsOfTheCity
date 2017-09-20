@@ -16,6 +16,7 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 
 import activitys.BookDetailsActivity;
 import activitys.CollectionMoreActivity;
+import activitys.ReadOffActivity;
 
 /**
  * Created by 江婷婷 on 2017/9/20.
@@ -60,7 +61,7 @@ public class ReadFragment extends Fragment implements View.OnClickListener {
         Activity activity = getActivity();
         switch (view.getId()) {
             case R.id.gengduo2:
-                Intent intent1 = new Intent(activity, CollectionMoreActivity.class);
+                Intent intent1 = new Intent(activity, ReadOffActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.book2_1:

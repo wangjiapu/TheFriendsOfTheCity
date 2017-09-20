@@ -57,6 +57,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
         mImageView3 = (ImageView) view.findViewById(R.id.book1_3);
     }
 
+
     @Override
     public void onClick(View view) {
         Activity activity = getActivity();

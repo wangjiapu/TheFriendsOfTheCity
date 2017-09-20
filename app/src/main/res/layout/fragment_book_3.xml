@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingRight="10dp"
         android:text="更多"
-        android:textSize="10sp"
+        android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
         android:layout_gravity="right"/>
 

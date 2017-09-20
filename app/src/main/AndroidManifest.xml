@@ -24,6 +24,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="activitys.ReadOffActivity" />
         <activity android:name="activitys.CollectionMoreActivity" />
+        <activity android:name="activitys.BorrowMoreActivity" />
         <activity android:name="activitys.BookDetailsActivity" />
         <activity android:name="activitys.ChatActivity"></activity>
     </application>
