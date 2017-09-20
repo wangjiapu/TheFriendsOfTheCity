@@ -9,7 +9,7 @@ public class CollectionMoreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);//hjk
         setContentView(R.layout.activity_more3);
     }
 }
