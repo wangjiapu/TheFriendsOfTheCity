@@ -24,26 +24,26 @@
             android:layout_width="match_parent"
             android:maxLines="1"
             android:layout_height="wrap_content"
-            android:text="pppig"/>
+            android:text="texttexttexttext"/>
 
         <TextView
             android:id="@+id/book_text_view_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text="作者：zsz"/>
+            android:text="texttexttexttext"/>
         <TextView
             android:id="@+id/book_text_view_marks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text="归还日期："/>
+            android:text="texttexttexttext"/>
         <TextView
             android:id="@+id/book_text_view_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text="2017/10/1"/>
+            android:text="texttexttexttext"/>
     </LinearLayout>
 
 

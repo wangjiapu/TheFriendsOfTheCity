@@ -1,5 +1,7 @@
 package adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,10 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 
 import java.util.List;
 
+import activitys.BookDetailsActivity;
+import activitys.BorrowMoreActivity;
 import beans.Book;
+import fragemt.BorrowedFragment;
 
 /**
  * Created by 江婷婷 on 2017/9/21.
@@ -19,13 +24,13 @@ import beans.Book;
 
 public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHolder>{
     private List<Book> mBooks;
-
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView bookImage;
         TextView bookName;
         TextView bookAuthor;
         TextView dateMarks;
         TextView date;
+
         public ViewHolder(View itemView) {
             super(itemView);
             bookImage = (ImageView) itemView.findViewById(R.id.book_image_view);
@@ -41,10 +46,22 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHo
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.book_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
+
+
+        holder.bookImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(parent.getContext(), BookDetailsActivity.class);
+                //还要传递Book
+                parent.getContext().startActivity(intent);
+            }
+        });
+
         return holder;
     }
 
@@ -54,7 +71,6 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHo
         holder.bookImage.setImageResource(R.mipmap.zsz);
         holder.bookName.setText(book.getBookName());
         holder.bookAuthor.setText(book.getAuthorName());
-//        holder.date.setText(book.getCalendar().toString());
     }
 
 

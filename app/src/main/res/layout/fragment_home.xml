@@ -1,9 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/home_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:textCursorDrawable="@null"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:maxLines="1"/>
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -39,6 +80,7 @@
             android:textSize="18sp"
             android:gravity="center"/>
         <TextView
+            android:id="@+id/home_more1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="更多"
@@ -54,18 +96,21 @@
             android:layout_height="wrap_content"
             android:paddingLeft="5dp">
             <FrameLayout
+                android:id="@+id/home_book_frame1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
                 <include layout="@layout/book_item"/>
             </FrameLayout>
             <FrameLayout
+                android:id="@+id/home_book_frame2"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
                 <include layout="@layout/book_item"/>
             </FrameLayout>
             <FrameLayout
+                android:id="@+id/home_book_frame3"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -88,6 +133,7 @@
             android:textSize="18sp"
             android:gravity="center"/>
         <TextView
+            android:id="@+id/home_more2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="更多"
@@ -102,18 +148,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <FrameLayout
+                android:id="@+id/home_people_more1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
                 <include layout="@layout/book_item"/>
             </FrameLayout>
             <FrameLayout
+                android:id="@+id/home_people_more2"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
                 <include layout="@layout/book_item"/>
             </FrameLayout>
             <FrameLayout
+                android:id="@+id/home_people_more3"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -127,4 +176,5 @@
             android:layout_height="1dp"/>
 
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

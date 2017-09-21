@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,9 +25,10 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
 
 
     private TextView more;
-    private ImageView mImageView1;
-    private ImageView mImageView2;
-    private ImageView mImageView3;
+    private FrameLayout mFrameLayout1;
+    private FrameLayout mFrameLayout2;
+    private FrameLayout mFrameLayout3;
+
 
     @Nullable
     @Override
@@ -45,16 +47,16 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
 
     private void initBind() {
         more.setOnClickListener(this);
-        mImageView1.setOnClickListener(this);
-        mImageView2.setOnClickListener(this);
-        mImageView3.setOnClickListener(this);
+        mFrameLayout1.setOnClickListener(this);
+        mFrameLayout2.setOnClickListener(this);
+        mFrameLayout3.setOnClickListener(this);
     }
 
     private void initView(View view) {
         more = (TextView) view.findViewById(R.id.gengduo1);
-        mImageView1 = (ImageView) view.findViewById(R.id.book1_1);
-        mImageView2 = (ImageView) view.findViewById(R.id.book1_2);
-        mImageView3 = (ImageView) view.findViewById(R.id.book1_3);
+        mFrameLayout1 = (FrameLayout) view.findViewById(R.id.book_frame1);
+        mFrameLayout2 = (FrameLayout) view.findViewById(R.id.book_frame2);
+        mFrameLayout3 = (FrameLayout) view.findViewById(R.id.book_frame3);
     }
 
 
@@ -66,19 +68,12 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
                 Intent intent1 = new Intent(activity, BorrowMoreActivity.class);
                 startActivity(intent1);
                 break;
-            case R.id.book1_1:
-                Intent intent2 = new Intent(activity, BookDetailsActivity.class);
-                startActivity(intent2);
+            case R.id.book_frame1:
+            case R.id.book_frame2:
+            case R.id.book_frame3:
+                Intent intent = new Intent(activity, BookDetailsActivity.class);
+                startActivity(intent);
                 break;
-            case R.id.book1_2:
-                Intent intent3 = new Intent(activity, BookDetailsActivity.class);
-                startActivity(intent3);
-                break;
-            case R.id.book1_3:
-                Intent intent4 = new Intent(activity, BookDetailsActivity.class);
-                startActivity(intent4);
-                break;
-
         }
     }
 }
