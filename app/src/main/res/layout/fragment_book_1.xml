@@ -10,9 +10,9 @@
         android:id="@+id/gengduo1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="10dp"
+        android:paddingRight="12dp"
         android:text="更多"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textColor="@color/colorPrimaryDark"
         android:layout_gravity="right"/>
 
@@ -31,7 +31,7 @@
         <ImageView
             android:id="@+id/book1_1"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="120dp"
             android:src="@mipmap/zsz"/>
 
         <LinearLayout
@@ -75,7 +75,7 @@
             <ImageView
                 android:id="@+id/book1_2"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:src="@mipmap/zsz"/>
 
             <LinearLayout
@@ -121,7 +121,7 @@
             <ImageView
                 android:id="@+id/book1_3"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:src="@mipmap/zsz"/>
 
             <LinearLayout

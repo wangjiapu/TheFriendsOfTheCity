@@ -34,7 +34,6 @@ public class BorrowMoreActivity extends AppCompatActivity {
     private void initBooks() {
         for (int i = 0; i < 20; i++) {
             Book book = new Book("借阅的书名", "作者", "书书书书书");
-            book.setImageId(R.id.book_image_view);
             mBooks.add(book);
         }
     }
