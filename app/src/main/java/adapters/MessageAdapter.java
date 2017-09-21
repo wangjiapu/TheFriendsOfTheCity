@@ -84,12 +84,50 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
 
     @Override
-    public void onBindViewHolder(ViewHoldr holder, int position) {
+    public void onBindViewHolder(final ViewHoldr holder, int position) {
         MessageAtten messageAtten = mMeddageAttenList.get(position);
         holder.attenImage.setImageResource(messageAtten.getImageId());
         holder.attenNews.setText(messageAtten.getNews());
         holder.attenName.setText(messageAtten.getNeme());
         holder.attenTime.setText(messageAtten.getTimt());
+
+        //点击监听器
+        holder.meddageView.setOnClickListener(new View.OnClickListener() {
+            List<Msg> msgList = new ArrayList<Msg>();
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                MessageAtten messageAtten = mMeddageAttenList.get(position);
+                Toast.makeText(view.getContext(), "点击控件:" + messageAtten.getNews(),
+                        Toast.LENGTH_SHORT).show();
+                initMsgs(messageAtten.getNews());//加载消息集合
+                Intent intent = new Intent();
+                intent.setClass(view.getContext(), ChatActivity.class);
+                intent.putExtra("msgList", (Serializable) msgList);
+                mContext.startActivity(intent);
+            }
+
+            private void initMsgs(String name) {
+
+                Msg msg1 = new Msg("Hello 主人" ,Msg.TYPE_RECEIVED);
+                msgList.add(msg1);
+                Msg msg2 = new Msg("Hello " +name,Msg.TYPE_SENT);
+                msgList.add(msg2);
+            }
+
+
+        });
+        //长按监听器
+        holder.meddageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                int position = holder.getAdapterPosition();
+                MessageAtten messageAtten = mMeddageAttenList.get(position);
+                Toast.makeText(view.getContext(), "长按控件:" + messageAtten.getNews(),
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     @Override

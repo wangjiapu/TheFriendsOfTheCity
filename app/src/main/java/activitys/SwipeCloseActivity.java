@@ -23,6 +23,7 @@ public abstract class SwipeCloseActivity extends AppCompatActivity {
                 .setSwipeEdge((int) getResources().getDimension(R.dimen.swipe_back_edge))
                 .setSwipeRelateEnable(true)
                 .setSwipeRelateOffset(300);
+
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
