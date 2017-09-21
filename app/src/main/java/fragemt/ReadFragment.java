@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.example.xiyou3g.thefriendsofthecity.R;
 
 import activitys.BookDetailsActivity;
-import activitys.CollectionMoreActivity;
 import activitys.ReadOffActivity;
 
 /**

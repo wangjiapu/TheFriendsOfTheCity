@@ -19,7 +19,7 @@ public class PersonFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView=inflater.inflate(R.layout.fragment_friends,container,false);
+        rootView=inflater.inflate(R.layout.fragment_person,container,false);
         return rootView;
     }
 }

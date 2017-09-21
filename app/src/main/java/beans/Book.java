@@ -12,15 +12,52 @@ public class Book {
     private String introduction;
     private int ImageId;
 
+    private boolean collectedStatus;
+    private boolean readOffStatus;
+    private boolean borrowStatus;
+    private Calendar returnDate;
+
+
     public int getImageId() {
         return ImageId;
+    }
+
+    public boolean isCollectedStatus() {
+        return collectedStatus;
+    }
+
+    public void setCollectedStatus(boolean collectedStatus) {
+        this.collectedStatus = collectedStatus;
+    }
+
+    public boolean isReadOffStatus() {
+        return readOffStatus;
+    }
+
+    public void setReadOffStatus(boolean readOffStatus) {
+        this.readOffStatus = readOffStatus;
+    }
+
+    public boolean isBorrowStatus() {
+        return borrowStatus;
+    }
+
+    public void setBorrowStatus(boolean borrowStatus) {
+        this.borrowStatus = borrowStatus;
+    }
+
+    public Calendar getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Calendar returnDate) {
+        this.returnDate = returnDate;
     }
 
     public void setImageId(int imageId) {
         ImageId = imageId;
     }
 
-    private Calendar calendar;
 
     public Book(String bookName, String authorName, String introduction) {
         this.bookName = bookName;
@@ -28,13 +65,7 @@ public class Book {
         this.introduction = introduction;
     }
 
-    public Calendar getCalendar() {
-        return calendar;
-    }
 
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
-    }
 
     public String getBookName() {
         return bookName;
