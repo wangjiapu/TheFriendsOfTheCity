@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
@@ -63,9 +64,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+                localLayoutParams.flags);
+
         setContentView(R.layout.activity_main);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

@@ -1,10 +1,8 @@
 package activitys;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
