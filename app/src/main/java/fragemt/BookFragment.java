@@ -34,8 +34,8 @@ public class BookFragment extends Fragment {
     private List<String> titleList =Arrays.asList("已借阅", "已读完", "已收藏");
 
     private BorrowedFragment bFragment;
-    private ReadFragment rFragment;
-    private CollectedFragment cFragment;
+    private BorrowedFragment rFragment;
+    private BorrowedFragment cFragment;
 
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,8 +51,8 @@ public class BookFragment extends Fragment {
         tabLayout = (TabLayout)view.findViewById(R.id.book_tab);
 
         bFragment = new BorrowedFragment();
-        rFragment = new ReadFragment();
-        cFragment = new CollectedFragment();
+        rFragment = new BorrowedFragment();
+        cFragment = new BorrowedFragment();
         fragmentList = new ArrayList<>();
         fragmentList.add(bFragment);
         fragmentList.add(rFragment);
