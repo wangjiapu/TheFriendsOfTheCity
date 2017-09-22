@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,13 +38,13 @@ public class PersonFragment extends Fragment{
         Toolbar toolbar =(Toolbar)rootView.findViewById(R.id.peraon_toolbar_view);
         ((PersonActivity) getActivity()).setSupportActionBar(toolbar);
         CollapsingToolbarLayout collapsingToolbar= (CollapsingToolbarLayout) rootView.findViewById(R.id.peraon_toolbar);
-        ImageView peraonImageView = (ImageView) rootView.findViewById(R.id.peraon_menu_view);
+
         TextView peraonContentText = (TextView) rootView.findViewById(R.id.peraon_content_text);
         ((PersonActivity) getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
-        collapsingToolbar.setTitle("个人主页");
-
+        collapsingToolbar.setTitle(" ");
+        setHasOptionsMenu(true);
 
         peraonContentText.setText("个人主页12345678987654323456789876542345678987654323456789");
         return rootView;
@@ -57,4 +58,11 @@ public class PersonFragment extends Fragment{
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.person_main, menu);
+    }
+
 }

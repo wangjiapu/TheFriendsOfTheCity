@@ -14,18 +14,57 @@
           android:id="@+id/peraon_toolbar"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-
           app:contentScrim="?attr/colorPrimary"
           app:layout_scrollFlags="scroll|exitUntilCollapsed"
           >
-         <ImageView
-             android:id="@+id/peraon_menu_view"
+         <RelativeLayout
+             android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:scaleType="centerCrop"
-             android:src="@drawable/person_menu"
-             app:layout_collapseMode="parallax"
-             />
+             android:background="@drawable/person_menu"
+             >
+            <ImageButton
+                android:id="@+id/persom_head"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/person_head"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="15dp"
+                />
+            <TextView
+                android:id="@+id/person_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:textColor="#000000"
+                android:layout_toRightOf="@id/persom_head"
+                android:layout_alignParentBottom="true"
+                android:text="关注139|粉丝139"
+                android:layout_marginBottom="15dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:textColor="#000000"
+                android:layout_toRightOf="@id/persom_head"
+                android:layout_above="@id/person_follow"
+                android:text="冰炭不投day"
+                android:layout_marginBottom="15dp"
+                />
+            <Button
+                android:id="@+id/person_follow_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关注"
+                android:background="#F0FFFF"
+                android:textColor="#000000"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="15dp"
+                />
+         </RelativeLayout>
          <android.support.v7.widget.Toolbar
              android:id="@+id/peraon_toolbar_view"
              android:layout_width="match_parent"
