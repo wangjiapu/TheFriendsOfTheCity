@@ -6,14 +6,51 @@
     >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/text_person_about"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:text="关于"
-        android:textColor="#000000"
+   t<RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <TextView
+           android:id="@+id/sign_text"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="签名"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentLeft="true"
+           android:layout_marginTop="40dp"
+           android:layout_marginLeft="30dp"
+           android:layout_marginBottom="20dp"
+           />
+        <TextView
+            android:id="@+id/sign_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/sign_text"
+            android:textColor="#292421"
+            android:textSize="16sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="20dp"
+            />
+        <TextView
+            android:id="@+id/location_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所在地区"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/sign_textview"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="20dp"
         />
-
+        <TextView
+            android:id="@+id/location_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/location_text"
+            android:textColor="#292421"
+            android:textSize="16sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="20dp"
+        />
+   </RelativeLayout>
 </FrameLayout>

@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_person"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/nav_person"
             android:title="@string/person" />
         <item
             android:id="@+id/nav_colletion"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/nav_colletion"
             android:title="@string/colletion" />
         <item
             android:id="@+id/nav_friends"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/nav_friends"
             android:title="@string/friends" />
         <item
             android:id="@+id/nav_colse"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/nav_colse"
             android:title="@string/close" />
     </group>
 
