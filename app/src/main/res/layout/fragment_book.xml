@@ -19,12 +19,14 @@
             android:layout_height="match_parent">
 
             <Button
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"/>
+                android:layout_marginLeft="10dp"
+                android:background="@mipmap/category"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
             <TextView
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/white"
-                android:text="cdscdscdcw"
+                android:text="书架"
                 android:textSize="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

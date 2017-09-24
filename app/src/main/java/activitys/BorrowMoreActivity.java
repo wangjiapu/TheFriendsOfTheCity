@@ -36,22 +36,33 @@ public class BorrowMoreActivity extends AppCompatActivity implements View.OnClic
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.more1_recycler_view);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+
+
         BookItemAdapter bookAdapter = new BookItemAdapter(mBooks);
+        bookAdapter.setOnItemClickListener(new BookItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(BorrowMoreActivity.this, BookDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         recyclerView.setAdapter(bookAdapter);
     }
 
     private void initBooks() {
         for (int i = 0; i < 20; i++) {
-            Book book = new Book("借阅的书名", "作者", "书书书书书");
+            Book book = new Book("书名", "作者", "书书书书书");
             mBooks.add(book);
         }
     }
 
     private void initBind() {
         more.setOnClickListener(this);
-        mFrameLayout1.setOnClickListener(this);
-        mFrameLayout2.setOnClickListener(this);
-        mFrameLayout3.setOnClickListener(this);
+//        mFrameLayout1.setOnClickListener(this);
+//        mFrameLayout2.setOnClickListener(this);
+//        mFrameLayout3.setOnClickListener(this);
     }
 
     private void initView(View view) {
@@ -68,12 +79,12 @@ public class BorrowMoreActivity extends AppCompatActivity implements View.OnClic
                 Intent intent1 = new Intent(this, BorrowMoreActivity.class);
                 startActivity(intent1);
                 break;
-            case R.id.book_frame1:
-            case R.id.book_frame2:
-            case R.id.book_frame3:
-                Intent intent = new Intent(this, BookDetailsActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.book_frame1:
+//            case R.id.book_frame2:
+//            case R.id.book_frame3:
+//                Intent intent = new Intent(this, BookDetailsActivity.class);
+//                startActivity(intent);
+//                break;
         }
     }
 

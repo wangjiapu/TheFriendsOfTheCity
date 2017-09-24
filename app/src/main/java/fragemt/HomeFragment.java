@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(layoutManager);
 
 
-
         HomeBookAdapter bookAdapter = new HomeBookAdapter(mBooks);
         recyclerView.setAdapter(bookAdapter);
         return rootView;
@@ -92,7 +91,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         Activity activity = getActivity();
         switch (view.getId()) {
-            case R.id.gengduo1:
+            case R.id.home_more1:
                 Intent intent1 = new Intent(activity, BorrowMoreActivity.class);
                 startActivity(intent1);
                 break;

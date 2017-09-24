@@ -24,10 +24,13 @@
             android:layout_height="match_parent">
 
             <Button
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"/>
+                android:layout_marginLeft="10dp"
+                android:background="@mipmap/category"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:textCursorDrawable="@null"
                 android:background="@null"
                 android:layout_width="0dp"
@@ -36,8 +39,10 @@
                 android:maxLines="1"/>
 
             <Button
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"/>
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/ic_person_search"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
         </LinearLayout>
 

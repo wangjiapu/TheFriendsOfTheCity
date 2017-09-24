@@ -22,8 +22,20 @@ import fragemt.BorrowedFragment;
  * Created by 江婷婷 on 2017/9/21.
  */
 
-public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHolder>{
+public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHolder> {
     private List<Book> mBooks;
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    private OnItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView bookImage;
         TextView bookName;
@@ -66,11 +78,23 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         Book book = mBooks.get(position);
         holder.bookImage.setImageResource(R.mipmap.zsz);
         holder.bookName.setText(book.getBookName());
         holder.bookAuthor.setText(book.getAuthorName());
+
+        if (mOnItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickListener.onItemClick(holder.itemView, position);
+                }
+            });
+
+
+        }
     }
 
 
@@ -78,4 +102,6 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHo
     public int getItemCount() {
         return mBooks.size();
     }
+
+
 }

@@ -81,6 +81,17 @@
         android:layout_alignTop="@+id/imageView2"
         app:srcCompat="@mipmap/favorite"/>
 
+    <ImageView
+        android:id="@+id/yellow_star"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:layout_alignTop="@+id/imageView2"
+        app:srcCompat="@drawable/favoriteyes"
+        android:visibility="invisible"/>
+
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -91,6 +102,34 @@
         android:background="@color/colorPrimary"
         android:layout_below="@id/imageView2"
         android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/qingqiu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请求借阅"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:visibility="invisible"
+        android:layout_alignBaseline="@+id/button"
+        android:layout_alignBottom="@+id/button"
+        android:layout_alignEnd="@+id/imageView7"/>
+
+    <Button
+        android:id="@+id/yulancishu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="预览此书"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:visibility="invisible"
+        android:layout_above="@+id/imageView6"
+        android:layout_toStartOf="@+id/button"/>
+
+
+
+
+
 
     <ImageView
         android:id="@+id/imageView6"
