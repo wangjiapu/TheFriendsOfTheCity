@@ -27,5 +27,6 @@
         <activity android:name="activitys.ChatActivity"/>
         <activity android:name="activitys.LoginActivity"/>
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
