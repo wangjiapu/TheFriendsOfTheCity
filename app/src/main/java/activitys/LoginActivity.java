@@ -21,13 +21,21 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
     Button signInButton;
     TextView signOnText;
     Button back;
+    //界面好丑
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
+        initView();
+       initBind();
 
+    }
+
+
+
+    private void initView() {
         signInButton = (Button) findViewById(R.id.sign_in_button);
         signOnText = (TextView) findViewById(R.id.sign_up_text);
         signin = (LinearLayout) findViewById(R.id.sign_in_layout);
@@ -35,12 +43,13 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
         back = (Button) findViewById(R.id.chuce_back_button);
         signin.setVisibility(View.VISIBLE);
         signup.setVisibility(View.INVISIBLE);
+    }
+
+    private void initBind() {
         signInButton.setOnClickListener(this);
         signOnText.setOnClickListener(this);
         back.setOnClickListener(this);
     }
-
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
