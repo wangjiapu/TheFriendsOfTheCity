@@ -41,43 +41,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_massage_item,
                 parent, false);
         final ViewHoldr holder = new ViewHoldr(view);
-        //点击监听器
-        holder.meddageView.setOnClickListener(new View.OnClickListener() {
-            List<Msg> msgList = new ArrayList<Msg>();
-            @Override
-            public void onClick(View view) {
-                int position = holder.getAdapterPosition();
-                MessageAtten messageAtten = mMeddageAttenList.get(position);
-                Toast.makeText(view.getContext(), "点击控件:" + messageAtten.getNews(),
-                        Toast.LENGTH_SHORT).show();
-                initMsgs(messageAtten.getNews());//加载消息集合
-                Intent intent = new Intent();
-                intent.setClass(view.getContext(), ChatActivity.class);
-                intent.putExtra("msgList", (Serializable) msgList);
-                mContext.startActivity(intent);
-            }
-
-            private void initMsgs(String name) {
-
-                    Msg msg1 = new Msg("Hello 主人" ,Msg.TYPE_RECEIVED);
-                    msgList.add(msg1);
-                    Msg msg2 = new Msg("Hello " +name,Msg.TYPE_SENT);
-                    msgList.add(msg2);
-            }
-
-
-        });
-        //长按监听器
-        holder.meddageView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                int position = holder.getAdapterPosition();
-                MessageAtten messageAtten = mMeddageAttenList.get(position);
-                Toast.makeText(view.getContext(), "长按控件:" + messageAtten.getNews(),
-                        Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
         return holder;
 
     }
@@ -98,8 +61,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 MessageAtten messageAtten = mMeddageAttenList.get(position);
-                Toast.makeText(view.getContext(), "点击控件:" + messageAtten.getNews(),
-                        Toast.LENGTH_SHORT).show();
+
                 initMsgs(messageAtten.getNews());//加载消息集合
                 Intent intent = new Intent();
                 intent.setClass(view.getContext(), ChatActivity.class);

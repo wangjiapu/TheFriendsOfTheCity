@@ -24,7 +24,15 @@
         android:textColor="#000"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="13dp"
-        android:layout_marginBottom="13dp"
+        />
+    <TextView
+        android:id="@+id/atten_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/atten_image"
+        android:layout_below="@+id/atten_name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
         />
     <TextView
         android:id="@+id/atten_time"
@@ -34,19 +42,11 @@
         android:layout_alignParentTop="true"
         android:textSize="11sp"
         android:textColor="#4169E1"
+        android:layout_margin="15dp"
+        />
 
-        />
-    <TextView
-        android:id="@+id/atten_news"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/atten_image"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="13dp"
-        />
     <View
+        android:id="@+id/atten_bottom"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#C0C0C0"
