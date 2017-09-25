@@ -33,8 +33,6 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
 
     }
 
-
-
     private void initView() {
         signInButton = (Button) findViewById(R.id.sign_in_button);
         signOnText = (TextView) findViewById(R.id.sign_up_text);
