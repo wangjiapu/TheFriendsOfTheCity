@@ -81,7 +81,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        showMenuItem(navigationView.getMenu(),true);
         navigationView.setNavigationItemSelectedListener(this);
+
         mNavigation = (BottomNavigationView) findViewById(R.id.navigation_bar);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         initFragment();
@@ -96,6 +98,8 @@ public class MainActivity extends AppCompatActivity
            }
        });
     }
+
+
 
 
     @Override
@@ -118,9 +122,10 @@ public class MainActivity extends AppCompatActivity
             startIntent(StaticString.COLSE);
 
         } else if (id == R.id.nav_share) {
+            Toast.makeText(this,"休息一下",Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_send) {
-
+            Toast.makeText(this,"还没有休息好",Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -165,9 +170,24 @@ public class MainActivity extends AppCompatActivity
         mNowFragment = mHomeFragment;
     }
 
+    /**
+     *  是否显示菜单前四项
+     * @param menu
+     * @param b
+     */
+    private void showMenuItem(Menu menu,boolean b) {
+            for (int i=0;i<4;i++){
+                menu.getItem(i).setVisible(b);
+            }
+            menu.getItem(4).setVisible(!b);
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+
+
 }
