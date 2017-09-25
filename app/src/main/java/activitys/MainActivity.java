@@ -19,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
@@ -31,6 +33,7 @@ import fragemt.MessageFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final int RESULT=1;
 
     private BottomNavigationView mNavigation;
     private Fragment mHomeFragment = new HomeFragment();
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     private Fragment mMessageFragment = new MessageFragment();
     private Fragment mNowFragment = null;
 
+    private ImageView mLoginImage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -81,6 +85,16 @@ public class MainActivity extends AppCompatActivity
         mNavigation = (BottomNavigationView) findViewById(R.id.navigation_bar);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         initFragment();
+        View headerView=navigationView.getHeaderView(0);
+        mLoginImage=headerView.findViewById(R.id.imageView);
+
+        mLoginImage.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent loginIntent=new Intent(MainActivity.this,LoginActivity.class);
+               startActivityForResult(loginIntent,RESULT);
+           }
+       });
     }
 
 
@@ -151,5 +165,9 @@ public class MainActivity extends AppCompatActivity
         mNowFragment = mHomeFragment;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+    }
 }
