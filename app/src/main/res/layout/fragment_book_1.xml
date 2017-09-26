@@ -5,10 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
-
-
     <TextView
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
@@ -21,11 +17,13 @@
         android:layout_gravity="right"/>
 
     <LinearLayout
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <FrameLayout
+            android:layout_gravity="center_horizontal"
             android:id="@+id/book_frame1"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -33,6 +31,7 @@
             <include layout="@layout/book_item"/>
         </FrameLayout>
         <FrameLayout
+            android:layout_gravity="center_horizontal"
             android:id="@+id/book_frame2"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -40,6 +39,7 @@
             <include layout="@layout/book_item"/>
         </FrameLayout>
         <FrameLayout
+            android:layout_gravity="center_horizontal"
             android:id="@+id/book_frame3"
             android:layout_width="0dp"
             android:layout_weight="1"

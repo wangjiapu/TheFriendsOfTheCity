@@ -6,23 +6,26 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/home_tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimaryDark">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:layout_marginLeft="10dp"
-                android:background="@mipmap/category"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+            <!--<Button-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:background="@mipmap/category"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_width="28dp"-->
+                <!--android:layout_height="28dp"/>-->
             <TextView
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/white"
+                android:layout_gravity="center_vertical"
                 android:text="消息"
                 android:textSize="25dp"
                 android:layout_width="wrap_content"

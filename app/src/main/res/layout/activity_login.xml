@@ -139,6 +139,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary">
             <Button
+                android:layout_marginLeft="10dp"
                 android:id="@+id/chuce_back_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
