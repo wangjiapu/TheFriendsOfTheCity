@@ -17,12 +17,14 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 
 import java.io.IOException;
 
+import beans.InfoLists;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import utils.JsonParserUtil;
 import utils.OkhttpUtil;
 
 /**
@@ -46,7 +48,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (msg.what == 200) {
                 Log.e("qqqqq", msg.obj.toString());
             } else if (msg.what == 1) {
-                Log.e("qqqqq", msg.obj.toString());
+                JsonParserUtil.getAllProvince(msg.obj.toString());
+
+                for(int i=0;i< InfoLists.PInfos.size();i++){
+                    Log.e(""+InfoLists.PInfos.get(i).getId(),
+                            InfoLists.PInfos.get(i).getProvinceName());
+                }
             } else {
                 Log.e("qqqqq", "pppppppppp");
             }
@@ -84,7 +91,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 handler.sendMessage(message);
             }
         });
-
     }
 
     private void initView() {
@@ -117,6 +123,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
-
-
 }
