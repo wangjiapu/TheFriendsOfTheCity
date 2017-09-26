@@ -50,20 +50,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             switch (msg.what){
                 case 0:
                     JsonParserUtil.getAllProvince(msg.obj.toString());
-                  /*  for(int i=0;i< InfoLists.PInfos.size();i++){
-                        Log.e(""+InfoLists.PInfos.get(i).getId(),
-                                InfoLists.PInfos.get(i).getProvinceName());
-                    }*/
+
                     break;
                 case 1:
                     JsonParserUtil.getCitiesFromPro(msg.obj.toString());
                     break;
                 case 2:
                     JsonParserUtil.getDistrictsFromCity(msg.obj.toString());
-                   for(int i=0;i< InfoLists.DInfos.size();i++){
-                    Log.e(""+InfoLists.DInfos.get(i).getDistrictId(),
-                            InfoLists.DInfos.get(i).getDistrictName());
-                }
                     break;
                 default:
                     Toast.makeText(LoginActivity.this,"请求出错!",Toast.LENGTH_SHORT).show();
