@@ -5,9 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/more1_recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/gengduo_back_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/back"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_marginLeft="20dp"
+            android:text="更多"
+            android:layout_gravity="center_vertical"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/more1_recycler_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"/>
 
 

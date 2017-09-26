@@ -66,6 +66,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.gengduo1:
                 Intent intent1 = new Intent(activity, BorrowMoreActivity.class);
+                intent1.putExtra("title", "更多");
                 startActivity(intent1);
                 break;
             case R.id.book_frame1:

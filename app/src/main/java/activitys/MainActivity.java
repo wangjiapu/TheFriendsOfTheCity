@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+
         WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
                 localLayoutParams.flags);
@@ -116,6 +119,7 @@ public class MainActivity extends AppCompatActivity
             startIntent(StaticString.PERSON);
         } else if (id == R.id.nav_colletion) {
             Intent intent = new Intent(this, BorrowMoreActivity.class);
+            intent.putExtra("title","我的收藏");
             startActivity(intent);
 //            startIntent(StaticString.COLLETION);
         } else if (id == R.id.nav_friends) {

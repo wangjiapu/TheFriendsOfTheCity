@@ -93,6 +93,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.home_more1:
                 Intent intent1 = new Intent(activity, BorrowMoreActivity.class);
+                intent1.putExtra("title", "猜你喜欢");
                 startActivity(intent1);
                 break;
             case R.id.home_book_frame1:
