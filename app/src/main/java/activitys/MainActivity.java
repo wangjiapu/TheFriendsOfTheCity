@@ -115,17 +115,19 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_person) {
             startIntent(StaticString.PERSON);
         } else if (id == R.id.nav_colletion) {
-            startIntent(StaticString.COLLETION);
+            Intent intent = new Intent(this, BorrowMoreActivity.class);
+            startActivity(intent);
+//            startIntent(StaticString.COLLETION);
         } else if (id == R.id.nav_friends) {
             startIntent(StaticString.FRIENDS);
         } else if (id == R.id.nav_colse) {
             startIntent(StaticString.COLSE);
 
         } else if (id == R.id.nav_share) {
-            Toast.makeText(this,"休息一下",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "休息一下", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_send) {
-            Toast.makeText(this,"还没有休息好",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "还没有休息好", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

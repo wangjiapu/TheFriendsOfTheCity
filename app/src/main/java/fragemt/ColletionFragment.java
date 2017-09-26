@@ -1,5 +1,6 @@
 package fragemt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
+
+import activitys.BorrowMoreActivity;
 
 /**
  * Created by xiyou3g on 2017/9/19.

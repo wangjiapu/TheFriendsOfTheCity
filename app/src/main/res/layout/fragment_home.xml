@@ -31,12 +31,12 @@
 
             <EditText
                 android:layout_marginLeft="10dp"
-                android:textCursorDrawable="@null"
                 android:background="@null"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:inputType="text"/>
 
             <Button
                 android:layout_marginRight="10dp"
