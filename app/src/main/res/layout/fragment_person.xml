@@ -23,7 +23,7 @@
          <RelativeLayout
              android:scaleType="centerCrop"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:layout_height="197dp"
              android:background="@drawable/person_menu"
 
              app:layout_collapseParallaxMultiplier="0.7"

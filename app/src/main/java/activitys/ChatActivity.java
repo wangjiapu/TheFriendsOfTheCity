@@ -1,6 +1,7 @@
 package activitys;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,6 +60,11 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar!=null){
+            actionBar.hide();
+        }
     }
 
     private void initMsgs() {

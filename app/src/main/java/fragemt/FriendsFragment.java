@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import adapters.BookAdapter;
 import adapters.FriendsAdapter;
 
 /**
@@ -45,7 +46,19 @@ public class FriendsFragment extends Fragment{
         tabLayout = (TabLayout)rootView.findViewById(R.id.frienfs_tablayout);
 
         fragmentList = new ArrayList<>();
+        whloleFriendListFragment = new FriendListFragment();
+        newFriendListFragment = new FriendListFragment();
         fragmentList.add(whloleFriendListFragment);
         fragmentList.add(newFriendListFragment);
+
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.addTab(tabLayout.newTab().setText(titleList.get(0)));
+        tabLayout.addTab(tabLayout.newTab().setText(titleList.get(1)));
+
+        friendsAdapter = new FriendsAdapter(getActivity().getSupportFragmentManager(), fragmentList, titleList);
+
+        viewPager.setAdapter(friendsAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
     }
 }

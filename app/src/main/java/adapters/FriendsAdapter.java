@@ -14,7 +14,7 @@ public class FriendsAdapter  extends FragmentStatePagerAdapter {
     private List<Fragment> fragmentList;
     private List<String> titleList;
 
-    public FriendsAdapter(FragmentManager fm,List<Fragment> fragmentList,List<String>titleList) {
+    public FriendsAdapter(FragmentManager fm ,List<Fragment> fragmentList ,List<String>titleList) {
         super(fm);
         this.fragmentList = fragmentList;
         this.titleList = titleList;

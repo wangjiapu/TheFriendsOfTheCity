@@ -1,11 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/fragment_close_tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="附近的人"
-        android:gravity="center"/>
+        android:layout_height="80dp"
+        android:background="@color/colorPrimaryDark">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/back"
+                android:layout_width="30dp"
+                android:layout_height="20dp"/>
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/white"
+                android:text="附近的人"
+                android:textSize="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_close_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>
