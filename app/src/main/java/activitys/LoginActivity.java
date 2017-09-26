@@ -38,26 +38,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button signInButton;
     TextView signOnText;
     Button back;
-    //界面好丑
+    /**
+     * 使用某个城市列表前先判空
+     */
 
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == 200) {
-                Log.e("qqqqq", msg.obj.toString());
-            } else if (msg.what == 1) {
-                JsonParserUtil.getAllProvince(msg.obj.toString());
-
-                for(int i=0;i< InfoLists.PInfos.size();i++){
-                    Log.e(""+InfoLists.PInfos.get(i).getId(),
-                            InfoLists.PInfos.get(i).getProvinceName());
+            switch (msg.what){
+                case 0:
+                    JsonParserUtil.getAllProvince(msg.obj.toString());
+                  /*  for(int i=0;i< InfoLists.PInfos.size();i++){
+                        Log.e(""+InfoLists.PInfos.get(i).getId(),
+                                InfoLists.PInfos.get(i).getProvinceName());
+                    }*/
+                    break;
+                case 1:
+                    JsonParserUtil.getCitiesFromPro(msg.obj.toString());
+                    break;
+                case 2:
+                    JsonParserUtil.getDistrictsFromCity(msg.obj.toString());
+                   for(int i=0;i< InfoLists.DInfos.size();i++){
+                    Log.e(""+InfoLists.DInfos.get(i).getDistrictId(),
+                            InfoLists.DInfos.get(i).getDistrictName());
                 }
-            } else {
-                Log.e("qqqqq", "pppppppppp");
+                    break;
+                default:
+                    Toast.makeText(LoginActivity.this,"请求出错!",Toast.LENGTH_SHORT).show();
             }
-
         }
     };
 
@@ -68,30 +78,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         initView();
         initBind();
-
-        /**
-         * 暂时不要删这个
-         *
-         */
-
-        RequestBody formBody = new FormBody.Builder()
-                .build();
-        Request request = OkhttpUtil
-                .getRequest(OkhttpUtil.getHOST() + OkhttpUtil.getAllProvince(),formBody);
-        Call call = OkhttpUtil.getOkHttpClient().newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Message message = new Message();
-                message.what = 1;
-                message.obj = response.body().string();
-                handler.sendMessage(message);
-            }
-        });
+        //requestInfo(2,2);
     }
+
+
 
     private void initView() {
         signInButton = (Button) findViewById(R.id.sign_in_button);
@@ -121,6 +111,64 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 signin.setVisibility(View.VISIBLE);
                 break;
         }
+    }
 
+    /**
+     * 请求数据
+     * @param i 获取的哪个级单位 0：省级 1：市级  2：区级
+     * @param id  获取某个单位下的下一级列表 省级id可为0;
+     */
+    private void requestInfo(final int i,int id) {
+        RequestBody body;
+        Request request=null;
+        switch (i){
+            case 0://获取所有省
+                body=new FormBody.Builder()
+                        .build();
+                request = OkhttpUtil
+                        .getRequest(OkhttpUtil.getHOST() + OkhttpUtil.getAllProvince(),body);
+                break;
+            case 1://获取市
+                body=new FormBody.Builder()
+                        .add("provinceId",id+"")
+                        .build();
+
+                request=OkhttpUtil
+                        .getRequest(OkhttpUtil.getHOST()
+                                +OkhttpUtil.getCitiesByProvinceId(),body);
+
+                break;
+            case 2://获取区
+
+                body=new FormBody.Builder()
+                        .add("cityId",""+id)
+                        .build();
+                request=OkhttpUtil
+                        .getRequest(OkhttpUtil.getHOST()
+                                +OkhttpUtil.getDistrictsByCityId(),body);
+
+                break;
+        }
+        Call call=OkhttpUtil.getOkHttpClient().newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Message message = new Message();
+                message.what = 404;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response)
+                    throws IOException {
+
+                if (response.isSuccessful()){
+                    Message message = new Message();
+                    message.what = i;
+                    message.obj = response.body().string();
+                    handler.sendMessage(message);
+                }
+            }
+        });
     }
 }

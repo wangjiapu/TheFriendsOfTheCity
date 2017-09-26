@@ -10,4 +10,8 @@ import java.util.List;
 public class InfoLists {
 
     public static List<ProvinceInfo> PInfos=new ArrayList<>();
+
+    public static List<CityInfo> CInfos=new ArrayList<>();
+
+    public static List<DistrictsInfo> DInfos=new ArrayList<>();
 }
