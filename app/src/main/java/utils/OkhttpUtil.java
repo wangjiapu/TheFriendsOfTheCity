@@ -1,5 +1,7 @@
 package utils;
 
+import okhttp3.Call;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -27,12 +29,25 @@ public class OkhttpUtil {
     private static final String LoginUserInfo="/user/getLoginUserInfo";
 
     public static Request getRequest(String url,RequestBody body){
-
         Request request=new Request.Builder().url(url)
                 .addHeader("Content-Type","application/x-www-form-urlencoded")
                 .post(body)
                 .build();
         return request;
+    }
+
+    public static Call register(String userTel,String userPwd,String verifyCode,
+                                String provinceId,String cityId,String districtId){
+        RequestBody body=new FormBody.Builder()
+                .add("userTel",userTel)
+                .add("userPw",userPwd)
+                .add("verifyCode",verifyCode)
+                .add("provinceId",provinceId)
+                .add("cityId",cityId)
+                .add("districtId",districtId)
+                .build();
+        Request request=getRequest(getHOST()+getRegister(),body);
+        return getOkHttpClient().newCall(request);
     }
 
     public static OkHttpClient getOkHttpClient() {

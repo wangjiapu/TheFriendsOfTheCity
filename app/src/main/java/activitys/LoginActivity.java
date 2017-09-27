@@ -43,10 +43,12 @@ import utils.OkhttpUtil;
  */
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    LinearLayout signin;
-    LinearLayout signup;
-    Button signInButton;
+    private LinearLayout mSignin;
+    private LinearLayout mSignup;
+    private Button mSignInButton;
+    private Button mRegisterBt;
     TextView signOnText;
+    //-_-
     Button back;
     AppCompatSpinner provinceSpinner;
     AppCompatSpinner citySpinner;
@@ -205,29 +207,45 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void initView() {
-        signInButton = (Button) findViewById(R.id.sign_in_button);
+        mSignInButton = (Button) findViewById(R.id.sign_in_button);
+        mRegisterBt=(Button)findViewById(R.id.sign_up_button);
         signOnText = (TextView) findViewById(R.id.sign_up_text);
-        signin = (LinearLayout) findViewById(R.id.sign_in_layout);
-        signup = (LinearLayout) findViewById(R.id.sign_up_layout);
+        mSignin = (LinearLayout) findViewById(R.id.sign_in_layout);
+        mSignup = (LinearLayout) findViewById(R.id.sign_up_layout);
         back = (Button) findViewById(R.id.chuce_back_button);
-        signin.setVisibility(View.VISIBLE);
-        signup.setVisibility(View.INVISIBLE);
+        mSignin.setVisibility(View.VISIBLE);
+        mSignup.setVisibility(View.INVISIBLE);
     }
     private void initBind() {
-        signInButton.setOnClickListener(this);
+        mSignInButton.setOnClickListener(this);
         signOnText.setOnClickListener(this);
         back.setOnClickListener(this);
+        mRegisterBt.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_up_text:
-                signin.setVisibility(View.INVISIBLE);
-                signup.setVisibility(View.VISIBLE);
+                mSignin.setVisibility(View.INVISIBLE);
+                mSignup.setVisibility(View.VISIBLE);
                 break;
             case R.id.chuce_back_button:
-                signup.setVisibility(View.INVISIBLE);
-                signin.setVisibility(View.VISIBLE);
+                mSignup.setVisibility(View.INVISIBLE);
+                mSignin.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.sign_up_button:  //完善
+                /*OkhttpUtil.register(电话，密码，验证码，直辖市/省，市，区).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        //失败
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        //成功
+                    }
+                });*/
                 break;
         }
     }
