@@ -1,5 +1,6 @@
 package activitys;
 
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -104,6 +105,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
+
+
         initView();
         initBind();
         initSpinner();
@@ -115,11 +118,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         citySpinner = (AppCompatSpinner) findViewById(R.id.spin_city);
         countySpinner = (AppCompatSpinner) findViewById(R.id.spin_county);
 
-        //省
-        requestInfo(0,0);
         provinceName = new ArrayList<>();
 
-        provinceName.add("1");
+        requestInfo(0, 0);
+
+        //省
+        provinceName.add("省");
         provinceName.add("2");
         Log.d("列表", "" + provinceName.size());
         provinceAdapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_item, provinceName);
@@ -127,15 +131,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provinceSpinner.setAdapter(provinceAdapter);
         provinceSpinner.setSelection(0,true);
-//        Log.d("列表", "" + InfoLists.PInfos.get(1).getProvinceName());
+
         provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
-                for (int i = 0; i < 20; i++) {
-                    String s = InfoLists.PInfos.get(i).getProvinceName();
-                    provinceName.add(s);
-                }
+                for (int i = 0; i < InfoLists.PInfos.size(); i++) {
+                String s = InfoLists.PInfos.get(i).getProvinceName();
+                provinceName.add(s);
+            }
                 Toast.makeText(LoginActivity.this, "你点击的是:"+InfoLists.PInfos.get(pos).getProvinceName(), Toast.LENGTH_SHORT).show();
             }
             @Override
