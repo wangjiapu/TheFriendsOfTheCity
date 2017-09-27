@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,8 +20,13 @@ import android.widget.Toast;
 import com.example.xiyou3g.thefriendsofthecity.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import beans.CityInfo;
+import beans.DistrictsInfo;
 import beans.InfoLists;
+import beans.ProvinceInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -38,6 +47,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button signInButton;
     TextView signOnText;
     Button back;
+    AppCompatSpinner provinceSpinner;
+    AppCompatSpinner citySpinner;
+    AppCompatSpinner countySpinner;
+
+
+    ArrayList<String> provinceName;
+    ArrayAdapter<String> provinceAdapter;
+
+
+
     /**
      * 使用某个城市列表前先判空
      */
@@ -64,6 +83,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     };
 
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,40 +93,47 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         initView();
         initBind();
-        //requestInfo(2,2);
+        initSpinner();
+    }
+
+    private void initSpinner() {
+
+        provinceSpinner = (AppCompatSpinner) findViewById(R.id.spin_province);
+        citySpinner = (AppCompatSpinner) findViewById(R.id.spin_city);
+        countySpinner = (AppCompatSpinner) findViewById(R.id.spin_county);
+
+        //省
+        requestInfo(0,0);
+        provinceName = new ArrayList<>();
+
+        provinceName.add("1");
+        provinceName.add("2");
+        Log.d("列表", "" + provinceName.size());
+        provinceAdapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_item, provinceName);
+
+        provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        provinceSpinner.setAdapter(provinceAdapter);
+        provinceSpinner.setSelection(0,true);
+//        Log.d("列表", "" + InfoLists.PInfos.get(1).getProvinceName());
+        provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                for (int i = 0; i < 20; i++) {
+                    String s = InfoLists.PInfos.get(i).getProvinceName();
+                    provinceName.add(s);
+                }
+                Toast.makeText(LoginActivity.this, "你点击的是:"+InfoLists.PInfos.get(pos).getProvinceName(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
 
 
-    private void initView() {
-        signInButton = (Button) findViewById(R.id.sign_in_button);
-        signOnText = (TextView) findViewById(R.id.sign_up_text);
-        signin = (LinearLayout) findViewById(R.id.sign_in_layout);
-        signup = (LinearLayout) findViewById(R.id.sign_up_layout);
-        back = (Button) findViewById(R.id.chuce_back_button);
-        signin.setVisibility(View.VISIBLE);
-        signup.setVisibility(View.INVISIBLE);
-    }
 
-    private void initBind() {
-        signInButton.setOnClickListener(this);
-        signOnText.setOnClickListener(this);
-        back.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.sign_up_text:
-                signin.setVisibility(View.INVISIBLE);
-                signup.setVisibility(View.VISIBLE);
-                break;
-            case R.id.chuce_back_button:
-                signup.setVisibility(View.INVISIBLE);
-                signin.setVisibility(View.VISIBLE);
-                break;
-        }
-    }
 
     /**
      * 请求数据
@@ -164,4 +193,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
+
+
+
+
+
+
+
+
+
+    private void initView() {
+        signInButton = (Button) findViewById(R.id.sign_in_button);
+        signOnText = (TextView) findViewById(R.id.sign_up_text);
+        signin = (LinearLayout) findViewById(R.id.sign_in_layout);
+        signup = (LinearLayout) findViewById(R.id.sign_up_layout);
+        back = (Button) findViewById(R.id.chuce_back_button);
+        signin.setVisibility(View.VISIBLE);
+        signup.setVisibility(View.INVISIBLE);
+    }
+    private void initBind() {
+        signInButton.setOnClickListener(this);
+        signOnText.setOnClickListener(this);
+        back.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.sign_up_text:
+                signin.setVisibility(View.INVISIBLE);
+                signup.setVisibility(View.VISIBLE);
+                break;
+            case R.id.chuce_back_button:
+                signup.setVisibility(View.INVISIBLE);
+                signin.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+
 }

@@ -7,6 +7,7 @@
 
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/sign_in_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -128,7 +129,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/sign_up_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -155,34 +156,46 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spin_province"
+                android:layout_marginRight="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spin_city"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spin_county"
+                android:layout_marginRight="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:text="请选择您所在的位置"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
             <FrameLayout
-                android:layout_marginTop="60dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:padding="1dp"
-                android:background="#bbb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/locate_edit_text"
-                    android:hint="请选择您所在的地区"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:background="@color/white"/>
-            </FrameLayout>
-
-
-
-            <FrameLayout
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:padding="1dp"
