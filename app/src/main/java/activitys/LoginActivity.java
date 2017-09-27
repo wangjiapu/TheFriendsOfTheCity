@@ -34,6 +34,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import utils.JsonParserUtil;
+import utils.MobileNumUtil;
 import utils.OkhttpUtil;
 
 /**
@@ -76,6 +77,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     break;
                 case 2:
                     JsonParserUtil.getDistrictsFromCity(msg.obj.toString());
+                    break;
+                case 3:
+                    Toast.makeText(LoginActivity.this,"请输入正确的手机号码！",Toast.LENGTH_SHORT).show();
+                    break;
+                case 4:
+                   if (JsonParserUtil.sendSMSOk(msg.obj.toString())){
+                       Toast.makeText(LoginActivity.this,"发送成功!!",Toast.LENGTH_SHORT).show();
+                   }else{
+                       Toast.makeText(LoginActivity.this,"发送失败!!",Toast.LENGTH_SHORT).show();
+                   }
                     break;
                 default:
                     Toast.makeText(LoginActivity.this,"请求出错!",Toast.LENGTH_SHORT).show();
@@ -175,9 +186,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Message message = new Message();
-                message.what = 404;
-                handler.sendMessage(message);
+               requestError();
             }
 
             @Override
@@ -193,14 +202,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
-
-
-
-
-
-
-
-
 
 
     private void initView() {
@@ -231,5 +232,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+
+    /**
+     * 请求验证码
+     * @param tel  输入手机号
+     */
+    private void senfSMS(String tel){
+
+        if ( ! MobileNumUtil.isMobileNO(tel)){
+            Message message=new Message();
+            message.what=3;
+            handler.sendMessage(message);
+            return;
+        }
+        RequestBody telBody=new FormBody.Builder()
+                .add("userTel",tel)
+                .build();
+        Request request=OkhttpUtil.getRequest(OkhttpUtil.getHOST()+OkhttpUtil.getSms(),telBody);
+        Call call=OkhttpUtil.getOkHttpClient().newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                requestError();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()){
+                    Message message=new Message();
+                    message.what=4;
+                    message.obj=response.body().string();
+                    handler.sendMessage(message);
+                }
+            }
+        });
+    }
+
+
+    private void requestError(){
+        Message message = new Message();
+        message.what = 404;
+        handler.sendMessage(message);
+    }
 
 }

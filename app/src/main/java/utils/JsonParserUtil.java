@@ -97,4 +97,21 @@ public class JsonParserUtil {
             e.printStackTrace();
         }
     }
+
+    public static boolean sendSMSOk(String s){
+        String code=null;
+        if (TextUtils.isEmpty(s)) {
+            return false;
+        }
+        try {
+            JSONObject jsonObject=new JSONObject(s);
+             code=jsonObject.getString("code");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (code.equals("200")){
+            return true;
+        }
+        return false;
+    }
 }
