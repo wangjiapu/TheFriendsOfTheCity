@@ -1,10 +1,11 @@
 package activitys;
 
-
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import beans.CityInfo;
 import beans.DistrictsInfo;
@@ -57,16 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     ArrayList<String> provinceName;
     ArrayAdapter<String> provinceAdapter;
 
-    ArrayList<String> cityName;
-    ArrayAdapter<String> cityAdapter;
-
-    ArrayList<String> countyName;
-    ArrayAdapter<String> countyAdapter;
-
-
-    ProvinceInfo mProvinceInfo;
-    CityInfo mCityInfo;
-    DistrictsInfo mDistrictsInfo;
 
 
     /**
@@ -78,72 +70,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what) {
+            switch (msg.what){
                 case 0:
-                    if (!InfoLists.PInfos.isEmpty()) {
-                        InfoLists.PInfos.clear();
-                        ProvinceInfo p = new ProvinceInfo();
-                        p.setProvinceName("省");
-                        InfoLists.PInfos.add(p);
-                        provinceName.clear();
-                    }
                     JsonParserUtil.getAllProvince(msg.obj.toString());
-                    while (provinceName.isEmpty()) {
-                        for (int i = 0; i < InfoLists.PInfos.size(); i++) {
-                            String s = InfoLists.PInfos.get(i).getProvinceName();
-                            provinceName.add(s);
-                        }
-                    }
-                    provinceAdapter.notifyDataSetChanged();
+
                     break;
                 case 1:
-                    if (!InfoLists.CInfos.isEmpty()) {
-                        InfoLists.CInfos.clear();
-                        CityInfo c = new CityInfo();
-                        c.setCityName("市");
-                        InfoLists.CInfos.add(c);
-                        cityName.clear();
-                    }
                     JsonParserUtil.getCitiesFromPro(msg.obj.toString());
-                    while (cityName.isEmpty()) {
-                        for (int i = 0; i < InfoLists.CInfos.size(); i++) {
-                            String s = InfoLists.CInfos.get(i).getCityName();
-                            cityName.add(s);
-                        }
-                    }
-                    cityAdapter.notifyDataSetChanged();
                     break;
                 case 2:
-                    if (!InfoLists.DInfos.isEmpty()) {
-                        InfoLists.DInfos.clear();
-                        DistrictsInfo d = new DistrictsInfo();
-                        d.setDistrictName("区");
-                        InfoLists.DInfos.add(d);
-                        countyName.clear();
-                    }
                     JsonParserUtil.getDistrictsFromCity(msg.obj.toString());
-                    while (countyName.isEmpty()) {
-                        for (int i = 0; i < InfoLists.DInfos.size(); i++) {
-                            String s = InfoLists.DInfos.get(i).getDistrictName();
-                            countyName.add(s);
-                        }
-                    }
-                    countyAdapter.notifyDataSetChanged();
                     break;
-
-
                 case 3:
-                    Toast.makeText(LoginActivity.this, "请输入正确的手机号码！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"请输入正确的手机号码！",Toast.LENGTH_SHORT).show();
                     break;
                 case 4:
-                    if (JsonParserUtil.sendSMSOk(msg.obj.toString())) {
-                        Toast.makeText(LoginActivity.this, "发送成功!!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "发送失败!!", Toast.LENGTH_SHORT).show();
-                    }
+                   if (JsonParserUtil.sendSMSOk(msg.obj.toString())){
+                       Toast.makeText(LoginActivity.this,"发送成功!!",Toast.LENGTH_SHORT).show();
+                   }else{
+                       Toast.makeText(LoginActivity.this,"发送失败!!",Toast.LENGTH_SHORT).show();
+                   }
                     break;
                 default:
-                    Toast.makeText(LoginActivity.this, "请求出错!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"请求出错!",Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -153,13 +102,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        requestInfo(0, 0);
-        provinceName = new ArrayList<>();
-        cityName = new ArrayList<>();
-        countyName = new ArrayList<>();
-
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
 
@@ -169,78 +112,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initSpinner();
     }
 
-
-
     private void initSpinner() {
 
         provinceSpinner = (AppCompatSpinner) findViewById(R.id.spin_province);
         citySpinner = (AppCompatSpinner) findViewById(R.id.spin_city);
         countySpinner = (AppCompatSpinner) findViewById(R.id.spin_county);
-        //省
 
-//        provinceName.add("省");
+        provinceName = new ArrayList<>();
+
+        requestInfo(0, 0);
+
+        //省
+        provinceName.add("省");
+        provinceName.add("2");
+        Log.d("列表", "" + provinceName.size());
         provinceAdapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_item, provinceName);
+
         provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provinceSpinner.setAdapter(provinceAdapter);
-        provinceSpinner.setSelection(0, true);
-        provinceAdapter.setNotifyOnChange(true);
-        //市
-//        cityName.add("市");
-        cityAdapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_item, cityName);
-        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        citySpinner.setAdapter(cityAdapter);
-        citySpinner.setSelection(0, true);
-        cityAdapter.setNotifyOnChange(true);
-        //区
-//        countyName.add("区");
-        Log.d("列表", "" + countyName.size());
-        countyAdapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_item, countyName);
-        countyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        countySpinner.setAdapter(countyAdapter);
-        countySpinner.setSelection(0, true);
-        countyAdapter.setNotifyOnChange(true);
-
+        provinceSpinner.setSelection(0,true);
 
         provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
-                mProvinceInfo = InfoLists.PInfos.get(pos);
-                requestInfo(1, mProvinceInfo.getId());
-                Toast.makeText(LoginActivity.this, "你点击的是:" + provinceName.get(pos) + pos + "真的" + mProvinceInfo.getProvinceName(), Toast.LENGTH_SHORT).show();
-                cityAdapter.notifyDataSetChanged();
+                for (int i = 0; i < InfoLists.PInfos.size(); i++) {
+                String s = InfoLists.PInfos.get(i).getProvinceName();
+                provinceName.add(s);
+            }
+             provinceAdapter.notifyDataSetChanged();
+                Toast.makeText(LoginActivity.this, "你点击的是:"+InfoLists.PInfos.get(pos).getProvinceName(), Toast.LENGTH_SHORT).show();
             }
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
-        citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-                mCityInfo = InfoLists.CInfos.get(pos);
-                requestInfo(2, mCityInfo.getCityId());
-                Toast.makeText(LoginActivity.this, "你点击的是:" + cityName.get(pos) + pos + "真的" + mCityInfo.getCityName(), Toast.LENGTH_SHORT).show();
-                countyAdapter.notifyDataSetChanged();
+            public void onNothingSelected(AdapterView<?> parent) {
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
         });
-
-        countySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-                mDistrictsInfo = InfoLists.DInfos.get(pos);
-                Toast.makeText(LoginActivity.this, "你点击的是:" + countyName.get(pos) + pos + "真的" + mDistrictsInfo.getDistrictName(), Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
     }
 
 
@@ -270,10 +177,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 request=OkhttpUtil
                         .getRequest(OkhttpUtil.getHOST()
                                 +OkhttpUtil.getCitiesByProvinceId(),body);
-                for (int j = 0; j < InfoLists.CInfos.size(); j++) {
-                    String s = InfoLists.CInfos.get(j).getCityName();
-                    cityName.add(s);
-                }
+
                 break;
             case 2://获取区
 
@@ -324,14 +228,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         back.setOnClickListener(this);
         mRegisterBt.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_up_text:
                 mSignin.setVisibility(View.INVISIBLE);
                 mSignup.setVisibility(View.VISIBLE);
-
                 break;
             case R.id.chuce_back_button:
                 mSignup.setVisibility(View.INVISIBLE);
@@ -395,7 +297,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         message.what = 404;
         handler.sendMessage(message);
     }
-
-
 
 }

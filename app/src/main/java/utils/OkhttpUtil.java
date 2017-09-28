@@ -36,6 +36,16 @@ public class OkhttpUtil {
         return request;
     }
 
+    /**
+     * 注册
+     * @param userTel
+     * @param userPwd
+     * @param verifyCode
+     * @param provinceId
+     * @param cityId
+     * @param districtId
+     * @return
+     */
     public static Call register(String userTel,String userPwd,String verifyCode,
                                 String provinceId,String cityId,String districtId){
         RequestBody body=new FormBody.Builder()
@@ -47,6 +57,22 @@ public class OkhttpUtil {
                 .add("districtId",districtId)
                 .build();
         Request request=getRequest(getHOST()+getRegister(),body);
+        return getOkHttpClient().newCall(request);
+    }
+
+
+    /**
+     * 登录
+     * @param userTel
+     * @param userpwd
+     * @return
+     */
+    public static Call login(String userTel,String userpwd){
+        RequestBody body=new FormBody.Builder()
+                .add("userTel",userTel)
+                .add("userPw",userpwd)
+                .build();
+        Request request=getRequest(getHOST()+getLogin(),body);
         return getOkHttpClient().newCall(request);
     }
 
