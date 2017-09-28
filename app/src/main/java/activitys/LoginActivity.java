@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -59,15 +60,29 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
     AppCompatSpinner citySpinner;
     AppCompatSpinner countySpinner;
 
-    ArrayList<String> countyName;
-    ArrayAdapter<String> countyAdapter;
-    ArrayList<String> cityName;
-    ArrayAdapter<String> cityAdapter;
+
 
     ArrayList<String> provinceName;
     ArrayAdapter<String> provinceAdapter;
 
+    ArrayList<String> cityName;
+    ArrayAdapter<String> cityAdapter;
 
+    ArrayList<String> countyName;
+    ArrayAdapter<String> countyAdapter;
+
+
+    EditText teleNumText;
+    EditText passwordText;
+    EditText yzNumText;
+
+    ProvinceInfo mProvinceInfo;
+    CityInfo mCityInfo;
+    DistrictsInfo mDistrictsInfo;
+
+    String teleNum;
+    String password;
+    String yzNum;
 
     /**
      * 使用某个城市列表前先判空
@@ -95,6 +110,8 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                         }
                     }
                     provinceAdapter.notifyDataSetChanged();
+                    cityAdapter.notifyDataSetChanged();
+                    countyAdapter.notifyDataSetChanged();
                     break;
                 case 1:
                     if (!InfoLists.CInfos.isEmpty()) {
@@ -104,6 +121,14 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                         InfoLists.CInfos.add(c);
                         cityName.clear();
                     }
+                    if (!InfoLists.DInfos.isEmpty()) {
+                        InfoLists.DInfos.clear();
+                        DistrictsInfo d = new DistrictsInfo();
+                        d.setDistrictName("区");
+                        InfoLists.DInfos.add(d);
+                        countyName.clear();
+                        countyName.add("区");
+                    }
                     JsonParserUtil.getCitiesFromPro(msg.obj.toString());
                     while (cityName.isEmpty()) {
                         for (int i = 0; i < InfoLists.CInfos.size(); i++) {
@@ -111,10 +136,27 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                             cityName.add(s);
                         }
                     }
+                    citySpinner.setSelection(0);
                     cityAdapter.notifyDataSetChanged();
+                    countyAdapter.notifyDataSetChanged();
                     break;
                 case 2:
+                    if (!InfoLists.DInfos.isEmpty()) {
+                        InfoLists.DInfos.clear();
+                        DistrictsInfo d = new DistrictsInfo();
+                        d.setDistrictName("区");
+                        InfoLists.DInfos.add(d);
+                        countyName.clear();
+                    }
                     JsonParserUtil.getDistrictsFromCity(msg.obj.toString());
+                    while (countyName.isEmpty()) {
+                        for (int i = 0; i < InfoLists.DInfos.size(); i++) {
+                            String s = InfoLists.DInfos.get(i).getDistrictName();
+                            countyName.add(s);
+                        }
+                    }
+                    countySpinner.setSelection(0);
+                    countyAdapter.notifyDataSetChanged();
                     break;
                 case 3:
                     Toast.makeText(LoginActivity.this,"请输入正确的手机号码！",Toast.LENGTH_SHORT).show();
@@ -138,6 +180,10 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestInfo(0, 0);
+        provinceName = new ArrayList<>();
+        cityName = new ArrayList<>();
+        countyName = new ArrayList<>();
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
         initView();
@@ -150,36 +196,67 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
         provinceSpinner = (AppCompatSpinner) findViewById(R.id.spin_province);
         citySpinner = (AppCompatSpinner) findViewById(R.id.spin_city);
         countySpinner = (AppCompatSpinner) findViewById(R.id.spin_county);
-
-        provinceName = new ArrayList<>();
-
-        requestInfo(0, 0);
-
         //省
-        provinceName.add("省");
-        provinceName.add("2");
-        Log.d("列表", "" + provinceName.size());
-        provinceAdapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_item, provinceName);
 
+//        provinceName.add("省");
+        provinceAdapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_item, provinceName);
         provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provinceSpinner.setAdapter(provinceAdapter);
-        provinceSpinner.setSelection(0,true);
+        provinceSpinner.setSelection(0, true);
+        provinceAdapter.setNotifyOnChange(true);
+        //市
+//        cityName.add("市");
+        cityAdapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_item, cityName);
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(cityAdapter);
+        citySpinner.setSelection(0, true);
+        cityAdapter.setNotifyOnChange(true);
+        //区
+//        countyName.add("区");
+        Log.d("列表", "" + countyName.size());
+        countyAdapter = new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_spinner_item, countyName);
+        countyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        countySpinner.setAdapter(countyAdapter);
+        countySpinner.setSelection(0, true);
+        countyAdapter.setNotifyOnChange(true);
+
 
         provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
-                for (int i = 0; i < InfoLists.PInfos.size(); i++) {
-                String s = InfoLists.PInfos.get(i).getProvinceName();
-                provinceName.add(s);
-            }
-             provinceAdapter.notifyDataSetChanged();
-                Toast.makeText(LoginActivity.this, "你点击的是:"+InfoLists.PInfos.get(pos).getProvinceName(), Toast.LENGTH_SHORT).show();
+                mProvinceInfo = InfoLists.PInfos.get(pos);
+                requestInfo(1, mProvinceInfo.getId());
+                Toast.makeText(LoginActivity.this, "你点击的是:" + provinceName.get(pos) + pos + "真的" + mProvinceInfo.getProvinceName(), Toast.LENGTH_SHORT).show();
+                cityAdapter.notifyDataSetChanged();
             }
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                mCityInfo = InfoLists.CInfos.get(pos);
+                requestInfo(2, mCityInfo.getCityId());
+                Toast.makeText(LoginActivity.this, "你点击的是:" + cityName.get(pos) + pos + "真的" + mCityInfo.getCityName(), Toast.LENGTH_SHORT).show();
+                countyAdapter.notifyDataSetChanged();
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        countySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                mDistrictsInfo = InfoLists.DInfos.get(pos);
+                Toast.makeText(LoginActivity.this, "你点击的是:" + countyName.get(pos) + pos + "真的" + mDistrictsInfo.getDistrictName(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
@@ -256,6 +333,9 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
         mSignup = (LinearLayout) findViewById(R.id.sign_up_layout);
         back = (ImageView) findViewById(R.id.chuce_back_button);
         yanzhengma = (Button) findViewById(R.id.send_yanzhengma);
+        passwordText = (EditText) findViewById(R.id.zhuce_password_edit_text);
+        teleNumText = (EditText) findViewById(R.id.zhuce_phone_edit_text);
+        yzNumText = (EditText) findViewById(R.id.yanzhengma_edit_text);
         mSignin.setVisibility(View.VISIBLE);
         mSignup.setVisibility(View.INVISIBLE);
     }
@@ -280,21 +360,32 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                 break;
 
             case R.id.sign_up_button:  //完善
-                /*OkhttpUtil.register(电话，密码，验证码，直辖市/省，市，区).enqueue(new Callback() {
+                teleNum = teleNumText.getText().toString();
+                password = passwordText.getText().toString();
+                yzNum = yzNumText.getText().toString();
+
+                /**
+                 * 验证信息
+                 */
+
+
+
+                OkhttpUtil.register(teleNum, password, yzNum, "" + mProvinceInfo.getId(), "" + mCityInfo.getCityId(), "" + mDistrictsInfo.getDistrictId()).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         //失败
+                        Log.d("556556", "onClick:111 " + teleNum + password + yzNum);
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         //成功
+                        Log.d("556556", "onClick: 222" + teleNum + password + yzNum);
                     }
-                });*/
+                });
                 break;
 
             case R.id.login_bt:
-
                /* OkhttpUtil.login(电话，密码).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -313,6 +404,9 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                     }
                 });
                 */
+                break;
+            case R.id.send_yanzhengma:
+                senfSMS(teleNumText.getText().toString());
                 break;
         }
     }
