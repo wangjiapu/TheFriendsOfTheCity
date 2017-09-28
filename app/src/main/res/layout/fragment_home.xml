@@ -13,12 +13,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimaryDark">
 
-        <ImageView
-            android:id="@+id/leftitem"
-            android:layout_width="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_height="match_parent"
-            android:src="@mipmap/leftmenu"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -29,22 +23,29 @@
             android:focusableInTouchMode="true"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/leftitem"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/leftmenuhome"/>
+
             <EditText
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="5dp"
                 android:background="@null"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:maxLines="1"
-                android:hint="搜索"
                 android:inputType="text"/>
 
-            <Button
-                android:layout_marginRight="10dp"
-                android:background="@mipmap/ic_person_search"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_gravity="center_vertical"/>
+            <ImageView
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_personsearch"/>
 
         </LinearLayout>
 

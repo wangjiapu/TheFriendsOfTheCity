@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,7 @@ import utils.SharedPerferenceUtil;
  *
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends SwipeCloseActivity implements View.OnClickListener {
     private LinearLayout mSignin;
     private LinearLayout mSignup;
     private Button mSignInButton;
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button yanzhengma;
     TextView signOnText;
     //-_-
-    Button back;
+    ImageView back;
     AppCompatSpinner provinceSpinner;
     AppCompatSpinner citySpinner;
     AppCompatSpinner countySpinner;
@@ -139,8 +140,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
-
-
         initView();
         initBind();
         initSpinner();
@@ -255,7 +254,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signOnText = (TextView) findViewById(R.id.sign_up_text);
         mSignin = (LinearLayout) findViewById(R.id.sign_in_layout);
         mSignup = (LinearLayout) findViewById(R.id.sign_up_layout);
-        back = (Button) findViewById(R.id.chuce_back_button);
+        back = (ImageView) findViewById(R.id.chuce_back_button);
         yanzhengma = (Button) findViewById(R.id.send_yanzhengma);
         mSignin.setVisibility(View.VISIBLE);
         mSignup.setVisibility(View.INVISIBLE);

@@ -140,15 +140,18 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary">
-            <Button
-                android:layout_marginLeft="10dp"
+
+            <ImageView
+                android:layout_marginStart="30dp"
                 android:id="@+id/chuce_back_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/back"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/back"
                 android:layout_gravity="center_vertical"/>
             <TextView
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="25dp"
                 android:text="注册账号"
                 android:layout_gravity="center_vertical"
                 android:textSize="20sp"
@@ -196,103 +199,96 @@
             android:layout_height="wrap_content"/>
 
             <FrameLayout
-                android:layout_marginTop="35dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:padding="1dp"
                 android:background="#bbb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <EditText
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:layout_gravity="center_vertical"
+                    android:paddingStart="5dp"
                     android:id="@+id/zhuce_password_edit_text"
-                    android:hint="密码"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:background="@color/white"/>
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:layout_height="40dp"
+                    android:hint="密码"
+                    android:background="@drawable/login_bg"/>
             </FrameLayout>
 
 
         <TextView
             android:layout_marginTop="5dp"
             android:text="长度为6-12个字符"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
-            <FrameLayout
-                android:layout_marginTop="35dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:padding="1dp"
-                android:background="#bbb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/zhuce_phone_edit_text"
-                    android:hint="手机号码"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:background="@color/white"/>
-            </FrameLayout>
 
+        <FrameLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:padding="1dp"
+            android:background="#bbb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:paddingStart="5dp"
+                android:id="@+id/zhuce_phone_edit_text"
+                android:layout_width="match_parent"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:layout_height="40dp"
+                android:hint="手机号码"
+                android:background="@drawable/login_bg"/>
+        </FrameLayout>
 
         <TextView
             android:layout_marginTop="5dp"
             android:text="请输入您常用的手机号"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
         <LinearLayout
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <FrameLayout
-                android:layout_marginRight="10dp"
+               android:layout_marginStart="30dp"
+                android:layout_marginEnd="20dp"
+                android:padding="1dp"
                 android:background="#bbb"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent">
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
                 <EditText
-                    android:gravity="center_vertical"
-                    android:layout_margin="2dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:layout_gravity="center_vertical"
+                    android:paddingStart="5dp"
                     android:id="@+id/yanzhengma_edit_text"
-                    android:hint="短信验证码"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"/>
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:layout_height="40dp"
+                    android:hint="短信验证码"
+                    android:background="@drawable/login_bg"/>
             </FrameLayout>
+
             <Button
                 android:id="@+id/send_yanzhengma"
-                android:padding="10dp"
+                android:padding="8dp"
+                android:layout_marginEnd="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="#6871f7"
                 android:text="发送短信验证码"
                 android:textColor="#fff"/>
         </LinearLayout>
@@ -302,9 +298,10 @@
             android:textStyle="bold"
             android:layout_marginTop="50dp"
             android:id="@+id/sign_up_button"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:textSize="20sp"
+            android:background="#6871f7"
             android:text="立即注册"
             android:textColor="#fff"/>
 

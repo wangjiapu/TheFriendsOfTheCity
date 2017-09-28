@@ -26,7 +26,7 @@
                 android:src="@mipmap/leftmenubook"/>
 
             <TextView
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:textColor="@color/white"
                 android:text="书架"
                 android:layout_gravity="center_vertical"
