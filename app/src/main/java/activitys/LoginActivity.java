@@ -160,6 +160,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * @param id  获取某个单位下的下一级列表 省级id可为0;
      */
     private void requestInfo(final int i,int id) {
+
+
         RequestBody body;
         Request request=null;
         switch (i){
