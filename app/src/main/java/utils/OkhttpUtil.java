@@ -1,13 +1,18 @@
 package utils;
 
+import java.io.File;
+import java.util.List;
+
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class OkhttpUtil {
-
+    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
     private static OkHttpClient okHttpClient=new OkHttpClient();
     private static final String HOST="http://bf.corefuture.cn/bookfriend";
 
@@ -33,6 +38,12 @@ public class OkhttpUtil {
     private static final String InterestUesr="/user/getInterestUser";
 
     private static final String SameCityBooks="/bookInfo/getSameCityBooks";
+
+    private static final String uploadImage="/picture/uploadPicture";
+
+    public static String getUploadImage() {
+        return uploadImage;
+    }
 
     public static String getSameCityBooks() {
         return SameCityBooks;
@@ -155,6 +166,12 @@ public class OkhttpUtil {
         return  getOkHttpClient().newCall(request);
     }
 
+    /**
+     * 获取 cityname下的图书
+     * @param num
+     * @param cityname
+     * @return
+     */
     public static Call requestSameCityBooks(String num,String cityname){
         RequestBody body=new FormBody.Builder()
                 .add("num",num)
@@ -162,6 +179,29 @@ public class OkhttpUtil {
                 .build();
         Request request=getRequest(getHOST()+getSameCityBooks(),body);
         return  getOkHttpClient().newCall(request);
+    }
+
+    /**
+     * 上传图片
+     * @param files  图片地址所在的url集合
+     * @return
+     */
+
+    public static Call upImage(List<String> files){
+        MultipartBody.Builder builder=new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        for(String f:files){
+            File file=new File(f);
+            if (file.exists()){
+                builder.addFormDataPart("img",file.getName(),
+                        RequestBody.create(MEDIA_TYPE_PNG,file));
+
+            }
+
+        }
+        MultipartBody body=builder.build();
+        Request request=getRequest(getHOST()+getUploadImage(),body);
+        return getOkHttpClient().newCall(request);
     }
 
 }
