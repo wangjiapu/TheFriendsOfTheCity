@@ -131,7 +131,7 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         /**
-         *
+         * 这里这里 不知道怎么放
          */
         initLocation();//获取的太慢了 还没获取完没赋值 的感觉就往下走了 不知道怎么改
         Log.d("jnhbgv", cityName);
@@ -261,7 +261,7 @@ public class StartActivity extends AppCompatActivity {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
             StringBuilder currentPosition = new StringBuilder();
-            currentPosition.append("市：").append(bdLocation.getLatitude()).append("\n");
+            currentPosition.append("市：").append(bdLocation.getCity()).append("\n");
             cityName = currentPosition.toString();
             Log.d("ddd", "onReceiveLocation: " + cityName);
 
