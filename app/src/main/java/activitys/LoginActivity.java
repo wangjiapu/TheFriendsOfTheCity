@@ -1,12 +1,12 @@
 package activitys;
 
-import android.icu.text.IDNA;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
 import android.view.View;
@@ -21,10 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
+import com.google.gson.Gson;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import beans.CityInfo;
 import beans.DistrictsInfo;
@@ -83,6 +84,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
     String teleNum;
     String password;
     String yzNum;
+
 
     /**
      * 使用某个城市列表前先判空
@@ -173,12 +175,12 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
             }
         }
     };
-
-
+    private Context mContext;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        mContext = this;
         super.onCreate(savedInstanceState);
         requestInfo(0, 0);
         provinceName = new ArrayList<>();
@@ -227,7 +229,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                        int pos, long id) {
                 mProvinceInfo = InfoLists.PInfos.get(pos);
                 requestInfo(1, mProvinceInfo.getId());
-                Toast.makeText(LoginActivity.this, "你点击的是:" + provinceName.get(pos) + pos + "真的" + mProvinceInfo.getProvinceName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "你点击的是:" + provinceName.get(pos) + pos + "真的" + mProvinceInfo.getProvinceName(), Toast.LENGTH_SHORT).show();
                 cityAdapter.notifyDataSetChanged();
             }
             @Override
@@ -240,7 +242,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                        int pos, long id) {
                 mCityInfo = InfoLists.CInfos.get(pos);
                 requestInfo(2, mCityInfo.getCityId());
-                Toast.makeText(LoginActivity.this, "你点击的是:" + cityName.get(pos) + pos + "真的" + mCityInfo.getCityName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "你点击的是:" + cityName.get(pos) + pos + "真的" + mCityInfo.getCityName(), Toast.LENGTH_SHORT).show();
                 countyAdapter.notifyDataSetChanged();
             }
 
@@ -253,7 +255,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
                 mDistrictsInfo = InfoLists.DInfos.get(pos);
-                Toast.makeText(LoginActivity.this, "你点击的是:" + countyName.get(pos) + pos + "真的" + mDistrictsInfo.getDistrictName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "你点击的是:" + countyName.get(pos) + pos + "真的" + mDistrictsInfo.getDistrictName(), Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -325,9 +327,8 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
 
 
     private void initView() {
+        mRegisterBt = (Button) findViewById(R.id.sign_up_button);
         mLogin_bt=(TextView)findViewById(R.id.login_bt);
-        mSignInButton = (Button) findViewById(R.id.sign_in_button);
-        mRegisterBt=(Button)findViewById(R.id.sign_up_button);
         signOnText = (TextView) findViewById(R.id.sign_up_text);
         mSignin = (LinearLayout) findViewById(R.id.sign_in_layout);
         mSignup = (LinearLayout) findViewById(R.id.sign_up_layout);
@@ -340,7 +341,6 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
         mSignup.setVisibility(View.INVISIBLE);
     }
     private void initBind() {
-        mSignInButton.setOnClickListener(this);
         signOnText.setOnClickListener(this);
         back.setOnClickListener(this);
         mRegisterBt.setOnClickListener(this);
@@ -363,47 +363,80 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                 teleNum = teleNumText.getText().toString();
                 password = passwordText.getText().toString();
                 yzNum = yzNumText.getText().toString();
-
                 /**
                  * 验证信息
                  */
 
-
-
-                OkhttpUtil.register(teleNum, password, yzNum, "" + mProvinceInfo.getId(), "" + mCityInfo.getCityId(), "" + mDistrictsInfo.getDistrictId()).enqueue(new Callback() {
+                Callback callback = new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         //失败
-                        Log.d("556556", "onClick:111 " + teleNum + password + yzNum);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this, "重试一下", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         //成功
-                        Log.d("556556", "onClick: 222" + teleNum + password + yzNum);
+                        final String responseData = response.body().string();
+                        Gson gson = new Gson();
+                        final Re r = gson.fromJson(responseData, Re.class);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!r.getCode().equals(200)) {
+                                    Toast.makeText(LoginActivity.this, r.getMsg(), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, r.getMsg(), Toast.LENGTH_SHORT).show();
+                                    mSignin.setVisibility(View.INVISIBLE);
+                                    mSignup.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+                        Log.d("sxsxqsx", "onResponse: 111" + r.getMsg());
                     }
-                });
+                };
+                OkhttpUtil.register(teleNum, password, yzNum, "" + mProvinceInfo.getId(), "" + mCityInfo.getCityId(), "" + mDistrictsInfo.getDistrictId()).enqueue(callback);
                 break;
 
+
+
+
             case R.id.login_bt:
-               /* OkhttpUtil.login(电话，密码).enqueue(new Callback() {
+                teleNum = teleNumText.getText().toString();
+                password = passwordText.getText().toString();
+                yzNum = yzNumText.getText().toString();
+                OkhttpUtil.login(teleNum, password).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        //登录失败
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this, "重试一下", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                            if (response.isSuccessful()){
-                                //登录成功
-                                *//**
-                                 * 1 .使用广播更新上一个界面
-                                 * 2.存储用户信息 //SharedPerferenceUtil.saveUserInfo(getApplication(),//电话，//密码);
-                                 *//*
-                            }
+                        if (response.isSuccessful()) {
+                            SharedPerferenceUtil.saveUserInfo(getApplication(), teleNum, password);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+                                    Intent intent = new Intent("com.example.broadcast.LOGIN");
+                                    localBroadcastManager.sendBroadcast(intent);
+                                }
+                            });
+                            finish();
+                        }
                     }
                 });
-                */
                 break;
             case R.id.send_yanzhengma:
                 senfSMS(teleNumText.getText().toString());
@@ -451,6 +484,27 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
         Message message = new Message();
         message.what = 404;
         handler.sendMessage(message);
+    }
+
+    class Re {
+        String code;
+        String msg;
+
+        public String getCode() {
+            return code;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
     }
 
 }

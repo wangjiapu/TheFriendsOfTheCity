@@ -10,6 +10,10 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.example.xiyou3g.thefriendsofthecity.R;
 
 import org.json.JSONException;
@@ -28,6 +32,11 @@ import utils.SharedPerferenceUtil;
 
 
 public class StartActivity extends AppCompatActivity {
+
+
+    String cityName = null;
+    public LocationClient mLocationClient;
+    public BDAbstractLocationListener mListener = new MyLocationListener();
 
     private static int flag=0;
     private static synchronized  void count(){
@@ -90,6 +99,7 @@ public class StartActivity extends AppCompatActivity {
                    isGo();
                }
            }else if (msg.what==4){
+               initLocation();
                if (msg.obj.equals("获取同城书友书失败!")){
                    Log.e("444444","error");
                    isGo();
@@ -105,6 +115,12 @@ public class StartActivity extends AppCompatActivity {
 
 
     };
+
+
+
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -113,15 +129,21 @@ public class StartActivity extends AppCompatActivity {
                 localLayoutParams.flags);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        /**
+         *
+         */
+        initLocation();//获取的太慢了 还没获取完没赋值 的感觉就往下走了 不知道怎么改
+        Log.d("jnhbgv", cityName);
+
         initData();
     }
 
 
     private void initData() {
 
-
-       /* //获取地理位置得到市名称
-        String cityName=null;
+        Log.d("jnhbgv", "initData: "+cityName);
+        //获取地理位置得到市名称
 
         OkhttpUtil.requestSameCityBooks("7",cityName).enqueue(new Callback() {
             @Override
@@ -135,7 +157,12 @@ public class StartActivity extends AppCompatActivity {
                     sendMessage(response.body().string(),5);
                 }
             }
-        });*/
+        });
+
+
+
+
+
         OkhttpUtil.requestInterestUsers("3").enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -183,6 +210,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
 
+
     private void sendMessage(String s,int f){
         Message m=new Message();
         m.what=f;
@@ -204,5 +232,51 @@ public class StartActivity extends AppCompatActivity {
         super.onPause();
         finish();
     }
+
+
+
+    private void initLocation() {
+        mLocationClient = new LocationClient(getApplicationContext());
+        initLocationOptions();
+        mLocationClient.registerLocationListener(mListener);
+    }
+    private void initLocationOptions() {
+        LocationClientOption option = new LocationClientOption();
+        option.setIsNeedAddress(true);
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setCoorType("bd09ll");
+        int span=1000;
+        option.setScanSpan(span);
+        mLocationClient.setLocOption(option);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocationClient.stop();
+
+    }
+
+    public class MyLocationListener extends BDAbstractLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            StringBuilder currentPosition = new StringBuilder();
+            currentPosition.append("市：").append(bdLocation.getLatitude()).append("\n");
+            cityName = currentPosition.toString();
+            Log.d("ddd", "onReceiveLocation: " + cityName);
+
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!mLocationClient.isStarted()) {
+            mLocationClient.start();
+        }
+
+
+    }
+
 
 }

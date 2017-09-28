@@ -1,6 +1,9 @@
 package activitys;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,7 +11,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.StaticLayout;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -77,9 +82,32 @@ public class MainActivity extends AppCompatActivity
 
     };
 
+    public LocalBroadcastManager mLocalBroadcastManager;
+    public LocalReceive mLocalReceive;
+
+    class LocalReceive extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            showMenuItem(navigationView.getMenu(), true);
+            Toast.makeText(context ,"1111", Toast.LENGTH_SHORT).show();
+            Log.d("111", "onReceive: 111");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocalBroadcastManager.unregisterReceiver(mLocalReceive);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.broadcast.LOGIN");
+        mLocalReceive = new LocalReceive();
+        mLocalBroadcastManager.registerReceiver(mLocalReceive, intentFilter);
 
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -115,7 +143,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        showMenuItem(navigationView.getMenu(),true);
+        showMenuItem(navigationView.getMenu(),false);
         navigationView.setNavigationItemSelectedListener(this);
 
         mNavigation = (BottomNavigationView) findViewById(R.id.navigation_bar);
