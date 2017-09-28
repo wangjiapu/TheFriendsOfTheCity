@@ -37,6 +37,7 @@ import okhttp3.Response;
 import utils.JsonParserUtil;
 import utils.MobileNumUtil;
 import utils.OkhttpUtil;
+import utils.SharedPerferenceUtil;
 
 /**
  * Created by xiyou3g on 2017/9/25.
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LinearLayout mSignin;
     private LinearLayout mSignup;
     private Button mSignInButton;
+    private TextView mLogin_bt;
     private Button mRegisterBt;
     private Button yanzhengma;
     TextView signOnText;
@@ -247,6 +249,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void initView() {
+        mLogin_bt=(TextView)findViewById(R.id.login_bt);
         mSignInButton = (Button) findViewById(R.id.sign_in_button);
         mRegisterBt=(Button)findViewById(R.id.sign_up_button);
         signOnText = (TextView) findViewById(R.id.sign_up_text);
@@ -263,6 +266,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         back.setOnClickListener(this);
         mRegisterBt.setOnClickListener(this);
         yanzhengma.setOnClickListener(this);
+        mLogin_bt.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -288,6 +292,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         //成功
                     }
                 });*/
+                break;
+
+            case R.id.login_bt:
+
+               /* OkhttpUtil.login(电话，密码).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        //登录失败
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                            if (response.isSuccessful()){
+                                //登录成功
+                                *//**
+                                 * 1 .使用广播更新上一个界面
+                                 * 2.存储用户信息 //SharedPerferenceUtil.saveUserInfo(getApplication(),//电话，//密码);
+                                 *//*
+                            }
+                    }
+                });
+                */
                 break;
         }
     }

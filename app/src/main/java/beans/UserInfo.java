@@ -6,13 +6,14 @@ package beans;
  */
 
 public class UserInfo {
-    private static String id="";
+
+    private static Long id;
     private static String userName="";
     private static boolean sex;
     private static String signature="";
     private static String faviconUrl="";//头像url
-    private static String attentionNum="";//关注数
-    private static String fansNum="";//粉丝数
+    private static int attentionNum;//关注数
+    private static int fansNum;//粉丝数
     private static int provinceId;
 
     private static int cityId;
@@ -21,11 +22,11 @@ public class UserInfo {
     private static String provinceName="";//省名
     private static String districtName="";//区名
 
-    public static String getId() {
+    public static Long getId() {
         return id;
     }
 
-    public static void setId(String id) {
+    public static void setId(Long id) {
         UserInfo.id = id;
     }
 
@@ -61,19 +62,19 @@ public class UserInfo {
         UserInfo.faviconUrl = faviconUrl;
     }
 
-    public static String getAttentionNum() {
+    public static int getAttentionNum() {
         return attentionNum;
     }
 
-    public static void setAttentionNum(String attentionNum) {
+    public static void setAttentionNum(int attentionNum) {
         UserInfo.attentionNum = attentionNum;
     }
 
-    public static String getFansNum() {
+    public static int getFansNum() {
         return fansNum;
     }
 
-    public static void setFansNum(String fansNum) {
+    public static void setFansNum(int fansNum) {
         UserInfo.fansNum = fansNum;
     }
 
