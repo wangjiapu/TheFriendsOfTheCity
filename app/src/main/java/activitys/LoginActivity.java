@@ -55,6 +55,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     AppCompatSpinner citySpinner;
     AppCompatSpinner countySpinner;
 
+    ArrayList<String> countyName;
+    ArrayAdapter<String> countyAdapter;
+    ArrayList<String> cityName;
+    ArrayAdapter<String> cityAdapter;
 
     ArrayList<String> provinceName;
     ArrayAdapter<String> provinceAdapter;
@@ -72,11 +76,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    if (!InfoLists.PInfos.isEmpty()) {
+                        InfoLists.PInfos.clear();
+                        ProvinceInfo p = new ProvinceInfo();
+                        p.setProvinceName("省");
+                        InfoLists.PInfos.add(p);
+                        provinceName.clear();
+                    }
                     JsonParserUtil.getAllProvince(msg.obj.toString());
-
+                    while (provinceName.isEmpty()) {
+                        for (int i = 0; i < InfoLists.PInfos.size(); i++) {
+                            String s = InfoLists.PInfos.get(i).getProvinceName();
+                            provinceName.add(s);
+                        }
+                    }
+                    provinceAdapter.notifyDataSetChanged();
                     break;
                 case 1:
+                    if (!InfoLists.CInfos.isEmpty()) {
+                        InfoLists.CInfos.clear();
+                        CityInfo c = new CityInfo();
+                        c.setCityName("市");
+                        InfoLists.CInfos.add(c);
+                        cityName.clear();
+                    }
                     JsonParserUtil.getCitiesFromPro(msg.obj.toString());
+                    while (cityName.isEmpty()) {
+                        for (int i = 0; i < InfoLists.CInfos.size(); i++) {
+                            String s = InfoLists.CInfos.get(i).getCityName();
+                            cityName.add(s);
+                        }
+                    }
+                    cityAdapter.notifyDataSetChanged();
                     break;
                 case 2:
                     JsonParserUtil.getDistrictsFromCity(msg.obj.toString());
