@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LinearLayout mSignup;
     private Button mSignInButton;
     private Button mRegisterBt;
+    private Button yanzhengma;
     TextView signOnText;
     //-_-
     Button back;
@@ -315,6 +316,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mSignin = (LinearLayout) findViewById(R.id.sign_in_layout);
         mSignup = (LinearLayout) findViewById(R.id.sign_up_layout);
         back = (Button) findViewById(R.id.chuce_back_button);
+        yanzhengma = (Button) findViewById(R.id.send_yanzhengma);
         mSignin.setVisibility(View.VISIBLE);
         mSignup.setVisibility(View.INVISIBLE);
     }
@@ -323,6 +325,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signOnText.setOnClickListener(this);
         back.setOnClickListener(this);
         mRegisterBt.setOnClickListener(this);
+        yanzhengma.setOnClickListener(this);
     }
 
     @Override
