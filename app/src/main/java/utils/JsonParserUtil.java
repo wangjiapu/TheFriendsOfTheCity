@@ -2,14 +2,21 @@ package utils;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import beans.BookInfo;
 import beans.CityInfo;
 import beans.DistrictsInfo;
 import beans.InfoLists;
 import beans.ProvinceInfo;
+import beans.UserInfo;
 
 /**
  * Created by PUJW on 2017/9/26.
@@ -98,6 +105,79 @@ public class JsonParserUtil {
         }
     }
 
+    public static void getInterestBookList(String s,int flag){
+        if (TextUtils.isEmpty(s)){
+            return;
+        }
+        JSONObject jsonObject= null;
+        try {
+            jsonObject = new JSONObject(s);
+            String msg=jsonObject.getString("code");
+            if (msg.equals("200")){
+                JSONArray array=jsonObject.getJSONArray("bookInfoList");
+                for (int i=0;i<array.length();i++){
+                    JSONObject jj=array.getJSONObject(i);
+                    Gson gson=new Gson();
+                    BookInfo b=gson.fromJson(jj.toString(),BookInfo.class);
+                  switch (flag){
+                      case 0://兴趣书
+                          InfoLists.BInfos.add(b);
+                          break;
+                      case 1:
+                          InfoLists.SameBInfos.add(b);
+                          break;
+                  }
+
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void getInterestUserList(String s){
+        if (TextUtils.isEmpty(s)){
+            return;
+        }
+        JSONObject jsonObject= null;
+        try {
+            jsonObject = new JSONObject(s);
+            String msg=jsonObject.getString("code");
+            if (msg.equals("200")){
+                JSONArray array=jsonObject.getJSONArray("userInfoList");
+                for (int i=0;i<array.length();i++){
+                    JSONObject jj=array.getJSONObject(i);
+                    Gson gson=new Gson();
+                    UserInfo u=gson.fromJson(jj.toString(), UserInfo.class);
+                    InfoLists.UInfos.add(u);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void getSameCityBookList(String s){
+        if (TextUtils.isEmpty(s)){
+            return;
+        }
+        JSONObject jsonObject= null;
+        try {
+            jsonObject = new JSONObject(s);
+            String msg=jsonObject.getString("code");
+            if (msg.equals("200")){
+                JSONArray array=jsonObject.getJSONArray("bookInfoList");
+                for (int i=0;i<array.length();i++){
+                    JSONObject jj=array.getJSONObject(i);
+                    Gson gson=new Gson();
+                    UserInfo u=gson.fromJson(jj.toString(), UserInfo.class);
+                    InfoLists.UInfos.add(u);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     public static boolean sendSMSOk(String s){
         String code=null;
         if (TextUtils.isEmpty(s)) {
@@ -113,5 +193,11 @@ public class JsonParserUtil {
             return true;
         }
         return false;
+    }
+
+    private static String longTodate(Long l){
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date dt=new Date(l*1000);
+        return simpleDateFormat.format(dt);
     }
 }

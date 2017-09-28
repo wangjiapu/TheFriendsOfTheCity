@@ -28,7 +28,69 @@ public class OkhttpUtil {
 
     private static final String LoginUserInfo="/user/getLoginUserInfo";
 
-    public static Request getRequest(String url,RequestBody body){
+    private static final String InterestBooks="/bookInfo/getInterestBooks";
+
+    private static final String InterestUesr="/user/getInterestUser";
+
+    private static final String SameCityBooks="/bookInfo/getSameCityBooks";
+
+    public static String getSameCityBooks() {
+        return SameCityBooks;
+    }
+
+    public static OkHttpClient getOkHttpClient() {
+        return okHttpClient;
+    }
+
+    public static void setOkHttpClient(OkHttpClient okHttpClient) {
+        OkhttpUtil.okHttpClient = okHttpClient;
+    }
+
+    public static String getHOST() {
+        return HOST;
+    }
+
+    public static String getAllProvince() {
+        return AllProvince;
+    }
+
+    public static String getCitiesByProvinceId() {
+        return CitiesByProvinceId;
+    }
+
+    public static String getDistrictsByCityId() {
+        return DistrictsByCityId;
+    }
+
+    public static String getSms() {
+        return Sms;
+    }
+
+    public static String getRegister() {
+        return Register;
+    }
+
+    public static String getLogin() {
+        return Login;
+    }
+
+    public static String getQuit() {
+        return Quit;
+    }
+
+    public static String getLoginUserInfo() {
+        return LoginUserInfo;
+    }
+
+    public static String getInterestBooks() {
+        return InterestBooks;
+    }
+
+    public static String getInterestUesr() {
+        return InterestUesr;
+    }
+
+    public static Request getRequest(String url, RequestBody body){
         Request request=new Request.Builder().url(url)
                 .addHeader("Content-Type","application/x-www-form-urlencoded")
                 .post(body)
@@ -76,47 +138,30 @@ public class OkhttpUtil {
         return getOkHttpClient().newCall(request);
     }
 
-    public static OkHttpClient getOkHttpClient() {
-        return okHttpClient;
+
+    public static Call requestInterestBooks(String num){
+        RequestBody body=new FormBody.Builder()
+                .add("num",num)
+                .build();
+        Request request=getRequest(getHOST()+getInterestBooks(),body);
+        return getOkHttpClient().newCall(request);
     }
 
-    public static void setOkHttpClient(OkHttpClient okHttpClient) {
-        OkhttpUtil.okHttpClient = okHttpClient;
+    public static Call requestInterestUsers(String num){
+        RequestBody body=new FormBody.Builder()
+                .add("num",num)
+                .build();
+        Request request=getRequest(getHOST()+getInterestUesr(),body);
+        return  getOkHttpClient().newCall(request);
     }
 
-    public static String getHOST() {
-        return HOST;
+    public static Call requestSameCityBooks(String num,String cityname){
+        RequestBody body=new FormBody.Builder()
+                .add("num",num)
+                .add("cityName",cityname)
+                .build();
+        Request request=getRequest(getHOST()+getSameCityBooks(),body);
+        return  getOkHttpClient().newCall(request);
     }
 
-    public static String getAllProvince() {
-        return AllProvince;
-    }
-
-    public static String getCitiesByProvinceId() {
-        return CitiesByProvinceId;
-    }
-
-    public static String getDistrictsByCityId() {
-        return DistrictsByCityId;
-    }
-
-    public static String getSms() {
-        return Sms;
-    }
-
-    public static String getRegister() {
-        return Register;
-    }
-
-    public static String getLogin() {
-        return Login;
-    }
-
-    public static String getQuit() {
-        return Quit;
-    }
-
-    public static String getLoginUserInfo() {
-        return LoginUserInfo;
-    }
 }

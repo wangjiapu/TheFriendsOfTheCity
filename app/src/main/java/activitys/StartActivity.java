@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -21,12 +22,17 @@ import beans.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import utils.JsonParserUtil;
 import utils.OkhttpUtil;
 import utils.SharedPerferenceUtil;
 
 
 public class StartActivity extends AppCompatActivity {
 
+    private static int flag=0;
+    private static synchronized  void count(){
+        flag++;
+    }
 
     private Handler handler=new Handler(){
         @Override
@@ -51,16 +57,46 @@ public class StartActivity extends AppCompatActivity {
                        UserInfo.setCityName(jo.getString("cityName"));
                        UserInfo.setProvinceName(jo.getString("provinceName"));
                        UserInfo.setDistrictName(jo.getString("districtName"));
-
-                       Intent i=new Intent(StartActivity.this,MainActivity.class);
-                       i.putExtra("isLogin","1");
-                       startActivity(i);
+                       isGo();
                    }
                } catch (JSONException e) {
                    e.printStackTrace();
                }
+           }else if (msg.what==2){
+               if (msg.obj.equals("获取图书错误！")){
+                    //出错
+                   Log.e("22222","error");
+                   isGo();
+               }else{
+                   Log.e("222222",msg.obj.toString());
+                   JsonParserUtil.getInterestBookList(msg.obj.toString(),0);
+                   isGo();
+               }
+           }else if (msg.what==3){
+               if (msg.obj.equals("获取感兴趣的人失败!")){
+                   //出错
+                   Log.e("3333","error");
+                   isGo();
+               }else{
+                   Log.e("3333333",msg.obj.toString());
+                   JsonParserUtil.getInterestUserList(msg.obj.toString());
+                   isGo();
+               }
+           }else if (msg.what==4){
+               if (msg.obj.equals("获取同城书友书失败!")){
+                   Log.e("444444","error");
+                   isGo();
+               }else{
+                   Log.e("4444444",msg.obj.toString());
+                   JsonParserUtil.getInterestBookList(msg.obj.toString(),1);
+                   isGo();
+               }
            }
         }
+
+
+
+
     };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,13 +104,58 @@ public class StartActivity extends AppCompatActivity {
         WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
                 localLayoutParams.flags);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         initData();
     }
 
+
     private void initData() {
+
+
+       /* //获取地理位置得到市名称
+        String cityName=null;
+
+        OkhttpUtil.requestSameCityBooks("7",cityName).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                sendMessage("获取同城书友书失败!",4);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()){
+                    sendMessage(response.body().string(),5);
+                }
+            }
+        });*/
+        OkhttpUtil.requestInterestUsers("3").enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                sendMessage("获取感兴趣的人失败!",3);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()){
+                    sendMessage(response.body().string(),3);
+                }
+            }
+        });
+
+
+        OkhttpUtil.requestInterestBooks("3").enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                sendMessage("获取图书错误！",2);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()){
+                   sendMessage(response.body().string(),2);
+                }
+            }
+        });
 
         String[] info= SharedPerferenceUtil.getUserInfo(getApplication());
         if (info[0].equals("") && info[1].equals("")){
@@ -88,31 +169,44 @@ public class StartActivity extends AppCompatActivity {
             },2000);
             return;
         }
-
         OkhttpUtil.login(info[0],info[1]).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Message m=new Message();
-                m.what=0;
-                handler.sendMessage(m);
+               sendMessage("error",0);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()){
-                    Message msg=new Message();
-                    msg.what=1;
-                    msg.obj=response.body().string();
-                    handler.sendMessage(msg);
+                   sendMessage(response.body().string(),1);
                 }
             }
         });
+
+
     }
 
+
+    private void sendMessage(String s,int f){
+        Message m=new Message();
+        m.what=f;
+        m.obj=s;
+        handler.sendMessage(m);
+    }
+
+    private void isGo() {
+        count();
+        if (flag==2){
+            Intent i=new Intent(StartActivity.this,MainActivity.class);
+            i.putExtra("isLogin","1");
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
         finish();
     }
+
 }

@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        showMenuItem(navigationView.getMenu(),false);
+        showMenuItem(navigationView.getMenu(),true);
         navigationView.setNavigationItemSelectedListener(this);
 
         mNavigation = (BottomNavigationView) findViewById(R.id.navigation_bar);
