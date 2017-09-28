@@ -34,6 +34,8 @@ public class StartActivity extends AppCompatActivity {
         flag++;
     }
 
+    private static String result="0";
+
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -41,6 +43,7 @@ public class StartActivity extends AppCompatActivity {
                Toast.makeText(StartActivity.this, "刷新失败!",Toast.LENGTH_SHORT).show();
            }else if (msg.what==1){
                try {
+                   Log.e("11111111",msg.obj.toString());
                    JSONObject j=new JSONObject(msg.obj.toString());
                    if (j.getString("code").equals("200")){
                        JSONObject jo=j.getJSONObject("userInfo");
@@ -57,6 +60,10 @@ public class StartActivity extends AppCompatActivity {
                        UserInfo.setCityName(jo.getString("cityName"));
                        UserInfo.setProvinceName(jo.getString("provinceName"));
                        UserInfo.setDistrictName(jo.getString("districtName"));
+                       result="1";
+                       isGo();
+                   }else {
+                       result="0";
                        isGo();
                    }
                } catch (JSONException e) {
@@ -158,17 +165,7 @@ public class StartActivity extends AppCompatActivity {
         });
 
         String[] info= SharedPerferenceUtil.getUserInfo(getApplication());
-        if (info[0].equals("") && info[1].equals("")){
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent i=new Intent(StartActivity.this,MainActivity.class);
-                    i.putExtra("isLogin","0");
-                    startActivity(i);
-                }
-            },2000);
-            return;
-        }
+
         OkhttpUtil.login(info[0],info[1]).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -177,9 +174,8 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()){
-                   sendMessage(response.body().string(),1);
-                }
+                sendMessage(response.body().string(),1);
+
             }
         });
 
@@ -196,9 +192,9 @@ public class StartActivity extends AppCompatActivity {
 
     private void isGo() {
         count();
-        if (flag==2){
+        if (flag==3){
             Intent i=new Intent(StartActivity.this,MainActivity.class);
-            i.putExtra("isLogin","1");
+            i.putExtra("isLogin",result);
             startActivity(i);
         }
     }
