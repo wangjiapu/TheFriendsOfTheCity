@@ -13,6 +13,13 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimaryDark">
 
+        <ImageView
+            android:id="@+id/leftitem"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/leftmenu"/>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_margin="10dp"
@@ -21,13 +28,6 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:layout_height="match_parent">
-
-            <!--<Button-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:background="@mipmap/category"-->
-                <!--android:layout_width="25dp"-->
-                <!--android:layout_height="25dp"-->
-                <!--android:layout_gravity="center_vertical"/>-->
 
             <EditText
                 android:layout_marginLeft="15dp"

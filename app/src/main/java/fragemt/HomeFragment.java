@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import activitys.BookDetailsActivity;
 import activitys.BorrowMoreActivity;
+import activitys.MainActivity;
 import adapters.BookItemAdapter;
 import adapters.HomeBookAdapter;
 import beans.Book;
@@ -40,6 +42,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private FrameLayout mFrameLayout1;
     private FrameLayout mFrameLayout2;
     private FrameLayout mFrameLayout3;
+    private ImageView mLeftMenu;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,7 +54,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-
 
         HomeBookAdapter bookAdapter = new HomeBookAdapter(mBooks);
         recyclerView.setAdapter(bookAdapter);
@@ -76,9 +78,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mFrameLayout1.setOnClickListener(this);
         mFrameLayout2.setOnClickListener(this);
         mFrameLayout3.setOnClickListener(this);
+        mLeftMenu.setOnClickListener(this);
     }
 
     private void initView(View view) {
+        mLeftMenu=view.findViewById(R.id.leftitem);
         mToolbar = (Toolbar) view.findViewById(R.id.home_tool_bar);
         more = (TextView) view.findViewById(R.id.home_more1);
         mFrameLayout1 = (FrameLayout) view.findViewById(R.id.home_book_frame1);
@@ -102,6 +106,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(activity, BookDetailsActivity.class);
                 //传Book
                 startActivity(intent);
+                break;
+            case R.id.leftitem:
+                getActivity().onBackPressed();
                 break;
         }
     }

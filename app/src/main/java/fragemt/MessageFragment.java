@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
@@ -29,6 +30,7 @@ public class MessageFragment extends Fragment {
     private RecyclerView mRecyclerView=null;
     private MessageAdapter mMessageAdapter;
 
+    private ImageView mLeftMenu;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +42,18 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView=inflater.inflate(R.layout.fragment_message,container,false);
         initView(rootView);
+        mLeftMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
         return rootView;
     }
 
 
     private void initView(View rootView) {
+        mLeftMenu=rootView.findViewById(R.id.leftitem);
         mRecyclerView = rootView.findViewById(R.id.message_linkman);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mMessageAdapter = new MessageAdapter(getActivity(),messageAttenList);

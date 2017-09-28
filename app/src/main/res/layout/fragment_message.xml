@@ -16,18 +16,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--<Button-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:background="@mipmap/category"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--android:layout_width="28dp"-->
-                <!--android:layout_height="28dp"/>-->
+
+            <ImageView
+                android:id="@+id/leftitem"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/leftmenubook"/>
+
             <TextView
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="10dp"
                 android:textColor="@color/white"
                 android:layout_gravity="center_vertical"
                 android:text="消息"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
