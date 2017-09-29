@@ -303,4 +303,18 @@ public class OkhttpUtil {
         return  getOkHttpClient().newCall(request);
     }
 
+    private static final String CollectionBook="/bookInfo/getCollectionBooks";
+
+    public static String getCollectionBook() {
+        return CollectionBook;
+    }
+
+    public static Call requestCollectionBook(String num){
+        RequestBody body=new FormBody.Builder()
+                .add("rows",num)
+                .build();
+        Request request=getRequest(getHOST()+getCollectionBook(),body);
+        return  getOkHttpClient().newCall(request);
+    }
+
 }

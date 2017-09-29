@@ -138,30 +138,6 @@ public class StartActivity extends AppCompatActivity {
                    JsonParserUtil.getInterestBookList(msg.obj.toString(),1);
                    isGo();
                }
-           }else if (msg.what==5){
-               if (msg.obj.equals("readed")){
-                   isGo();
-               }else{
-                  Log.e("readed",msg.obj.toString());
-                   JsonParserUtil.getInterestBookList(msg.obj.toString(),2);
-                   isGo();
-               }
-           }else if (msg.what==6){
-               if (msg.obj.equals("clloc")){
-                   isGo();
-               }else{
-                   Log.e("clloc",msg.obj.toString());
-                   JsonParserUtil.getInterestBookList(msg.obj.toString(),4);
-                   isGo();
-               }
-           }else if (msg.what==7){
-               if (msg.obj.equals("borrowed")){
-                   isGo();
-               }else{
-                   Log.e("borrowed",msg.obj.toString());
-                   JsonParserUtil.getInterestBookList(msg.obj.toString(),3);
-                   isGo();
-               }
            }
         }
     };
@@ -290,17 +266,7 @@ public class StartActivity extends AppCompatActivity {
         });
 
 
-        OkhttpUtil.requestReadedBook("3").enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                sendMessage("readed",5);
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                sendMessage(response.body().string(),5);
-            }
-        });
 
 
     }
