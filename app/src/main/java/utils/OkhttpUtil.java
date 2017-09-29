@@ -253,6 +253,7 @@ public class OkhttpUtil {
     public static String getBorrowedBooks() {
         return borrowedBooks;
     }
+
     public static Call requestBorrowedBook(String num){
         RequestBody body=new FormBody.Builder()
                 .add("rows",num)
@@ -287,7 +288,6 @@ public class OkhttpUtil {
         return readedBook;
     }
 
-
     public static Call requestReadedBook(String num){
         RequestBody body=new FormBody.Builder()
                 .add("rows",num)
@@ -295,6 +295,5 @@ public class OkhttpUtil {
         Request request=getRequest(getHOST()+getReadedBook(),body);
         return  getOkHttpClient().newCall(request);
     }
-
 
 }

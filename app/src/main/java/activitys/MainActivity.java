@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         initView();
         initFragment();
 
-        if (flag.equals("0")){
+        if (flag.equals("1")){
             GlideUtil.loadImag(this,mLoginImage, UserInfo.getFaviconUrl());
             mUserName.setText(UserInfo.getUserName());
             mUserSig.setText(UserInfo.getSignature());
