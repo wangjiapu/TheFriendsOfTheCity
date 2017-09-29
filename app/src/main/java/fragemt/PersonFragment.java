@@ -7,6 +7,8 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.xiyou3g.thefriendsofthecity.R;
@@ -98,11 +101,16 @@ public class PersonFragment extends Fragment{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                return true;
+            case R.id.nav_person_edit:
+                Toast.makeText(getActivity(),"点击编辑",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_person_search:
+                Toast.makeText(getActivity(),"点击搜索",Toast.LENGTH_SHORT).show();
+                break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
