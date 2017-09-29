@@ -18,6 +18,8 @@ import java.util.List;
 
 import adapters.MsgAdapter;
 import beans.Msg;
+import utils.MsgManager;
+import xiyou.mobile.User;
 /**
  * 聊天页面
  * */
@@ -29,6 +31,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private Button back;
     private RecyclerView msgRecyclerView;
     private MsgAdapter adapter;
+    private String hisName="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +52,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
 
         msgRecyclerView.setLayoutManager(layoutmanager);
-        adapter = new MsgAdapter(msgList);
+        adapter = new MsgAdapter(hisName);
         msgRecyclerView.setAdapter(adapter);
 
         ActionBar actionBar = getSupportActionBar();
@@ -64,11 +67,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.send:
                 String content = inputTest.getText().toString();
                 if(!"".equals(content)){
-                    Msg msg = new Msg(content,Msg.TYPE_SENT);
-                    msgList.add(msg);
-                    adapter.notifyItemInserted(msgList.size() - 1);
-                    msgRecyclerView.scrollToPosition(msgList.size() - 1);
-                    inputTest.setText("");
+                    MsgManager.get().sendMsg(hisName,content);
+                    msgRecyclerView.scrollToPosition(adapter.getItemCount() - 1);//将RecyclerView定位到最后一行
+                    inputTest.setText("");//清空输入框
                 }
                 break;
             case R.id.chat_bar_back:

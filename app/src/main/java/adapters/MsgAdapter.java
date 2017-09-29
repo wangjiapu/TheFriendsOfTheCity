@@ -13,6 +13,7 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 import java.util.List;
 
 import beans.Msg;
+import utils.MsgManager;
 
 /**
  * Created by heshu on 2017/8/27.
@@ -20,6 +21,19 @@ import beans.Msg;
 
 public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder>{
     private List<Msg> mMsgList;
+    private View mCurrent;
+    private MsgManager.MsgListener mL=new MsgManager.MsgListener() {
+        @Override
+        public void onReceive(String name, String content) {
+            mCurrent.post(new Runnable() {
+                @Override
+                public void run() {
+                    notifyAdd();
+                }
+            });
+        }
+    };
+
     //ViewHolder内部类
     static class ViewHolder extends RecyclerView.ViewHolder{
         LinearLayout leftLayout;
@@ -37,8 +51,27 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder>{
     }
 
     //MsgAdapter构造方法,参数是消息类的集合
-    public MsgAdapter(List<Msg> msgList){
-        mMsgList = msgList;
+    public MsgAdapter(String name){
+        mMsgList= MsgManager.get().getList(name);
+    }
+
+    public void notifyAdd()
+    {
+        notifyItemInserted(mMsgList.size()-1);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mCurrent=recyclerView;
+        MsgManager.get().addOnMsgListener(mL);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        mCurrent=null;
+        MsgManager.get().removeListener(mL);
     }
 
     @Override
