@@ -23,6 +23,7 @@ public class ColletionFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView=inflater.inflate(R.layout.fragment_colletion,container,false);
+
         return rootView;
     }
 }

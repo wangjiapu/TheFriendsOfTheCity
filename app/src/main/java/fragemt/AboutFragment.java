@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
+import beans.UserInfo;
+
 /**
  * Created by heshu on 2017/9/23.
  * 个人主页--关于
@@ -33,8 +35,9 @@ public class AboutFragment extends Fragment {
         signTextview = (TextView)rootView.findViewById(R.id.sign_textview);
         locationTextview = (TextView)rootView.findViewById(R.id.location_textview);
 
-        signTextview.setText(" 如果你无法简洁的表达你的想法，那只说明你还不够了解他\n         --阿尔伯特·爱因斯坦");
-        locationTextview.setText(" 陕西省西安市");
+        //signTextview.setText(" 如果你无法简洁的表达你的想法，那只说明你还不够了解他\n         --阿尔伯特·爱因斯坦");
+        signTextview.setText(UserInfo.getSignature());
+        locationTextview.setText(UserInfo.getProvinceName()+UserInfo.getCityName());
     }
 
     @Override

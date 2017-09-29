@@ -54,6 +54,8 @@ public class BorrowMoreActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(BorrowMoreActivity.this, BookDetailsActivity.class);
+                intent.putExtra("bookInfoId",mBooks.get(position).getId()+"");
+                //intent.putExtra("bookInfoId","3");
                 startActivity(intent);
             }
         });

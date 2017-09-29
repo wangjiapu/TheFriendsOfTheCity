@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ import activitys.EditorActivity;
 import activitys.MainActivity;
 import activitys.PersonActivity;
 import adapters.PersonPagerAdater;
+import beans.UserInfo;
+import utils.GlideUtil;
 
 
 /**
@@ -56,6 +59,11 @@ public class PersonFragment extends Fragment{
     private AboutFragment aFragment;
     private ReleaseFragment rFragment;
     private PersonPagerAdater personPagerAdapter;
+
+    private TextView username;
+    private TextView follow;
+    private ImageView touxiang;
+    private Button guanzhu;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,6 +75,15 @@ public class PersonFragment extends Fragment{
     }
 
     private void initView(View rootView) {
+
+        touxiang=rootView.findViewById(R.id.persom_head);
+        GlideUtil.loadImag(getActivity(),touxiang, UserInfo.getFaviconUrl());
+        username=rootView.findViewById(R.id.user_name);
+        username.setText(UserInfo.getUserName());
+        follow=rootView.findViewById(R.id.person_follow);
+        follow.setText("关注"+UserInfo.getAttentionNum()+"|粉丝"+UserInfo.getFansNum());
+
+        guanzhu=rootView.findViewById(R.id.person_follow_button);
         toolbar =(Toolbar)rootView.findViewById(R.id.peraon_toolbar_view);
         collapsingToolbar = (CollapsingToolbarLayout) rootView.findViewById(R.id.peraon_toolbar);
 

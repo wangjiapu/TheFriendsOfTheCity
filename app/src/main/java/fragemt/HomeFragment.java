@@ -208,17 +208,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.home_book_frame1:
                 Intent intent1 = new Intent(activity, BookDetailsActivity.class);
-                intent1.putExtra("BookInfo", (Serializable) InfoLists.BInfos.get(0));
+                //intent1.putExtra()
+                Log.e("rrrrrrrrr",InfoLists.BInfos.get(0).getId()+"");
+                intent1.putExtra("bookInfoId", InfoLists.BInfos.get(0).getId()+"");
                 startActivity(intent1);
                 break;
             case R.id.home_book_frame2:
                 Intent intent2 = new Intent(activity, BookDetailsActivity.class);
-                intent2.putExtra("BookInfo", (Serializable) InfoLists.BInfos.get(1));
+                intent2.putExtra("bookInfoId", InfoLists.BInfos.get(1).getId()+"");
                 startActivity(intent2);
                 break;
             case R.id.home_book_frame3:
                 Intent intent3 = new Intent(activity, BookDetailsActivity.class);
-                intent3.putExtra("BookInfo", (Serializable) InfoLists.BInfos.get(2));
+                intent3.putExtra("bookInfoId", InfoLists.BInfos.get(2).getId()+"");
                 startActivity(intent3);
                 break;
             case R.id.leftitem:

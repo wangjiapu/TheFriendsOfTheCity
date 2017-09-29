@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
     private BottomNavigationView mNavigation;
     private NavigationView navigationView;
     private Fragment mHomeFragment = new HomeFragment();
-    private Fragment mBookFragment = new BookFragment();
+    private BookFragment mBookFragment = new BookFragment();
     private Fragment mMessageFragment = new MessageFragment();
     private Fragment mNowFragment = null;
 
@@ -102,6 +102,17 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         mLocalBroadcastManager.unregisterReceiver(mLocalReceive);
+    }
+
+    public void fresh()
+    {
+        mBookFragment.fresh();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fresh();
     }
 
     @Override

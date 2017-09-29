@@ -49,6 +49,11 @@ public class BookFragment extends Fragment implements View.OnClickListener{
         return rootView;
     }
 
+    public void fresh()
+    {
+        bookAdapter.notifyDataSetChanged();
+    }
+
     private void initView(View view) {
         viewPager = (ViewPager)view.findViewById(R.id.book_vp);
         tabLayout = (TabLayout)view.findViewById(R.id.book_tab);

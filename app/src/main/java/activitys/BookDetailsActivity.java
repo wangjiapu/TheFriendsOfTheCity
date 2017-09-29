@@ -2,23 +2,37 @@ package activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import beans.BookDetailInfo;
 import beans.BookInfo;
 import beans.Msg;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import utils.GlideUtil;
+import utils.OkhttpUtil;
 
 public class BookDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -32,15 +46,22 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
     LinearLayout after;
     LinearLayout before;
     ImageView beforeSixin;
-    BookInfo mBookInfo;
+    BookDetailInfo mBookInfo;
+
+    private ImageView bookImage;
+
+    private TextView bookName;
+    private TextView authorName;
+    private TextView returnTime;
+    private TextView details;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_bookdetails);
 
-        Bundle bundle = this.getIntent().getExtras();
-        mBookInfo = (BookInfo) bundle.get("BookInfo");
+       String s= getIntent().getStringExtra("bookInfoId");
+        initData(s);
 
         star = (ImageView) findViewById(R.id.star);
         yellowStar = (ImageView) findViewById(R.id.yellow_star);
@@ -62,22 +83,34 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
         beforeSixin.setOnClickListener(this);
 
 
-        ImageView bookImage = (ImageView) findViewById(R.id.book_image);
-        GlideUtil.loadImag(this, bookImage, mBookInfo.getCoverImg());
-
-        TextView bookName = (TextView) findViewById(R.id.book_name);
-        bookName.setText(mBookInfo.getBookName());
-
-        TextView authorName = (TextView) findViewById(R.id.dt_author);
-        authorName.setText(mBookInfo.getAuthor());
-
-        TextView returnTime = (TextView) findViewById(R.id.dt_return_time);
-        returnTime.setText(mBookInfo.getGmtCreate());
-
-        TextView details = (TextView) findViewById(R.id.textView8);
+         bookImage = (ImageView) findViewById(R.id.book_image);
+         bookName = (TextView) findViewById(R.id.book_name);
+         authorName = (TextView) findViewById(R.id.dt_author);
+         returnTime = (TextView) findViewById(R.id.dt_return_time);
+         details = (TextView) findViewById(R.id.textView8);
 //        details.setText(mBookInfo.);
 
 
+    }
+
+    private void initData(String bookInfoId) {
+        OkhttpUtil.requestdetailBookInfo(bookInfoId).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.e("eeee",response.body().string());
+               if (response.isSuccessful()){
+                  /* Message m=new Message();
+                   m.what=1;
+                   m.obj=response.body().string();
+                   handler.sendMessage(m);*/
+               }
+            }
+        });
     }
 
     @Override
@@ -121,5 +154,33 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
                 finish();
                 break;
         }
+    }
+
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what==1){
+                try {
+                    JSONObject j=new JSONObject(msg.obj.toString());
+                    if (j.getString("code").equals("200")){
+                        Log.e("bookInfoDetail",msg.obj.toString());
+                        /*Gson g=new Gson();
+                        mBookInfo=g.fromJson(j.getJSONObject("bookInfoDetail").toString(), BookDetailInfo.class);
+                        setdata();*/
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                Toast.makeText(BookDetailsActivity.this,"加载失败!",Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+    private void setdata() {
+        GlideUtil.loadImag(this, bookImage, mBookInfo.getCoverImg());
+        bookName.setText(mBookInfo.getBookName());
+        authorName.setText(mBookInfo.getAuthor());
+        returnTime.setText(mBookInfo.getGmtCreate());
     }
 }

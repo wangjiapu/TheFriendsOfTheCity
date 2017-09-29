@@ -27,6 +27,6 @@ public class InfoLists {
 
     public static List<BookInfo> collectionedInfos=new ArrayList<>();//已收藏
 
-    public static List<BookInfo> borrowedInfos=new ArrayList<>();//已读完
+    public static List<BookInfo> borrowedInfos=new ArrayList<>();//已借阅
 
 }

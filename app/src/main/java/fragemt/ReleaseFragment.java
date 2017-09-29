@@ -64,7 +64,7 @@ public class ReleaseFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return mBookList.size();
+            return 0;
         }
     }
 

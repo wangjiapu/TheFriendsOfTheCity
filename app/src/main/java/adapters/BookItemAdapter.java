@@ -62,10 +62,9 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHo
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.book_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
 
-
-        holder.bookImage.setOnClickListener(new View.OnClickListener() {
+       /* holder.bookImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -73,7 +72,7 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHo
                 //还要传递Book
                 parent.getContext().startActivity(intent);
             }
-        });
+        });*/
 
         return holder;
     }
@@ -93,7 +92,6 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHo
                     mOnItemClickListener.onItemClick(holder.itemView, position);
                 }
             });
-
 
         }
     }
