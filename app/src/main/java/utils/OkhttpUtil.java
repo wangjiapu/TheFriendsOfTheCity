@@ -261,4 +261,40 @@ public class OkhttpUtil {
         return  getOkHttpClient().newCall(request);
     }
 
+
+
+
+    private static final String finishReadBook="/bookInfo/finishReadBook";
+
+    private static String getFinishReadBook() {
+        return finishReadBook;
+    }
+    public static Call requestFinishReadBook(String bookinfoid){
+        RequestBody body=new FormBody.Builder()
+                .add("bookInfoId",bookinfoid)
+                .build();
+        Request request=getRequest(getHOST()+getFinishReadBook(),body);
+        return  getOkHttpClient().newCall(request);
+    }
+
+
+
+
+
+    private static final String readedBook="/bookInfo/getReadBooks";
+
+    private static String getReadedBook() {
+        return readedBook;
+    }
+
+
+    public static Call requestReadedBook(String num){
+        RequestBody body=new FormBody.Builder()
+                .add("rows",num)
+                .build();
+        Request request=getRequest(getHOST()+getReadedBook(),body);
+        return  getOkHttpClient().newCall(request);
+    }
+
+
 }
