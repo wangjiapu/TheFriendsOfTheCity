@@ -45,6 +45,7 @@ import utils.JsonParserUtil;
 import utils.MobileNumUtil;
 import utils.OkhttpUtil;
 import utils.SharedPerferenceUtil;
+import xiyou.mobile.User;
 
 /**
  * Created by xiyou3g on 2017/9/25.
@@ -440,6 +441,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                     JSONObject j= null;
                                     try {
                                         j = new JSONObject(response.body().string());
+                                        Log.e("xx",j.toString());
                                         JSONObject jo=j.getJSONObject("userInfo");
                                         UserInfo.setId(jo.getLong("id"));
                                         UserInfo.setUserName("userName");
@@ -454,11 +456,20 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                         UserInfo.setCityName(jo.getString("cityName"));
                                         UserInfo.setProvinceName(jo.getString("provinceName"));
                                         UserInfo.setDistrictName(jo.getString("districtName"));
+                                        new Thread()
+                                        {
+                                            @Override
+                                            public void run() {
+                                                User.register(teleNum,password, ""+UserInfo.getId());    //注册失败,已经注册过可以直接登录
+                                                User.login(teleNum,password);
+                                                super.run();
+                                            }
+                                        }.start();
 
                                     } catch (JSONException e) {
-                                        e.printStackTrace();
+                                        Log.e("xx",e.toString());
                                     } catch (IOException e) {
-                                        e.printStackTrace();
+                                        Log.e("xx",e.toString());
                                     }
                                     LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
                                     Intent intent = new Intent("com.example.broadcast.LOGIN");
@@ -487,7 +498,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
             Message message=new Message();
             message.what=3;
             handler.sendMessage(message);
-            return;
+            //return;
         }
         RequestBody telBody=new FormBody.Builder()
                 .add("userTel",tel)

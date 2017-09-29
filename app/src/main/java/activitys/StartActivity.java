@@ -37,6 +37,7 @@ import okhttp3.Response;
 import utils.JsonParserUtil;
 import utils.OkhttpUtil;
 import utils.SharedPerferenceUtil;
+import xiyou.mobile.User;
 
 /**
  * 开始的图片
@@ -79,6 +80,16 @@ public class StartActivity extends AppCompatActivity {
                        UserInfo.setCityName(jo.getString("cityName"));
                        UserInfo.setProvinceName(jo.getString("provinceName"));
                        UserInfo.setDistrictName(jo.getString("districtName"));
+                       final String[] info= SharedPerferenceUtil.getUserInfo(getApplication());
+                       new Thread()
+                       {
+                           @Override
+                           public void run() {
+                               User.register(info[0],info[1], ""+UserInfo.getId());    //注册失败,已经注册过可以直接登录
+                               User.login(info[0],info[1]);
+                               super.run();
+                           }
+                       }.start();
                        result="1";
                        isGo();
                    }else {
@@ -208,7 +219,9 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                sendMessage(response.body().string(),1);
+                String r=response.body().string();
+                Log.e("xx",r);
+                sendMessage(r,1);
             }
         });
 
