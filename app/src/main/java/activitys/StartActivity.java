@@ -40,6 +40,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import utils.GlideUtil;
 import utils.JsonParserUtil;
+import utils.MsgManager;
 import utils.OkhttpUtil;
 import utils.SharedPerferenceUtil;
 import xiyou.mobile.User;
@@ -95,6 +96,7 @@ public class StartActivity extends AppCompatActivity {
                            public void run() {
                                User.register(info[0],info[1], ""+UserInfo.getId());    //注册失败,已经注册过可以直接登录
                                User.login(info[0],info[1]);
+                               MsgManager.init();
                                super.run();
                            }
                        }.start();

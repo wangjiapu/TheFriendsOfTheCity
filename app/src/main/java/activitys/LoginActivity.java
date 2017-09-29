@@ -43,6 +43,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import utils.JsonParserUtil;
 import utils.MobileNumUtil;
+import utils.MsgManager;
 import utils.OkhttpUtil;
 import utils.SharedPerferenceUtil;
 import xiyou.mobile.User;
@@ -464,6 +465,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                             public void run() {
                                                 User.register(teleNum,password, ""+UserInfo.getId());    //注册失败,已经注册过可以直接登录
                                                 User.login(teleNum,password);
+                                                MsgManager.init();
                                                 super.run();
                                             }
                                         }.start();
