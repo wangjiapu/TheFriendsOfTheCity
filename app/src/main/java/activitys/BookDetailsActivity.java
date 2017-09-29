@@ -61,6 +61,7 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
         button.setOnClickListener(this);
         beforeSixin.setOnClickListener(this);
 
+
         ImageView bookImage = (ImageView) findViewById(R.id.book_image);
         GlideUtil.loadImag(this, bookImage, mBookInfo.getCoverImg());
 
