@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
@@ -23,9 +24,12 @@ import activitys.BookDetailsActivity;
 import activitys.BorrowMoreActivity;
 import activitys.MainActivity;
 import activitys.StartActivity;
+import beans.BookInfo;
+import beans.InfoLists;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import utils.GlideUtil;
 import utils.JsonParserUtil;
 import utils.OkhttpUtil;
 
@@ -42,6 +46,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
     private FrameLayout mFrameLayout2;
     private FrameLayout mFrameLayout3;
     private TextView unlisted;
+    private ProgressBar progressBar;
 
     private static int count=0;
     private static synchronized  void addcount(){
@@ -71,6 +76,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
     };
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         flag=MainActivity.getFlag();
         if (flag.equals("1")){
             initData();
@@ -108,6 +114,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
         mFrameLayout2 = (FrameLayout) view.findViewById(R.id.book_frame2);
         mFrameLayout3 = (FrameLayout) view.findViewById(R.id.book_frame3);
         unlisted = (TextView) view.findViewById(R.id.book_unlisted);
+        progressBar =(ProgressBar)view.findViewById(R.id.book_progress_bar);
     }
     private void showInitView() {
         if(flag.equals("1")){
@@ -117,11 +124,12 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
             mFrameLayout3.setVisibility(View.VISIBLE);
             unlisted.setVisibility(View.GONE);
         }else {
+            progressBar.setVisibility(View.VISIBLE);
             more.setVisibility(View.GONE);
             mFrameLayout1.setVisibility(View.GONE);
             mFrameLayout2.setVisibility(View.GONE);
             mFrameLayout3.setVisibility(View.GONE);
-            unlisted.setVisibility(View.VISIBLE);
+            unlisted.setVisibility(View.GONE);
         }
     }
 
@@ -192,10 +200,33 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
     private void go() {
         addcount();
         if (count==3){
-            //隐藏进度调
+            progressBar.setVisibility(View.GONE);
+            more.setVisibility(View.VISIBLE);
+            mFrameLayout1.setVisibility(View.VISIBLE);
+            mFrameLayout2.setVisibility(View.VISIBLE);
+            mFrameLayout3.setVisibility(View.VISIBLE);
+            unlisted.setVisibility(View.GONE);
+            //Log.e( "go: ", InfoLists.borrowedInfos.get(2).getBookName());
             //显示书的信息
-
+            //initLoad(mFrameLayout1,bookLink.get(0));
+            //initLoad(mFrameLayout2,bookLink.get(1));
+            //initLoad(mFrameLayout3,bookLink.get(2));
         }
     }
+
+    private void initLoad(FrameLayout mFrameLayout, BookInfo bookInfo) {
+        ImageView bookImage = (ImageView)mFrameLayout.findViewById(R.id.book_image_view);
+        TextView bookName = (TextView)mFrameLayout.findViewById(R.id.book_text_view_name);
+        TextView bookAuthor = (TextView)mFrameLayout.findViewById(R.id.book_text_view_author);
+        TextView bookMarks = (TextView)mFrameLayout.findViewById(R.id.book_text_view_marks);
+        TextView bookDate = (TextView)mFrameLayout.findViewById(R.id.book_text_view_date);
+
+        GlideUtil.loadImag(getActivity(),bookImage,bookInfo.getCoverImg());
+        bookName.setText(bookInfo.getBookName());
+        bookAuthor.setText(bookInfo.getAuthor());
+        bookMarks.setText(bookInfo.getGmtModified());
+        bookDate.setText(bookInfo.getGmtCreate());
+    }
+
 
 }
