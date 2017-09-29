@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +34,10 @@ import activitys.MainActivity;
 import adapters.BookItemAdapter;
 import adapters.HomeBookAdapter;
 import beans.Book;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+import utils.OkhttpUtil;
 
 /**
  * Created by xiyou3g on 2017/9/17.
@@ -67,8 +74,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onClick(View v){
 
                 String content = inputTest.getText().toString();
-                if(!"".equals(content)){
+                if(!TextUtils.isEmpty(content)){
                     inputTest.setText("");//清空输入框
+                    OkhttpUtil.searchBooks(content).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.e("search","error");
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (response.isSuccessful()){
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                    }
+                                });
+                            }
+                        }
+                    });
                 }
             }
         });

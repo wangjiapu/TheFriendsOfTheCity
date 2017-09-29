@@ -39,6 +39,12 @@ public class OkhttpUtil {
     private static final String uploadImage="/picture/uploadPicture";
     private static final String searchBook="/bookInfo/searchBooks";
 
+    private static final String detailBookInfo="/bookInfo/getDetailBookInfo";
+
+    public static String getDetailBookInfo() {
+        return detailBookInfo;
+    }
+
     public static String getSearchBook() {
         return searchBook;
     }
@@ -214,6 +220,44 @@ public class OkhttpUtil {
                 .add("bookName",bookname)
                 .build();
         Request request=getRequest(getHOST()+getSearchBook(),body);
+        return  getOkHttpClient().newCall(request);
+    }
+
+    /**
+     * 获取书本详细信息
+     * @param bookinfoid
+     * @return
+     */
+    public static Call requestdetailBookInfo(String bookinfoid){
+        RequestBody body=new FormBody.Builder()
+                .add("bookInfoId",bookinfoid)
+                .build();
+        Request request=getRequest(getHOST()+getDetailBookInfo(),body);
+        return  getOkHttpClient().newCall(request);
+    }
+
+    private static final String pubishedBook="/bookInfo/getPublishedBook";
+
+    public static String getPubishedBook() {
+        return pubishedBook;
+    }
+    public static Call requestpublishedBook(){
+        RequestBody body=new FormBody.Builder()
+                .build();
+        Request request=getRequest(getHOST()+getPubishedBook(),body);
+        return  getOkHttpClient().newCall(request);
+    }
+
+    private static final String borrowedBooks ="/bookInfo/getBorrowedBooks";
+
+    public static String getBorrowedBooks() {
+        return borrowedBooks;
+    }
+    public static Call requestBorrowedBook(String num){
+        RequestBody body=new FormBody.Builder()
+                .add("rows",num)
+                .build();
+        Request request=getRequest(getHOST()+getPubishedBook(),body);
         return  getOkHttpClient().newCall(request);
     }
 
