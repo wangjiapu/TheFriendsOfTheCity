@@ -31,7 +31,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private Button back;
     private RecyclerView msgRecyclerView;
     private MsgAdapter adapter;
-    private String hisName="";
+    private String hisName="14";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +51,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         back=(Button)findViewById(R.id.chat_bar_back);
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
 
+        hisName=getIntent().getStringExtra("usrId");
+        if (hisName==null||hisName.equals(""))
+        {
+            hisName="14";
+        }
         msgRecyclerView.setLayoutManager(layoutmanager);
         adapter = new MsgAdapter(hisName);
         msgRecyclerView.setAdapter(adapter);
