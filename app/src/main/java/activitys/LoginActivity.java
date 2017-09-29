@@ -441,7 +441,6 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                     JSONObject j= null;
                                     try {
                                         j = new JSONObject(response.body().string());
-                                        Log.e("xx",j.toString());
                                         JSONObject jo=j.getJSONObject("userInfo");
                                         UserInfo.setId(jo.getLong("id"));
                                         UserInfo.setUserName("userName");
@@ -467,9 +466,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                         }.start();
 
                                     } catch (JSONException e) {
-                                        Log.e("xx",e.toString());
                                     } catch (IOException e) {
-                                        Log.e("xx",e.toString());
                                     }
                                     LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
                                     Intent intent = new Intent("com.example.broadcast.LOGIN");
@@ -498,7 +495,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
             Message message=new Message();
             message.what=3;
             handler.sendMessage(message);
-            //return;
+            return;
         }
         RequestBody telBody=new FormBody.Builder()
                 .add("userTel",tel)
