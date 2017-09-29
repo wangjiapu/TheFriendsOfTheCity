@@ -3,6 +3,7 @@ package utils;
 import java.io.File;
 import java.util.List;
 
+import cookies.CookiesManager;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -13,7 +14,10 @@ import okhttp3.RequestBody;
 
 public class OkhttpUtil {
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
-    private static OkHttpClient okHttpClient=new OkHttpClient();
+
+    private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .cookieJar(new CookiesManager()).build();
+
     private static final String HOST="http://bf.corefuture.cn/bookfriend";
 
     private static final String AllProvince="/place/getAllProvince";
@@ -26,19 +30,12 @@ public class OkhttpUtil {
     private static final String Sms="/user/sendSMS";
 
     private static final String Register="/user/register";
-
     private static final String Login="/user/login";
-
     private static final String Quit="/user/quit";
-
     private static final String LoginUserInfo="/user/getLoginUserInfo";
-
     private static final String InterestBooks="/bookInfo/getInterestBooks";
-
     private static final String InterestUesr="/user/getInterestUser";
-
     private static final String SameCityBooks="/bookInfo/getSameCityBooks";
-
     private static final String uploadImage="/picture/uploadPicture";
 
     public static String getUploadImage() {
@@ -49,13 +46,11 @@ public class OkhttpUtil {
         return SameCityBooks;
     }
 
+
     public static OkHttpClient getOkHttpClient() {
         return okHttpClient;
     }
 
-    public static void setOkHttpClient(OkHttpClient okHttpClient) {
-        OkhttpUtil.okHttpClient = okHttpClient;
-    }
 
     public static String getHOST() {
         return HOST;

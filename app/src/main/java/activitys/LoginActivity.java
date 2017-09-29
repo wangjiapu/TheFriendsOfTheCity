@@ -380,7 +380,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(Call call, final Response response) throws IOException {
                         //成功
                         final String responseData = response.body().string();
                         Gson gson = new Gson();
@@ -389,6 +389,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                             @Override
                             public void run() {
                                 if (!r.getCode().equals(200)) {
+                                    Log.e("conde",responseData+"");
                                     Toast.makeText(LoginActivity.this, r.getMsg(), Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(LoginActivity.this, r.getMsg(), Toast.LENGTH_SHORT).show();

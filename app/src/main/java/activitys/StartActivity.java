@@ -1,6 +1,7 @@
 package activitys;
 
 import android.Manifest;
+import android.app.Application;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ import utils.SharedPerferenceUtil;
 public class StartActivity extends AppCompatActivity {
 
 
-    String cityName = null;
+    String cityName = "西安市";
     public LocationClient mLocationClient;
     private BDAbstractLocationListener mListener;
 
@@ -127,15 +128,14 @@ public class StartActivity extends AppCompatActivity {
                 localLayoutParams.flags);
         super.onCreate(savedInstanceState);
 
-
+        app=getApplication();
         setContentView(R.layout.activity_start);
-        Intent i=new Intent(StartActivity.this,MainActivity.class);
-        //i.putExtra("isLogin",result);
-        i.putExtra("isLogin","0");
-        startActivity(i);
-      /*  mListener = new MyLocationListener();
-        initLocation();*/
-        permission();
+
+       /* mListener = new MyLocationListener();
+        initLocation();
+        permission();*/
+
+       initData();
 
     }
 
@@ -146,7 +146,6 @@ public class StartActivity extends AppCompatActivity {
 
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
-           // Log.e("1111111",bdLocation.getAddrStr()+"111111111");
             cityName = bdLocation.getCity().toString();
             Log.e("onReceiveLocation:", cityName);
             initData();
@@ -238,12 +237,13 @@ public class StartActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
+   /* @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLocationClient.stop();
-
-    }
+        if (mLocationClient.isStarted()){
+            mLocationClient.stop();
+        }
+    }*/
 
     private void initLocation() {
         mLocationClient = new LocationClient(getApplicationContext());
@@ -318,5 +318,10 @@ public class StartActivity extends AppCompatActivity {
                 break;
             default:
         }
+    }
+
+    private static Application app;
+    public static Application getApp(){
+        return app;
     }
 }
