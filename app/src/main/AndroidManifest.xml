@@ -45,7 +45,8 @@
         <activity android:name="activitys.BookDetailsActivity" />
         <activity android:name="activitys.ChatActivity"/>
         <activity android:name="activitys.LoginActivity"/>
-
+        <activity android:name="activitys.EditorActivity"/>
+        <activity android:name="activitys.SearchActivity"/>
         <service android:name="com.baidu.location.f"
                  android:enabled="true"
                  android:process=":remote">
