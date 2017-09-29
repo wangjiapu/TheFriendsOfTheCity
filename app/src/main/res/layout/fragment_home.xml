@@ -31,6 +31,7 @@
                 android:src="@mipmap/leftmenuhome"/>
 
             <EditText
+                android:id="@+id/home_input"
                 android:layout_marginStart="5dp"
                 android:background="@null"
                 android:layout_width="0dp"
@@ -39,7 +40,8 @@
                 android:maxLines="1"
                 android:inputType="text"/>
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/home_search"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="3dp"
                 android:layout_width="wrap_content"

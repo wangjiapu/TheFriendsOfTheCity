@@ -19,4 +19,6 @@ public class InfoLists {
     public static List<UserInfo> UInfos=new ArrayList<>();//感兴趣的人的列表
 
     public static List<BookInfo> SameBInfos=new ArrayList<>();
+
+    public static List<BookInfo> searchInfos=new ArrayList<>();
 }

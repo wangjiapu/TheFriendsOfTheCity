@@ -33,7 +33,6 @@ public class JsonParserUtil {
             String msg=jsonObject.getString("code");
             if (msg.equals("200")){
                 JSONArray array=jsonObject.getJSONArray("provinces");
-
                 for (int i=0;i<array.length();i++){
                     JSONObject jsonObject1=array.getJSONObject(i);
                     ProvinceInfo provinceInfo=new ProvinceInfo();

@@ -2,6 +2,7 @@ package fragemt;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,7 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +42,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private View rootView;
     private TextView more;
     private Toolbar mToolbar;
+    private EditText inputTest;
+    private ImageButton search;
     private FrameLayout mFrameLayout1;
     private FrameLayout mFrameLayout2;
     private FrameLayout mFrameLayout3;
@@ -57,6 +62,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         HomeBookAdapter bookAdapter = new HomeBookAdapter(mBooks);
         recyclerView.setAdapter(bookAdapter);
+        search.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+                String content = inputTest.getText().toString();
+                if(!"".equals(content)){
+                    inputTest.setText("");//清空输入框
+                }
+            }
+        });
         return rootView;
     }
 
@@ -85,6 +100,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mLeftMenu=view.findViewById(R.id.leftitem);
         mToolbar = (Toolbar) view.findViewById(R.id.home_tool_bar);
         more = (TextView) view.findViewById(R.id.home_more1);
+        search= (ImageButton) view.findViewById(R.id.home_search);
+        inputTest=(EditText) view.findViewById(R.id.home_input);
         mFrameLayout1 = (FrameLayout) view.findViewById(R.id.home_book_frame1);
         mFrameLayout2 = (FrameLayout) view.findViewById(R.id.home_book_frame2);
         mFrameLayout3 = (FrameLayout) view.findViewById(R.id.home_book_frame3);

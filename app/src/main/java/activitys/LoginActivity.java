@@ -24,6 +24,9 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 import com.google.gson.Gson;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,6 +34,7 @@ import beans.CityInfo;
 import beans.DistrictsInfo;
 import beans.InfoLists;
 import beans.ProvinceInfo;
+import beans.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -423,12 +427,35 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(Call call, final Response response) throws IOException {
                         if (response.isSuccessful()) {
                             SharedPerferenceUtil.saveUserInfo(getApplication(), teleNum, password);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    JSONObject j= null;
+                                    try {
+                                        j = new JSONObject(response.body().string());
+                                        JSONObject jo=j.getJSONObject("userInfo");
+                                        UserInfo.setId(jo.getLong("id"));
+                                        UserInfo.setUserName("userName");
+                                        UserInfo.setSex(jo.getBoolean("sex"));
+                                        UserInfo.setSignature(jo.getString("signature"));
+                                        UserInfo.setFaviconUrl(jo.getString("faviconUrl"));
+                                        UserInfo.setAttentionNum(jo.getInt("attentionNum"));
+                                        UserInfo.setFansNum(jo.getInt("fansNum"));
+                                        UserInfo.setProvinceId(jo.getInt("provinceId"));
+                                        UserInfo.setCityId(jo.getInt("cityId"));
+                                        UserInfo.setDistrictId(jo.getInt("districtId"));
+                                        UserInfo.setCityName(jo.getString("cityName"));
+                                        UserInfo.setProvinceName(jo.getString("provinceName"));
+                                        UserInfo.setDistrictName(jo.getString("districtName"));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                     LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
                                     Intent intent = new Intent("com.example.broadcast.LOGIN");
                                     localBroadcastManager.sendBroadcast(intent);

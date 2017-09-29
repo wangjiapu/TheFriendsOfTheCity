@@ -37,6 +37,11 @@ public class OkhttpUtil {
     private static final String InterestUesr="/user/getInterestUser";
     private static final String SameCityBooks="/bookInfo/getSameCityBooks";
     private static final String uploadImage="/picture/uploadPicture";
+    private static final String searchBook="/bookInfo/searchBooks";
+
+    public static String getSearchBook() {
+        return searchBook;
+    }
 
     public static String getUploadImage() {
         return uploadImage;
@@ -197,6 +202,19 @@ public class OkhttpUtil {
         MultipartBody body=builder.build();
         Request request=getRequest(getHOST()+getUploadImage(),body);
         return getOkHttpClient().newCall(request);
+    }
+
+    /**
+     * 搜索书籍
+     * @param bookname
+     * @return
+     */
+    public static Call searchBooks(String bookname){
+        RequestBody body=new FormBody.Builder()
+                .add("bookName",bookname)
+                .build();
+        Request request=getRequest(getHOST()+getSearchBook(),body);
+        return  getOkHttpClient().newCall(request);
     }
 
 }
