@@ -150,6 +150,14 @@ public class StartActivity extends AppCompatActivity {
 
        initData();
 
+//        Intent i=new Intent(StartActivity.this,MainActivity.class);
+        //i.putExtra("isLogin",result);
+//        i.putExtra("isLogin","0");
+//        startActivity(i);
+//        mListener = new MyLocationListener();
+//        initLocation();
+//        permission();
+
     }
 
 

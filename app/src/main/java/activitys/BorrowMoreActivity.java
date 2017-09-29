@@ -22,12 +22,15 @@ import java.util.List;
 import adapters.BookAdapter;
 import adapters.BookItemAdapter;
 import beans.Book;
+import beans.BookInfo;
+import beans.InfoLists;
+
 /**
  * 书架-更多
  * */
 public class BorrowMoreActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private List<Book> mBooks = new ArrayList<>();
+    private List<BookInfo> mBooks = new ArrayList<>();
     private Button mButton;
     TextView titleText;
     @Override
@@ -60,9 +63,8 @@ public class BorrowMoreActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initBooks() {
-        for (int i = 0; i < 20; i++) {
-            Book book = new Book("书名", "作者", "书书书书书");
-            mBooks.add(book);
+        for (BookInfo bookInfo : InfoLists.BInfos) {
+            mBooks.add(bookInfo);
         }
     }
 

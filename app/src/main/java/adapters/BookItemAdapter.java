@@ -16,6 +16,7 @@ import java.util.List;
 import activitys.BookDetailsActivity;
 import activitys.BorrowMoreActivity;
 import beans.Book;
+import beans.BookInfo;
 import fragemt.BorrowedFragment;
 
 /**
@@ -23,7 +24,7 @@ import fragemt.BorrowedFragment;
  */
 
 public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHolder> {
-    private List<Book> mBooks;
+    private List<BookInfo> mBooks;
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
@@ -53,7 +54,7 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHo
         }
     }
 
-    public BookItemAdapter(List<Book> books) {
+    public BookItemAdapter(List<BookInfo> books) {
         mBooks = books;
     }
 
@@ -79,10 +80,10 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Book book = mBooks.get(position);
+        BookInfo book = mBooks.get(position);
         holder.bookImage.setImageResource(R.mipmap.zsz);
         holder.bookName.setText(book.getBookName());
-        holder.bookAuthor.setText(book.getAuthorName());
+        holder.bookAuthor.setText(book.getAuthor());
 
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

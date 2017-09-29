@@ -31,8 +31,7 @@
             android:id="@+id/book_text_view_name"
             android:layout_width="match_parent"
             android:maxLines="1"
-            android:layout_height="wrap_content"
-            android:text="texttexttext"/>
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_marginRight="2dp"
@@ -40,24 +39,21 @@
             android:id="@+id/book_text_view_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="texttext"/>
+            android:maxLines="1"/>
         <TextView
             android:layout_marginRight="2dp"
             android:layout_marginLeft="2dp"
             android:id="@+id/book_text_view_marks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="texttext"/>
+            android:maxLines="1"/>
         <TextView
             android:layout_marginRight="2dp"
             android:layout_marginLeft="2dp"
             android:id="@+id/book_text_view_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="texttexttext"/>
+            android:maxLines="1"/>
     </LinearLayout>
     </FrameLayout>
 

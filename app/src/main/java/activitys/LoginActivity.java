@@ -372,6 +372,8 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                 teleNum = teleNumText.getText().toString();
                 password = passwordText.getText().toString();
                 yzNum = yzNumText.getText().toString();
+
+                Log.d("45632", "onClick: " + teleNum + password + yzNum);
                 /**
                  * 验证信息
                  */
@@ -420,6 +422,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                 teleNum = teleNumText.getText().toString();
                 password = passwordText.getText().toString();
                 yzNum = yzNumText.getText().toString();
+                Log.d("45632", "onClick: " + teleNum + password + yzNum);
                 OkhttpUtil.login(teleNum, password).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {

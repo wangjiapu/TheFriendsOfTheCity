@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.Msg;
-/**
- * 书籍详情页
- * */
+
 public class BookDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     ImageView star;
