@@ -1,5 +1,6 @@
 package fragemt;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import activitys.EditorActivity;
 import activitys.MainActivity;
 import activitys.PersonActivity;
 import adapters.PersonPagerAdater;
@@ -103,6 +105,8 @@ public class PersonFragment extends Fragment{
         switch (item.getItemId()) {
             case R.id.nav_person_edit:
                 Toast.makeText(getActivity(),"点击编辑",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), EditorActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_person_search:
                 Toast.makeText(getActivity(),"点击搜索",Toast.LENGTH_SHORT).show();

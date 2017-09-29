@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -33,7 +34,11 @@ import java.util.List;
 import beans.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import utils.GlideUtil;
 import utils.JsonParserUtil;
 import utils.OkhttpUtil;
 import utils.SharedPerferenceUtil;
@@ -48,6 +53,9 @@ public class StartActivity extends AppCompatActivity {
     String cityName = "西安市";
     public LocationClient mLocationClient;
     private BDAbstractLocationListener mListener;
+
+    private ImageView imageView;
+    private String mainurl="";
 
     private static int flag=0;
     private static synchronized  void count(){
@@ -128,6 +136,30 @@ public class StartActivity extends AppCompatActivity {
                    JsonParserUtil.getInterestBookList(msg.obj.toString(),1);
                    isGo();
                }
+           }else if (msg.what==5){
+               if (msg.obj.equals("readed")){
+                   isGo();
+               }else{
+                  Log.e("readed",msg.obj.toString());
+                   JsonParserUtil.getInterestBookList(msg.obj.toString(),2);
+                   isGo();
+               }
+           }else if (msg.what==6){
+               if (msg.obj.equals("clloc")){
+                   isGo();
+               }else{
+                   Log.e("clloc",msg.obj.toString());
+                   JsonParserUtil.getInterestBookList(msg.obj.toString(),4);
+                   isGo();
+               }
+           }else if (msg.what==7){
+               if (msg.obj.equals("borrowed")){
+                   isGo();
+               }else{
+                   Log.e("borrowed",msg.obj.toString());
+                   JsonParserUtil.getInterestBookList(msg.obj.toString(),3);
+                   isGo();
+               }
            }
         }
     };
@@ -143,7 +175,33 @@ public class StartActivity extends AppCompatActivity {
 
         app=getApplication();
         setContentView(R.layout.activity_start);
+        imageView=(ImageView) findViewById(R.id.startimage);
 
+        RequestBody body=new FormBody.Builder()
+                .build();
+        final Request request=OkhttpUtil.getRequest(OkhttpUtil.getHOST()+"/picture/getMainPicture",body);
+        OkhttpUtil.getOkHttpClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mainurl=response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            JSONObject object=new JSONObject(mainurl);
+                            GlideUtil.loadMainImag(StartActivity.this,imageView,object.getString("picUrl"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+        });
        /* mListener = new MyLocationListener();
         initLocation();
         permission();*/
@@ -160,9 +218,6 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-
-
-
     public class MyLocationListener extends BDAbstractLocationListener {
 
         @Override
@@ -174,6 +229,21 @@ public class StartActivity extends AppCompatActivity {
 
     }
     private void initData() {
+
+        String[] info= SharedPerferenceUtil.getUserInfo(getApplication());
+
+        OkhttpUtil.login(info[0],info[1]).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                sendMessage("error",0);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                sendMessage(response.body().string(),1);
+            }
+        });
+
 
         OkhttpUtil.requestSameCityBooks("7",cityName).enqueue(new Callback() {
             @Override
@@ -217,19 +287,16 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        String[] info= SharedPerferenceUtil.getUserInfo(getApplication());
 
-        OkhttpUtil.login(info[0],info[1]).enqueue(new Callback() {
+        OkhttpUtil.requestReadedBook("3").enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-               sendMessage("error",0);
+                sendMessage("readed",5);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String r=response.body().string();
-                Log.e("xx",r);
-                sendMessage(r,1);
+                sendMessage(response.body().string(),5);
             }
         });
 

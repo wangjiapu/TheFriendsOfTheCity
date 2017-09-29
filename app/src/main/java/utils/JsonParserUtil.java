@@ -125,6 +125,15 @@ public class JsonParserUtil {
                       case 1:
                           InfoLists.SameBInfos.add(b);
                           break;
+                      case 2://获取已经读完的书
+                          InfoLists.readedInfos.add(b);
+                          break;
+                      case 3://已借阅
+                          InfoLists.borrowedInfos.add(b);
+                          break;
+                      case 4://已收藏
+                          InfoLists.collectionedInfos.add(b);
+                          break;
                   }
 
                 }
@@ -194,9 +203,4 @@ public class JsonParserUtil {
         return false;
     }
 
-    private static String longTodate(Long l){
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date dt=new Date(l*1000);
-        return simpleDateFormat.format(dt);
-    }
 }
