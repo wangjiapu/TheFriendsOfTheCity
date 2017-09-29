@@ -19,7 +19,14 @@ public class InfoLists {
 
     public static List<UserInfo> UInfos=new ArrayList<>();//感兴趣的人的列表
 
-    public static List<BookInfo> SameBInfos=new ArrayList<>();
+    public static List<BookInfo> SameBInfos=new ArrayList<>();//同城
 
-    public static List<BookInfo> searchInfos=new ArrayList<>();
+    public static List<BookInfo> searchInfos=new ArrayList<>();//搜索
+
+    public static List<BookInfo> readedInfos=new ArrayList<>();//已读完
+
+    public static List<BookInfo> collectionedInfos=new ArrayList<>();//已收藏
+
+    public static List<BookInfo> borrowedInfos=new ArrayList<>();//已读完
+
 }
