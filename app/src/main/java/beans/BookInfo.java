@@ -1,8 +1,10 @@
 package beans;
 
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class BookInfo {
+public class BookInfo implements Serializable {
     private Long id;
 
     private String bookName;

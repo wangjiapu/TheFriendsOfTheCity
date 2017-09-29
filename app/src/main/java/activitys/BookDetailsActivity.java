@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
@@ -15,7 +16,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import beans.BookInfo;
 import beans.Msg;
+import utils.GlideUtil;
 
 public class BookDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -29,11 +32,15 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
     LinearLayout after;
     LinearLayout before;
     ImageView beforeSixin;
+    BookInfo mBookInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_bookdetails);
+
+        Bundle bundle = this.getIntent().getExtras();
+        mBookInfo = (BookInfo) bundle.get("BookInfo");
 
         star = (ImageView) findViewById(R.id.star);
         yellowStar = (ImageView) findViewById(R.id.yellow_star);
@@ -53,6 +60,23 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
         qingqiu.setOnClickListener(this);
         button.setOnClickListener(this);
         beforeSixin.setOnClickListener(this);
+
+        ImageView bookImage = (ImageView) findViewById(R.id.book_image);
+        GlideUtil.loadImag(this, bookImage, mBookInfo.getCoverImg());
+
+        TextView bookName = (TextView) findViewById(R.id.book_name);
+        bookName.setText(mBookInfo.getBookName());
+
+        TextView authorName = (TextView) findViewById(R.id.dt_author);
+        authorName.setText(mBookInfo.getAuthor());
+
+        TextView returnTime = (TextView) findViewById(R.id.dt_return_time);
+        returnTime.setText(mBookInfo.getGmtCreate());
+
+        TextView details = (TextView) findViewById(R.id.textView8);
+//        details.setText(mBookInfo.);
+
+
     }
 
     @Override
