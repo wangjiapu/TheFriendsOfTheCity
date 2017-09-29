@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/editor_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/editor_back"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="3dp"
+                android:text="编辑资料"
+                android:textColor="@color/white"
+                android:textSize="25dp" />
+            <View
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryDark"/>
+            <Button
+                android:id="@+id/editor_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textSize="23dp"
+                android:textColor="@color/white"
+                android:text="更新" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/edit_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/atten_image"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            />
+        <TextView
+            android:id="@+id/edit_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="昵称"
+            android:layout_below="@+id/edit_image"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            />
+        <EditText
+            android:id="@+id/edit_edit_test1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_text1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:hint="请输入您的昵称"
+            />
+        <TextView
+            android:id="@+id/edit_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="签名"
+            android:layout_below="@+id/edit_edit_test1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            />
+        <EditText
+            android:id="@+id/edit_edit_test2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_text2"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:hint="说些什么来介绍自己吧"
+            />
+    </RelativeLayout>
+
+</LinearLayout>
