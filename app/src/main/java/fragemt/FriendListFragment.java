@@ -88,20 +88,10 @@ public class FriendListFragment extends Fragment {
                 public void onClick(View view) {
                     int position = holder.getAdapterPosition();
                     MessageAtten messageAtten = mMessageAttenList.get(position);
-
-                    initMsgs(messageAtten.getNews());//加载消息集合
                     Intent intent = new Intent();
                     intent.setClass(view.getContext(), ChatActivity.class);
                     intent.putExtra("msgList", (Serializable) msgList);
                     mContext.startActivity(intent);
-                }
-
-                private void initMsgs(String name) {
-
-                    Msg msg1 = new Msg("Hello 主人" ,Msg.TYPE_RECEIVED);
-                    msgList.add(msg1);
-                    Msg msg2 = new Msg("Hello " +name,Msg.TYPE_SENT);
-                    msgList.add(msg2);
                 }
             });
         }

@@ -2,13 +2,10 @@ package utils;
 
 import android.support.v4.util.ArrayMap;
 
-import com.example.xiyou3g.thefriendsofthecity.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import beans.MessageAtten;
 import beans.Msg;
 import xiyou.mobile.User;
 
@@ -28,7 +25,7 @@ public class MsgManager {
         public void onDataSet(String data, String name) {
             //mMeddageAttenList.add(new MessageAtten(data, R.mipmap.atten_image,name, new SimpleDateFormat("HH:mm:ss").format(new Date())));
             ArrayList<Msg> list=getList(name);
-            list.add(new Msg(data,Msg.TYPE_RECEIVED));
+            list.add(new Msg(data,Msg.TYPE_RECEIVED,new SimpleDateFormat("HH:mm:ss").format(new Date())));
 
             for (int i=0;i<mLs.size();i++)
             {
@@ -42,6 +39,11 @@ public class MsgManager {
         return mDefault;
     }
 
+    public static void init()
+    {
+        User.get().addOnDataSetListener(get().mL);
+    }
+
     public void addOnMsgListener(MsgListener l){
         mLs.add(l);
     }
@@ -53,8 +55,8 @@ public class MsgManager {
 
     public void sendMsg(String name,String content)
     {
-        mAllMsgMap.get(name).add(new Msg(content,Msg.TYPE_SENT));
-        //User.get().sendPlayData(content,name);
+        mAllMsgMap.get(name).add(new Msg(content,Msg.TYPE_SENT,new SimpleDateFormat("HH:mm:ss").format(new Date())));
+        User.get().sendPlayData(content,name);
     }
 
     public ArrayList<Msg> getList(String name)
@@ -70,10 +72,15 @@ public class MsgManager {
         return list;
     }
 
-    private static class Key
+    public ArrayList<Key> getList()
     {
-        String name;
-        ArrayList<Msg> msg;
+        return mAllMsg;
+    }
+
+    public static class Key
+    {
+        public String name;
+        public ArrayList<Msg> msg;
 
         Key(String n,ArrayList m)
         {
