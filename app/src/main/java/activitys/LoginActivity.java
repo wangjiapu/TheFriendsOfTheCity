@@ -338,8 +338,8 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
         mSignup = (LinearLayout) findViewById(R.id.sign_up_layout);
         back = (ImageView) findViewById(R.id.chuce_back_button);
         yanzhengma = (Button) findViewById(R.id.send_yanzhengma);
-        passwordText = (EditText) findViewById(R.id.zhuce_password_edit_text);
-        teleNumText = (EditText) findViewById(R.id.zhuce_phone_edit_text);
+        passwordText = (EditText) findViewById(R.id.password_edit_text);
+        teleNumText = (EditText) findViewById(R.id.account_edit_text);
         yzNumText = (EditText) findViewById(R.id.yanzhengma_edit_text);
         mSignin.setVisibility(View.VISIBLE);
         mSignup.setVisibility(View.INVISIBLE);
@@ -357,10 +357,14 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
             case R.id.sign_up_text:
                 mSignin.setVisibility(View.INVISIBLE);
                 mSignup.setVisibility(View.VISIBLE);
+                passwordText = (EditText) findViewById(R.id.zhuce_password_edit_text);
+                teleNumText = (EditText) findViewById(R.id.zhuce_phone_edit_text);
                 break;
             case R.id.chuce_back_button:
                 mSignup.setVisibility(View.INVISIBLE);
                 mSignin.setVisibility(View.VISIBLE);
+                passwordText = (EditText) findViewById(R.id.password_edit_text);
+                teleNumText = (EditText) findViewById(R.id.account_edit_text);
                 break;
 
             case R.id.sign_up_button:  //完善
