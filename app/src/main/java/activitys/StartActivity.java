@@ -123,14 +123,22 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         mListener = new MyLocationListener();
         initLocation();
-
-        //initData();
+        if (!mLocationClient.isStarted()) {
+            mLocationClient.start();
+        }
+//        initData();
     }
 
+    public class MyLocationListener extends BDAbstractLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            cityName = bdLocation.getCity().toString();
+            Log.e("onReceiveLocation:", cityName);
+            initData();
+        }
 
+    }
     private void initData() {
-
-        //获取地理位置得到市名称
 
         OkhttpUtil.requestSameCityBooks("7",cityName).enqueue(new Callback() {
             @Override
@@ -215,23 +223,6 @@ public class StartActivity extends AppCompatActivity {
         finish();
     }
 
-
-
-    private void initLocation() {
-        mLocationClient = new LocationClient(getApplicationContext());
-        initLocationOptions();
-        mLocationClient.registerLocationListener(mListener);
-    }
-    private void initLocationOptions() {
-        LocationClientOption option = new LocationClientOption();
-        option.setIsNeedAddress(true);
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        option.setCoorType("bd09ll");
-        int span=1000;
-        option.setScanSpan(span);
-        mLocationClient.setLocOption(option);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -239,37 +230,22 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-    public class MyLocationListener extends BDAbstractLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation bdLocation) {
-            if (bdLocation==null){
-                Log.e("11111","定位失败!");
-                return;
-            }
-            Log.e("ooooooooo",bdLocation.getCity()+"00000");
-            StringBuilder currentPosition = new StringBuilder();
-            currentPosition.append("市：").append(bdLocation.getCity()).append("\n");
-            cityName = currentPosition.toString();
-            Log.e("onReceiveLocation:", bdLocation.getCity());
-           // new LocationName().getLocationOK();
-        }
-
+    private void initLocation() {
+        mLocationClient = new LocationClient(getApplicationContext());
+        LocationClientOption option = new LocationClientOption();
+        option.setIsNeedAddress(true);
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setCoorType("bd09ll");
+//        int span=1000;
+//        option.setScanSpan(span);
+        mLocationClient.setLocOption(option);
+        mLocationClient.registerLocationListener(mListener);
     }
 
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (!mLocationClient.isStarted()) {
-            mLocationClient.start();
-        }
-    }
 
-     private class LocationName{
-         void getLocationOK(){
-            initData();
-        }
-    }
+
+
 
 }

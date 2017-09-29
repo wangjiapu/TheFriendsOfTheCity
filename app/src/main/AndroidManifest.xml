@@ -22,7 +22,7 @@
         android:theme="@style/MainTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="BRcFoaG0jPazgVuXoDwlBqt5AzQAha2P"/>
+            android:value="UhpioV353mEz7LzTSoLZNLyG9YsuOzYf"/>
 
         <activity
             android:name="activitys.StartActivity"
@@ -45,11 +45,12 @@
         <activity android:name="activitys.BookDetailsActivity" />
         <activity android:name="activitys.ChatActivity"/>
         <activity android:name="activitys.LoginActivity"/>
+
         <service android:name="com.baidu.location.f"
                  android:enabled="true"
                  android:process=":remote">
-
         </service>
+
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 
