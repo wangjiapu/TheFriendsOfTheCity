@@ -31,6 +31,7 @@ import java.util.List;
 import activitys.BookDetailsActivity;
 import activitys.BorrowMoreActivity;
 import activitys.MainActivity;
+import activitys.SearchActivity;
 import adapters.BookItemAdapter;
 import adapters.HomeBookAdapter;
 import beans.Book;
@@ -88,7 +89,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                            //dfnkndskl
+                                        Intent intent = new Intent(getActivity() , SearchActivity.class);
+
                                     }
                                 });
                             }
