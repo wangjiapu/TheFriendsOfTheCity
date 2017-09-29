@@ -36,7 +36,7 @@ public class StartActivity extends AppCompatActivity {
 
     String cityName = null;
     public LocationClient mLocationClient;
-    public BDAbstractLocationListener mListener = new MyLocationListener();
+    private BDAbstractLocationListener mListener;
 
     private static int flag=0;
     private static synchronized  void count(){
@@ -110,15 +110,7 @@ public class StartActivity extends AppCompatActivity {
                }
            }
         }
-
-
-
-
     };
-
-
-
-
 
 
     @Override
@@ -129,20 +121,15 @@ public class StartActivity extends AppCompatActivity {
                 localLayoutParams.flags);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        mListener = new MyLocationListener();
+        initLocation();
 
-        /**
-         * 这里这里 不知道怎么放
-         */
-        initLocation();//获取的太慢了 还没获取完没赋值 的感觉就往下走了 不知道怎么改
-        Log.d("jnhbgv", cityName);
-
-        initData();
+        //initData();
     }
 
 
     private void initData() {
 
-        Log.d("jnhbgv", "initData: "+cityName);
         //获取地理位置得到市名称
 
         OkhttpUtil.requestSameCityBooks("7",cityName).enqueue(new Callback() {
@@ -154,14 +141,10 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()){
-                    sendMessage(response.body().string(),5);
+                    sendMessage(response.body().string(),4);
                 }
             }
         });
-
-
-
-
 
         OkhttpUtil.requestInterestUsers("3").enqueue(new Callback() {
             @Override
@@ -202,7 +185,6 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 sendMessage(response.body().string(),1);
-
             }
         });
 
@@ -220,7 +202,7 @@ public class StartActivity extends AppCompatActivity {
 
     private void isGo() {
         count();
-        if (flag==3){
+        if (flag==4){
             Intent i=new Intent(StartActivity.this,MainActivity.class);
             i.putExtra("isLogin",result);
             startActivity(i);
@@ -260,13 +242,21 @@ public class StartActivity extends AppCompatActivity {
     public class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
+            if (bdLocation==null){
+                Log.e("11111","定位失败!");
+                return;
+            }
+            Log.e("ooooooooo",bdLocation.getCity()+"00000");
             StringBuilder currentPosition = new StringBuilder();
             currentPosition.append("市：").append(bdLocation.getCity()).append("\n");
             cityName = currentPosition.toString();
-            Log.d("ddd", "onReceiveLocation: " + cityName);
-
+            Log.e("onReceiveLocation:", bdLocation.getCity());
+           // new LocationName().getLocationOK();
         }
+
     }
+
+
 
     @Override
     protected void onStart() {
@@ -274,9 +264,12 @@ public class StartActivity extends AppCompatActivity {
         if (!mLocationClient.isStarted()) {
             mLocationClient.start();
         }
-
-
     }
 
+     private class LocationName{
+         void getLocationOK(){
+            initData();
+        }
+    }
 
 }
