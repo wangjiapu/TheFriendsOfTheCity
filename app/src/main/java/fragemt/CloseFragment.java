@@ -27,6 +27,7 @@ import beans.MessageAtten;
 public class CloseFragment extends Fragment{
 
     private View rootView;
+    private View back;
     private List<MessageAtten> mMessageAttenList = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private CloseFragmentAdapter mCloseFragmentAdapter;
@@ -94,12 +95,20 @@ public class CloseFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView=inflater.inflate(R.layout.fragment_close,container,false);
         initView(rootView);
+        back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
         return rootView;
     }
     private void initView(View rootView) {
         mRecyclerView = rootView.findViewById(R.id.fragment_close_recyclerView);
+        back = (TextView)rootView.findViewById(R.id.close_back);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mCloseFragmentAdapter = new CloseFragmentAdapter(mMessageAttenList);
         mRecyclerView.setAdapter(mCloseFragmentAdapter);
+
     }
 }

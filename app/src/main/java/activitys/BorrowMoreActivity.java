@@ -22,7 +22,9 @@ import java.util.List;
 import adapters.BookAdapter;
 import adapters.BookItemAdapter;
 import beans.Book;
-
+/**
+ * 书架-更多
+ * */
 public class BorrowMoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<Book> mBooks = new ArrayList<>();

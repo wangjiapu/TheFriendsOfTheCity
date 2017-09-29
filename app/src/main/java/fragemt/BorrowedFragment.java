@@ -16,9 +16,11 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 
 import activitys.BookDetailsActivity;
 import activitys.BorrowMoreActivity;
+import activitys.MainActivity;
 
 /**
  * Created by 江婷婷 on 2017/9/20.
+ * 书架子项
  */
 
 public class BorrowedFragment extends Fragment implements View.OnClickListener {
@@ -28,6 +30,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
     private FrameLayout mFrameLayout1;
     private FrameLayout mFrameLayout2;
     private FrameLayout mFrameLayout3;
+    private TextView unlisted;
 
 
     @Nullable
@@ -36,8 +39,11 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_1, container, false);
         initView(view);
+        showInitView();
         return view;
     }
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -57,8 +63,24 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
         mFrameLayout1 = (FrameLayout) view.findViewById(R.id.book_frame1);
         mFrameLayout2 = (FrameLayout) view.findViewById(R.id.book_frame2);
         mFrameLayout3 = (FrameLayout) view.findViewById(R.id.book_frame3);
+        unlisted = (TextView) view.findViewById(R.id.book_unlisted);
     }
-
+    private void showInitView() {
+        String f=MainActivity.getFlag();
+        if(f.equals("1")){
+            more.setVisibility(View.VISIBLE);
+            mFrameLayout1.setVisibility(View.VISIBLE);
+            mFrameLayout2.setVisibility(View.VISIBLE);
+            mFrameLayout3.setVisibility(View.VISIBLE);
+            unlisted.setVisibility(View.GONE);
+        }else {
+            more.setVisibility(View.GONE);
+            mFrameLayout1.setVisibility(View.GONE);
+            mFrameLayout2.setVisibility(View.GONE);
+            mFrameLayout3.setVisibility(View.GONE);
+            unlisted.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     public void onClick(View view) {

@@ -19,6 +19,7 @@
             android:layout_height="match_parent">
 
             <Button
+                android:id="@+id/friends_back"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/back"
                 android:layout_width="30dp"

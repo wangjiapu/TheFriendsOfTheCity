@@ -46,10 +46,14 @@
             android:layout_height="wrap_content">
             <include layout="@layout/book_item"/>
         </FrameLayout>
-
-
-
-
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/book_unlisted"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="您未登录，请先登录！"
+        android:layout_gravity="center_vertical|center_horizontal"
+        />
 </LinearLayout>

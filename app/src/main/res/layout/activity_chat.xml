@@ -20,6 +20,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/chat_bar_back"
                 android:layout_width="30dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="10dp"

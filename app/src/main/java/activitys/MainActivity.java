@@ -56,7 +56,11 @@ public class MainActivity extends AppCompatActivity
     private TextView mUserName;
     private TextView mUserSig;
 
-    private static String flag="";
+    private  static String flag;
+
+    public static String getFlag() {
+        return flag;
+    }
 
     private ImageView mLoginImage;
 
@@ -121,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         initView();
         initFragment();
 
-        if (flag.equals("1")){
+        if (flag.equals("0")){
             GlideUtil.loadImag(this,mLoginImage, UserInfo.getFaviconUrl());
             mUserName.setText(UserInfo.getUserName());
             mUserSig.setText(UserInfo.getSignature());
@@ -145,6 +149,7 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         showMenuItem(navigationView.getMenu(),false);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         mNavigation = (BottomNavigationView) findViewById(R.id.navigation_bar);
         mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

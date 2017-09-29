@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
@@ -28,6 +29,7 @@ public class FriendsFragment extends Fragment{
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FriendsAdapter friendsAdapter;
+    private Button back;
     private List<Fragment> fragmentList;
     private List<String> titleList = Arrays.asList("全部关注","最新发布");
 
@@ -38,13 +40,19 @@ public class FriendsFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView=inflater.inflate(R.layout.fragment_friends,container,false);
         initView(rootView);
+        back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
         return rootView;
     }
 
     private void initView(View rootView) {
         viewPager = (ViewPager)rootView.findViewById(R.id.frienfs_viewpager);
         tabLayout = (TabLayout)rootView.findViewById(R.id.frienfs_tablayout);
-
+        back=(Button)rootView.findViewById(R.id.friends_back);
         fragmentList = new ArrayList<>();
         whloleFriendListFragment = new FriendListFragment();
         newFriendListFragment = new FriendListFragment();

@@ -44,7 +44,7 @@ import utils.SharedPerferenceUtil;
 
 /**
  * Created by xiyou3g on 2017/9/25.
- *
+ *  注册
  */
 
 public class LoginActivity extends SwipeCloseActivity implements View.OnClickListener {

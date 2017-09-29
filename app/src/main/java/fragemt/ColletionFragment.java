@@ -14,7 +14,7 @@ import activitys.BorrowMoreActivity;
 
 /**
  * Created by xiyou3g on 2017/9/19.
- * 个人主页
+ *个人收藏
  */
 
 public class ColletionFragment extends Fragment{

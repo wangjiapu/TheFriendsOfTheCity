@@ -13,6 +13,7 @@ import com.example.xiyou3g.thefriendsofthecity.R;
 
 /**
  * Created by heshu on 2017/9/23.
+ * 个人主页--关于
  */
 
 public class AboutFragment extends Fragment {

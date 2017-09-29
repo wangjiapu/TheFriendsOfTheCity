@@ -38,7 +38,9 @@ import utils.JsonParserUtil;
 import utils.OkhttpUtil;
 import utils.SharedPerferenceUtil;
 
-
+/**
+ * 开始的图片
+ * */
 public class StartActivity extends AppCompatActivity {
 
 

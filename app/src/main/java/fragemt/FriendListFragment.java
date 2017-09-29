@@ -1,6 +1,8 @@
 package fragemt;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,14 +17,18 @@ import android.widget.Toast;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import activitys.ChatActivity;
 import beans.Book;
 import beans.MessageAtten;
+import beans.Msg;
 
 /**
  * Created by heshu on 2017/9/25.
+ * 我的好友--列表
  */
 
 public class FriendListFragment extends Fragment {
@@ -36,25 +42,28 @@ public class FriendListFragment extends Fragment {
     class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ViewHolder>{
 
         private List<MessageAtten> mMessageAttenList;
-
+        private Context mContext;
         class ViewHolder extends RecyclerView.ViewHolder{
+            View friendListView;
             TextView MessageAttenName;
             TextView Messageautograph;
             Button Messagegeunfollow;
             public ViewHolder(View itemView) {
                 super(itemView);
+                friendListView=itemView;
                 MessageAttenName = (TextView)itemView.findViewById(R.id.frienfs_list_name);
                 Messageautograph = (TextView)itemView.findViewById(R.id.frienfs_list_autograph);
                 Messagegeunfollow =(Button)itemView.findViewById(R.id.frienfs_list_unfollow);
             }
         }
 
-        protected FriendListAdapter(List<MessageAtten> mMessageAttenList){
+        protected FriendListAdapter(Context context,List<MessageAtten> mMessageAttenList){
+            this.mContext = context;
             this.mMessageAttenList =mMessageAttenList;
         }
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_friends_list_tiem,parent,false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_friends_list_tiem,parent,false);
             ViewHolder holder =new ViewHolder(view);
             return holder;
         }
@@ -63,12 +72,36 @@ public class FriendListFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             final MessageAtten messageAtten = mMessageAttenList.get(position);
             holder.MessageAttenName.setText(messageAtten.getNeme());
+
             holder.Messagegeunfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = holder.getAdapterPosition();
                     MessageAtten messageAtten1= mMessageAttenList.get(position);
                     Toast.makeText(view.getContext(),"取消关注"+messageAtten.getNeme(),Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            holder.friendListView.setOnClickListener(new View.OnClickListener() {
+                List<Msg> msgList = new ArrayList<Msg>();
+                @Override
+                public void onClick(View view) {
+                    int position = holder.getAdapterPosition();
+                    MessageAtten messageAtten = mMessageAttenList.get(position);
+
+                    initMsgs(messageAtten.getNews());//加载消息集合
+                    Intent intent = new Intent();
+                    intent.setClass(view.getContext(), ChatActivity.class);
+                    intent.putExtra("msgList", (Serializable) msgList);
+                    mContext.startActivity(intent);
+                }
+
+                private void initMsgs(String name) {
+
+                    Msg msg1 = new Msg("Hello 主人" ,Msg.TYPE_RECEIVED);
+                    msgList.add(msg1);
+                    Msg msg2 = new Msg("Hello " +name,Msg.TYPE_SENT);
+                    msgList.add(msg2);
                 }
             });
         }
@@ -102,7 +135,7 @@ public class FriendListFragment extends Fragment {
     private void initView(View rootView) {
         mRecyclerView = rootView.findViewById(R.id.fragment_friends_list_recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mFriendListAdapter = new FriendListAdapter(mMessageAttenList);
+        mFriendListAdapter = new FriendListAdapter(getActivity(),mMessageAttenList);
         mRecyclerView.setAdapter(mFriendListAdapter);
     }
 }
