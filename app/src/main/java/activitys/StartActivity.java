@@ -127,22 +127,26 @@ public class StartActivity extends AppCompatActivity {
                 localLayoutParams.flags);
         super.onCreate(savedInstanceState);
 
-        mListener = new MyLocationListener();
-initLocation();
+
         setContentView(R.layout.activity_start);
-
-
+        Intent i=new Intent(StartActivity.this,MainActivity.class);
+        //i.putExtra("isLogin",result);
+        i.putExtra("isLogin","0");
+        startActivity(i);
+      /*  mListener = new MyLocationListener();
+        initLocation();*/
         permission();
 
-//        initData();
     }
 
 
 
 
     public class MyLocationListener extends BDAbstractLocationListener {
+
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
+           // Log.e("1111111",bdLocation.getAddrStr()+"111111111");
             cityName = bdLocation.getCity().toString();
             Log.e("onReceiveLocation:", cityName);
             initData();
@@ -250,8 +254,6 @@ initLocation();
         option.setIsNeedAddress(true);
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setCoorType("bd09ll");
-//        int span=1000;
-//        option.setScanSpan(span);
         mLocationClient.setLocOption(option);
 
     }
@@ -288,10 +290,6 @@ initLocation();
             requestLocation();
         }
     }
-
-//    private void requestLocation() {
-//        initLocation();
-//    }
 
     private void requestLocation() {
 
