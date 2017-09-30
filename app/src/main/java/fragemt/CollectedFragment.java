@@ -106,9 +106,15 @@ public class CollectedFragment extends Fragment implements View.OnClickListener 
 
     private void initBind() {
         more.setOnClickListener(this);
-        mFrameLayout1.setOnClickListener(this);
-        mFrameLayout2.setOnClickListener(this);
-        mFrameLayout3.setOnClickListener(this);
+        switch (InfoLists.collectionedInfos.size()) {
+            case 3:
+                mFrameLayout3.setOnClickListener(this);
+            case 2:
+                mFrameLayout2.setOnClickListener(this);
+            case 1:
+                mFrameLayout1.setOnClickListener(this);
+                break;
+        }
     }
 
     private void initView(View view) {
@@ -143,15 +149,24 @@ public class CollectedFragment extends Fragment implements View.OnClickListener 
         Activity activity = getActivity();
         switch (view.getId()) {
             case R.id.gengduo1:
-                Intent intent1 = new Intent(activity, BorrowMoreActivity.class);
-                intent1.putExtra("title", "更多");
-                startActivity(intent1);
+                Intent intent = new Intent(activity, BorrowMoreActivity.class);
+                intent.putExtra("title", "更多");
+                startActivity(intent);
                 break;
             case R.id.book_frame1:
+                Intent intent1 = new Intent(this.getActivity(), BookDetailsActivity.class);
+                intent1.putExtra("bookInfoId", InfoLists.BInfos.get(0).getId()+"");
+                startActivity(intent1);
+                break;
             case R.id.book_frame2:
+                Intent intent2 = new Intent(this.getActivity(), BookDetailsActivity.class);
+                intent2.putExtra("bookInfoId", InfoLists.BInfos.get(1).getId()+"");
+                startActivity(intent2);
+                break;
             case R.id.book_frame3:
-                Intent intent = new Intent(activity, BookDetailsActivity.class);
-                startActivity(intent);
+                Intent intent3 = new Intent(this.getActivity(), BookDetailsActivity.class);
+                intent3.putExtra("bookInfoId", InfoLists.BInfos.get(2).getId()+"");
+                startActivity(intent3);
                 break;
         }
     }
@@ -159,26 +174,44 @@ public class CollectedFragment extends Fragment implements View.OnClickListener 
 
     private void go() {
         addcount();
-        if (count >= 1 && !InfoLists.collectionedInfos.isEmpty()) {
+
+        if (count >= 3){
             progressBar.setVisibility(View.GONE);
             more.setVisibility(View.VISIBLE);
             mFrameLayout1.setVisibility(View.VISIBLE);
             mFrameLayout2.setVisibility(View.VISIBLE);
             mFrameLayout3.setVisibility(View.VISIBLE);
-            unlisted.setVisibility(View.GONE);
-            Log.e("g88o: ", InfoLists.borrowedInfos.size() + "");
-            initLoad(mFrameLayout1, InfoLists.collectionedInfos.get(0));
-            initLoad(mFrameLayout2, InfoLists.collectionedInfos.get(1));
-            initLoad(mFrameLayout3, InfoLists.collectionedInfos.get(2));
-        } else {
+            if (InfoLists.collectionedInfos.size()==0) {
+                    progressBar.setVisibility(View.GONE);
+                    more.setVisibility(View.GONE);
+                    display.setVisibility(View.GONE);
+                    unlisted.setText("空空如也");
+                    unlisted.setVisibility(View.VISIBLE);
+            }
+            if (InfoLists.collectionedInfos.size()==1) {
+                initLoad(mFrameLayout1, InfoLists.collectionedInfos.get(0));
+                mFrameLayout2.setVisibility(View.INVISIBLE);
+                mFrameLayout3.setVisibility(View.INVISIBLE);
+            }
+            if (InfoLists.collectionedInfos.size()==2) {
+                initLoad(mFrameLayout1, InfoLists.collectionedInfos.get(0));
+                initLoad(mFrameLayout2, InfoLists.collectionedInfos.get(1));
+                mFrameLayout3.setVisibility(View.INVISIBLE);
+            }
+            if (InfoLists.collectionedInfos.size()>2) {
+                initLoad(mFrameLayout1, InfoLists.collectionedInfos.get(0));
+                initLoad(mFrameLayout2, InfoLists.collectionedInfos.get(1));
+                initLoad(mFrameLayout3, InfoLists.collectionedInfos.get(2));
+            }
 
+
+        } else {
             progressBar.setVisibility(View.VISIBLE);
             more.setVisibility(View.GONE);
             mFrameLayout1.setVisibility(View.GONE);
             mFrameLayout2.setVisibility(View.GONE);
             mFrameLayout3.setVisibility(View.GONE);
             unlisted.setVisibility(View.GONE);
-
         }
     }
 

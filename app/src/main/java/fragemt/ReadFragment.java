@@ -2,6 +2,7 @@ package fragemt;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -107,9 +108,16 @@ public class ReadFragment extends Fragment implements View.OnClickListener {
 
     private void initBind() {
         more.setOnClickListener(this);
-        mFrameLayout1.setOnClickListener(this);
-        mFrameLayout2.setOnClickListener(this);
-        mFrameLayout3.setOnClickListener(this);
+        switch (InfoLists.readedInfos.size()) {
+            case 3:
+                mFrameLayout3.setOnClickListener(this);
+            case 2:
+                mFrameLayout2.setOnClickListener(this);
+            case 1:
+                mFrameLayout1.setOnClickListener(this);
+                break;
+        }
+
     }
 
     private void initView(View view) {
@@ -127,6 +135,7 @@ public class ReadFragment extends Fragment implements View.OnClickListener {
             display.setVisibility(View.VISIBLE);
             unlisted.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
+
             go();
 
         }else {
@@ -145,15 +154,24 @@ public class ReadFragment extends Fragment implements View.OnClickListener {
         Activity activity = getActivity();
         switch (view.getId()) {
             case R.id.gengduo1:
-                Intent intent1 = new Intent(activity, BorrowMoreActivity.class);
-                intent1.putExtra("title", "更多");
-                startActivity(intent1);
+                Intent intent = new Intent(activity, BorrowMoreActivity.class);
+                intent.putExtra("title", "更多");
+                startActivity(intent);
                 break;
             case R.id.book_frame1:
+                Intent intent1 = new Intent(this.getActivity(), BookDetailsActivity.class);
+                intent1.putExtra("bookInfoId", InfoLists.BInfos.get(0).getId()+"");
+                startActivity(intent1);
+                break;
             case R.id.book_frame2:
+                Intent intent2 = new Intent(this.getActivity(), BookDetailsActivity.class);
+                intent2.putExtra("bookInfoId", InfoLists.BInfos.get(1).getId()+"");
+                startActivity(intent2);
+                break;
             case R.id.book_frame3:
-                Intent intent = new Intent(activity, BookDetailsActivity.class);
-                startActivity(intent);
+                Intent intent3 = new Intent(this.getActivity(), BookDetailsActivity.class);
+                intent3.putExtra("bookInfoId", InfoLists.BInfos.get(2).getId()+"");
+                startActivity(intent3);
                 break;
         }
     }
@@ -162,16 +180,41 @@ public class ReadFragment extends Fragment implements View.OnClickListener {
     private void go() {
         addcount();
         Log.d("lml1", "go: " + InfoLists.readedInfos.isEmpty());
-        if (count >= 1 && !InfoLists.readedInfos.isEmpty()) {
+        if (count >= 3) {
             progressBar.setVisibility(View.GONE);
             more.setVisibility(View.VISIBLE);
             mFrameLayout1.setVisibility(View.VISIBLE);
             mFrameLayout2.setVisibility(View.VISIBLE);
             mFrameLayout3.setVisibility(View.VISIBLE);
             unlisted.setVisibility(View.GONE);
-            initLoad(mFrameLayout1, InfoLists.readedInfos.get(0));
-            initLoad(mFrameLayout2, InfoLists.readedInfos.get(1));
-            initLoad(mFrameLayout3, InfoLists.readedInfos.get(2));
+            if (InfoLists.readedInfos.size()==0) {
+                TextView bookName1 = (TextView)mFrameLayout1.findViewById(R.id.book_text_view_name);
+                bookName1.setText("空空如也");
+                TextView bookName2 = (TextView)mFrameLayout2.findViewById(R.id.book_text_view_name);
+                bookName2.setText("空空如也");
+                TextView bookName3 = (TextView)mFrameLayout3.findViewById(R.id.book_text_view_name);
+                bookName3.setText("空空如也");
+            }
+            if (InfoLists.readedInfos.size()==1) {
+                initLoad(mFrameLayout1, InfoLists.readedInfos.get(0));
+                TextView bookName2 = (TextView)mFrameLayout2.findViewById(R.id.book_text_view_name);
+                bookName2.setText("空空如也");
+                TextView bookName3 = (TextView)mFrameLayout3.findViewById(R.id.book_text_view_name);
+                bookName3.setText("空空如也");
+            }
+            if (InfoLists.readedInfos.size()==2) {
+                initLoad(mFrameLayout1, InfoLists.readedInfos.get(0));
+                initLoad(mFrameLayout2, InfoLists.readedInfos.get(1));
+                TextView bookName3 = (TextView)mFrameLayout3.findViewById(R.id.book_text_view_name);
+                bookName3.setText("空空如也");
+            }
+            if (InfoLists.readedInfos.size() > 2) {
+
+                initLoad(mFrameLayout1, InfoLists.readedInfos.get(0));
+                initLoad(mFrameLayout2, InfoLists.readedInfos.get(1));
+                initLoad(mFrameLayout3, InfoLists.readedInfos.get(2));
+            }
+
         } else {
 
             progressBar.setVisibility(View.VISIBLE);
