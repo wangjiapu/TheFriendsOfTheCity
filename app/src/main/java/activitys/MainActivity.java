@@ -39,6 +39,7 @@ import fragemt.BookFragment;
 import fragemt.HomeFragment;
 import fragemt.MessageFragment;
 import utils.GlideUtil;
+import utils.SharedPerferenceUtil;
 
 
 public class MainActivity extends AppCompatActivity
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity
         initFragment();
 
         if (flag.equals("1")){
+
             GlideUtil.loadImag(this,mLoginImage, UserInfo.getFaviconUrl());
             mUserName.setText(UserInfo.getUserName());
             mUserSig.setText(UserInfo.getSignature());
