@@ -265,7 +265,7 @@ public class OkhttpUtil {
         RequestBody body=new FormBody.Builder()
                 .add("rows",num)
                 .build();
-        Request request=getRequest(getHOST()+getPubishedBook(),body);
+        Request request=getRequest(getHOST()+getBorrowedBooks(),body);
         return  getOkHttpClient().newCall(request);
     }
 

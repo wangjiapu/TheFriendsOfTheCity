@@ -478,6 +478,7 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                     localBroadcastManager.sendBroadcast(intent);
                                 }
                             });
+
                             finish();
                         }
                     }

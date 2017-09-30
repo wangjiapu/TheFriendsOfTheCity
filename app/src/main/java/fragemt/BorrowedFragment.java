@@ -32,6 +32,7 @@ import okhttp3.Response;
 import utils.GlideUtil;
 import utils.JsonParserUtil;
 import utils.OkhttpUtil;
+import utils.SharedPerferenceUtil;
 
 /**
  * Created by 江婷婷 on 2017/9/20.
@@ -52,7 +53,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
     private static synchronized  void addcount(){
         count++;
     }
-    private String flag;
+    private String flag="1";
 
     private Handler handler=new Handler(){
         @Override
@@ -77,7 +78,10 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        flag=MainActivity.getFlag();
+        String[] info= SharedPerferenceUtil.getUserInfo(getContext());
+        if (info[0].equals("")){
+            flag="0";
+        }
         if (flag.equals("1")){
             initData();
         }
