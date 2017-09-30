@@ -67,6 +67,8 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
     AppCompatSpinner citySpinner;
     AppCompatSpinner countySpinner;
 
+    String response1;
+
 
 
     ArrayList<String> provinceName;
@@ -422,8 +424,6 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
             case R.id.login_bt:
                 teleNum = teleNumText.getText().toString();
                 password = passwordText.getText().toString();
-                yzNum = yzNumText.getText().toString();
-                Log.d("45632", "onClick: " + teleNum + password + yzNum);
                 OkhttpUtil.login(teleNum, password).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -437,14 +437,22 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
 
                     @Override
                     public void onResponse(Call call, final Response response) throws IOException {
-                        if (response.isSuccessful()) {
+
+                        response1 = response.body().string();
+                        final String responseData = response1;
+                        Gson gson = new Gson();
+                        final Re r = gson.fromJson(responseData, Re.class);
+
+                        Log.d("111", "onResponse: " + r.getCode());
+                        if (r.getCode().equals("200")) {
+//                        if (response.isSuccessful()) {
                             SharedPerferenceUtil.saveUserInfo(getApplication(), teleNum, password);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     JSONObject j= null;
                                     try {
-                                        j = new JSONObject(response.body().string());
+                                        j = new JSONObject(response1);
                                         JSONObject jo=j.getJSONObject("userInfo");
                                         UserInfo.setId(jo.getLong("id"));
                                         UserInfo.setUserName("userName");
@@ -471,7 +479,6 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                         }.start();
 
                                     } catch (JSONException e) {
-                                    } catch (IOException e) {
                                     }
                                     LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
                                     Intent intent = new Intent("com.example.broadcast.LOGIN");
@@ -480,6 +487,13 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                             });
 
                             finish();
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(LoginActivity.this, "失败" + r.getMsg(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }
                 });
@@ -535,6 +549,15 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
     class Re {
         String code;
         String msg;
+        UserInfo userInfo;
+
+        public UserInfo getUserInfo() {
+            return userInfo;
+        }
+
+        public void setUserInfo(UserInfo userInfo) {
+            this.userInfo = userInfo;
+        }
 
         public String getCode() {
             return code;

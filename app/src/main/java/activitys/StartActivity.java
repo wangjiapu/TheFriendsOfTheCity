@@ -180,19 +180,10 @@ public class StartActivity extends AppCompatActivity {
 
             }
         });
-       /* mListener = new MyLocationListener();
+       mListener = new MyLocationListener();
         initLocation();
-        permission();*/
+        permission();
 
-       initData();
-
-//        Intent i=new Intent(StartActivity.this,MainActivity.class);
-        //i.putExtra("isLogin",result);
-//        i.putExtra("isLogin","0");
-//        startActivity(i);
-//        mListener = new MyLocationListener();
-//        initLocation();
-//        permission();
 
     }
 
@@ -354,7 +345,9 @@ public class StartActivity extends AppCompatActivity {
 
         if (!mLocationClient.isStarted()) {
             mLocationClient.start();
+
         }
+        initData();
     }
 
     @Override
