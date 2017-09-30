@@ -242,6 +242,7 @@ public class StartActivity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 sendMessage("获取感兴趣的人失败!",3);
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()){

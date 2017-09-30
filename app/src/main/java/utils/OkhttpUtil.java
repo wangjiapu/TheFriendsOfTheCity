@@ -237,7 +237,7 @@ public class OkhttpUtil {
      */
     public static Call requestdetailBookInfo(String bookinfoid){
         RequestBody body=new FormBody.Builder()
-                .add("bookInfoId",bookinfoid)
+                .add("id",bookinfoid)
                 .build();
         Request request=getRequest(getHOST()+getDetailBookInfo(),body);
         return  getOkHttpClient().newCall(request);

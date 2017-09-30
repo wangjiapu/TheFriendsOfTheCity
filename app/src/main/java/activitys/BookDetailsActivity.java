@@ -88,7 +88,7 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
          authorName = (TextView) findViewById(R.id.dt_author);
          returnTime = (TextView) findViewById(R.id.dt_return_time);
          details = (TextView) findViewById(R.id.textView8);
-//        details.setText(mBookInfo.);
+
 
 
     }
@@ -102,12 +102,12 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.e("eeee",response.body().string());
+
                if (response.isSuccessful()){
-                  /* Message m=new Message();
+                   Message m=new Message();
                    m.what=1;
                    m.obj=response.body().string();
-                   handler.sendMessage(m);*/
+                   handler.sendMessage(m);
                }
             }
         });
@@ -164,9 +164,9 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
                     JSONObject j=new JSONObject(msg.obj.toString());
                     if (j.getString("code").equals("200")){
                         Log.e("bookInfoDetail",msg.obj.toString());
-                        /*Gson g=new Gson();
+                        Gson g=new Gson();
                         mBookInfo=g.fromJson(j.getJSONObject("bookInfoDetail").toString(), BookDetailInfo.class);
-                        setdata();*/
+                        setdata();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -182,5 +182,6 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
         bookName.setText(mBookInfo.getBookName());
         authorName.setText(mBookInfo.getAuthor());
         returnTime.setText(mBookInfo.getGmtCreate());
+        details.setText(mBookInfo.getBriefText());
     }
 }
