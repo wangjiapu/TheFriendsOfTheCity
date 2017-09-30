@@ -54,6 +54,7 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
     private TextView authorName;
     private TextView returnTime;
     private TextView details;
+    private TextView username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +89,7 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
          authorName = (TextView) findViewById(R.id.dt_author);
          returnTime = (TextView) findViewById(R.id.dt_return_time);
          details = (TextView) findViewById(R.id.textView8);
-
+        username=(TextView)findViewById(R.id.textView4);
 
 
     }
@@ -176,10 +177,10 @@ public class BookDetailsActivity extends AppCompatActivity implements View.OnCli
             }
         }
     };
-
     private void setdata() {
         GlideUtil.loadImag(this, bookImage, mBookInfo.getCoverImg());
         bookName.setText(mBookInfo.getBookName());
+        username.setText(mBookInfo.getSrcUserName());
         authorName.setText(mBookInfo.getAuthor());
         returnTime.setText(mBookInfo.getGmtCreate());
         details.setText(mBookInfo.getBriefText());
