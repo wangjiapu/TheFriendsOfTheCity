@@ -138,10 +138,10 @@ public class MainActivity extends AppCompatActivity
         initFragment();
 
         if (flag.equals("1")){
-            String[] info= SharedPerferenceUtil.getUserInfo(getApplication());
+
             GlideUtil.loadImag(this,mLoginImage, UserInfo.getFaviconUrl());
-            mUserName.setText(info[2]);
-            mUserSig.setText(info[3]);
+            mUserName.setText(UserInfo.getUserName());
+            mUserSig.setText(UserInfo.getSignature());
             showMenuItem(navigationView.getMenu(),true);
         }
         mLoginImage.setOnClickListener(new View.OnClickListener() {

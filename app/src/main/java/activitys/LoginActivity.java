@@ -471,8 +471,6 @@ public class LoginActivity extends SwipeCloseActivity implements View.OnClickLis
                                         {
                                             @Override
                                             public void run() {
-                                                SharedPerferenceUtil.saveUserInfo(getApplication(), teleNum, password,
-                                                        UserInfo.getUserName(),UserInfo.getSignature());
                                                 User.register(teleNum,password, ""+UserInfo.getId());    //注册失败,已经注册过可以直接登录
                                                 User.login(teleNum,password);
                                                 MsgManager.init();
