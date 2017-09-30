@@ -1,11 +1,14 @@
 package fragemt;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +17,17 @@ import android.widget.TableLayout;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import adapters.BookAdapter;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+import utils.JsonParserUtil;
+import utils.OkhttpUtil;
 
 /**
  * Created by xiyou3g on 2017/9/17.
@@ -35,19 +44,24 @@ public class BookFragment extends Fragment implements View.OnClickListener{
     private List<String> titleList =Arrays.asList("已借阅", "已读完", "已收藏");
 
     private BorrowedFragment bFragment;
-    private BorrowedFragment rFragment;
-    private BorrowedFragment cFragment;
+    private ReadFragment rFragment;
+    private CollectedFragment cFragment;
 
     private ImageView mLeftmenu;
 
 
+
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         rootView=inflater.inflate(R.layout.fragment_book,container,false);
 
         initView(rootView);
 
         return rootView;
     }
+
+
 
     public void fresh()
     {
@@ -59,8 +73,8 @@ public class BookFragment extends Fragment implements View.OnClickListener{
         tabLayout = (TabLayout)view.findViewById(R.id.book_tab);
         mLeftmenu=view.findViewById(R.id.leftitem);
         bFragment = new BorrowedFragment();
-        rFragment = new BorrowedFragment();
-        cFragment = new BorrowedFragment();
+        rFragment = new ReadFragment();
+        cFragment = new CollectedFragment();
         fragmentList = new ArrayList<>();
         fragmentList.add(bFragment);
         fragmentList.add(rFragment);

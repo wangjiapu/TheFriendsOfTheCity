@@ -1,13 +1,15 @@
 package fragemt;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.xiyou3g.thefriendsofthecity.R;
 
@@ -25,9 +28,9 @@ import java.io.IOException;
 import activitys.BookDetailsActivity;
 import activitys.BorrowMoreActivity;
 import activitys.MainActivity;
-import activitys.StartActivity;
 import beans.BookInfo;
 import beans.InfoLists;
+import beans.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -37,11 +40,10 @@ import utils.OkhttpUtil;
 import utils.SharedPerferenceUtil;
 
 /**
- * Created by 江婷婷 on 2017/9/20.
- * 书架子项
+ * Created by 江婷婷 on 2017/9/30.
  */
 
-public class BorrowedFragment extends Fragment implements View.OnClickListener {
+public class CollectedFragment extends Fragment implements View.OnClickListener {
 
     private TextView more;
     private FrameLayout mFrameLayout1;
@@ -56,19 +58,21 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
     private static synchronized  void addcount(){
         count++;
     }
+
     private String flag="1";
 
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what==7){
-                Log.e("borrowed",msg.obj.toString());
-                JsonParserUtil.getInterestBookList(msg.obj.toString(),3);
+            if (msg.what==6){
+                Log.e("clloc",msg.obj.toString());
+                JsonParserUtil.getInterestBookList(msg.obj.toString(),4);
             }
         }
 
 
     };
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,7 +80,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
         String[] info= SharedPerferenceUtil.getUserInfo(getContext());
         if (info[0].equals("")){
             flag="0";
-        } else if (flag == "1") {
+        } else if (flag == "1"){
             initData();
         }
     }
@@ -88,7 +92,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_book_1, container, false);
         initView(view);
         showInitView();
-        Log.d("Gi", "onCreateView: vd");
+        Log.d("Gi", "onCreateView: coll");
         return view;
     }
 
@@ -155,7 +159,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
 
     private void go() {
         addcount();
-        if (count >= 1 && !InfoLists.collectionedInfos.isEmpty()){
+        if (count >= 1 && !InfoLists.collectionedInfos.isEmpty()) {
             progressBar.setVisibility(View.GONE);
             more.setVisibility(View.VISIBLE);
             mFrameLayout1.setVisibility(View.VISIBLE);
@@ -163,10 +167,9 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
             mFrameLayout3.setVisibility(View.VISIBLE);
             unlisted.setVisibility(View.GONE);
             Log.e("g88o: ", InfoLists.borrowedInfos.size() + "");
-            //显示书的信息
-            initLoad(mFrameLayout1, InfoLists.borrowedInfos.get(0));
-            initLoad(mFrameLayout2, InfoLists.borrowedInfos.get(1));
-            initLoad(mFrameLayout3, InfoLists.borrowedInfos.get(2));
+            initLoad(mFrameLayout1, InfoLists.collectionedInfos.get(0));
+            initLoad(mFrameLayout2, InfoLists.collectionedInfos.get(1));
+            initLoad(mFrameLayout3, InfoLists.collectionedInfos.get(2));
         } else {
 
             progressBar.setVisibility(View.VISIBLE);
@@ -197,18 +200,17 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
     private void initData() {
 
 
-        OkhttpUtil.requestBorrowedBook("3").enqueue(new Callback() {
+        OkhttpUtil.requestCollectionBook("3").enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                sendMessage("readed",7);
+                sendMessage("readed",6);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                sendMessage(response.body().string(),7);
+                sendMessage(response.body().string(),6);
             }
         });
-
     }
     private void sendMessage(String s,int f){
         Message m=new Message();
@@ -216,6 +218,7 @@ public class BorrowedFragment extends Fragment implements View.OnClickListener {
         m.obj=s;
         handler.sendMessage(m);
     }
+
 
 
 }

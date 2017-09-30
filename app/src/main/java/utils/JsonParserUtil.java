@@ -1,6 +1,7 @@
 package utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -127,6 +128,7 @@ public class JsonParserUtil {
                           break;
                       case 2://获取已经读完的书
                           InfoLists.readedInfos.add(b);
+                          Log.d("lml1", "getInterestBookList: lll" + InfoLists.readedInfos.size());
                           break;
                       case 3://已借阅
                           InfoLists.borrowedInfos.add(b);

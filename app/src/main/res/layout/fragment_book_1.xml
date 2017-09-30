@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <TextView
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
@@ -17,6 +19,7 @@
         android:layout_gravity="right"/>
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,6 +50,9 @@
             <include layout="@layout/book_item"/>
         </FrameLayout>
     </LinearLayout>
+
+
+
 
     <TextView
         android:id="@+id/book_unlisted"

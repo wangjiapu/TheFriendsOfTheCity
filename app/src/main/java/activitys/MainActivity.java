@@ -93,6 +93,14 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             showMenuItem(navigationView.getMenu(), true);
+
+            GlideUtil.loadImag(MainActivity.this ,mLoginImage, UserInfo.getFaviconUrl());
+            mUserName.setText(UserInfo.getUserName());
+            mUserSig.setText(UserInfo.getSignature());
+
+            
+
+
             Toast.makeText(context ,"1111", Toast.LENGTH_SHORT).show();
             Log.d("111", "onReceive: 111");
         }

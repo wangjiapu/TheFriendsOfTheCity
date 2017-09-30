@@ -180,9 +180,12 @@ public class StartActivity extends AppCompatActivity {
 
             }
         });
-       mListener = new MyLocationListener();
+
+        mListener = new MyLocationListener();
         initLocation();
         permission();
+
+        //initData();
 
 
     }
@@ -233,7 +236,6 @@ public class StartActivity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 sendMessage("获取感兴趣的人失败!",3);
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()){
@@ -287,18 +289,17 @@ public class StartActivity extends AppCompatActivity {
         finish();
     }
 
-   /* @Override
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mLocationClient.isStarted()){
             mLocationClient.stop();
         }
-    }*/
+    }
 
     private void initLocation() {
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(mListener);
-
 
         LocationClientOption option = new LocationClientOption();
         option.setIsNeedAddress(true);
@@ -345,7 +346,6 @@ public class StartActivity extends AppCompatActivity {
 
         if (!mLocationClient.isStarted()) {
             mLocationClient.start();
-
         }
         initData();
     }
